@@ -1,0 +1,4 @@
+data/demo.fastq
+results/fastqc_results/demo_fastqc.html
+results/fastqc_results/demo_fastqc.zip
+results/trimmed/demo_trimmed.fastq

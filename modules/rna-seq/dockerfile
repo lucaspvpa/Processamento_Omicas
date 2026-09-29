@@ -1,0 +1,23 @@
+FROM ubuntu:24.04
+
+RUN apt-get update && apt-get install -y \
+    wget \
+    unzip \
+    perl \
+    openjdk-17-jre && \
+    wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.12.1.zip && \
+    unzip fastqc_v0.12.1.zip && \
+    chmod +x FastQC/fastqc && \
+    rm fastqc_v0.12.1.zip && \
+    \
+    wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip && \
+    unzip Trimmomatic-0.39.zip && \
+    rm Trimmomatic-0.39.zip && \
+    \
+    printf '#!/bin/bash\njava -jar /Trimmomatic-0.39/trimmomatic-0.39.jar "$@"\n' \
+    > /usr/local/bin/trimmomatic && \
+    chmod +x /usr/local/bin/trimmomatic
+
+ENV PATH="/FastQC:${PATH}"
+
+CMD ["bash"]
