@@ -1,23 +1,48 @@
+#docker build -t process_rnaseq -f modules/rna-seq/dockerfile .
 FROM ubuntu:24.04
 
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     perl \
-    openjdk-17-jre && \
+    openjdk-17-jre \
+    samtools \
+    build-essential \
+    zlib1g-dev \
+    && \
+    \
+    # FastQC
     wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.12.1.zip && \
     unzip fastqc_v0.12.1.zip && \
-    chmod +x FastQC/fastqc && \
+    chmod +x /FastQC/fastqc && \
     rm fastqc_v0.12.1.zip && \
     \
+    # Trimmomatic
     wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip && \
     unzip Trimmomatic-0.39.zip && \
-    rm Trimmomatic-0.39.zip && \
-    \
     printf '#!/bin/bash\njava -jar /Trimmomatic-0.39/trimmomatic-0.39.jar "$@"\n' \
     > /usr/local/bin/trimmomatic && \
-    chmod +x /usr/local/bin/trimmomatic
+    chmod +x /usr/local/bin/trimmomatic && \
+    rm Trimmomatic-0.39.zip && \
+    \
+    # HISAT2
+    wget https://github.com/DaehwanKimLab/hisat2/archive/refs/tags/v2.2.3.zip && \
+    unzip v2.2.3.zip && \
+    rm v2.2.3.zip && \
+    mv hisat2-2.2.3 /hisat2 && \
+    cd /hisat2 && \
+    make && \
+    ln -s /hisat2/hisat2 /usr/local/bin/hisat2 && \
+    ln -s /hisat2/hisat2-build /usr/local/bin/hisat2-build && \
+    ln -s /hisat2/hisat2-inspect /usr/local/bin/hisat2-inspect && \
+    \
+    # Subread - for featureCounts
+    wget https://github.com/ShiLab-Bioinformatics/subread/releases/download/2.0.2/subread-2.0.2-Linux-x86_64.tar.gz && \
+    tar -xzf subread-2.0.2-Linux-x86_64.tar.gz && \
+    rm subread-2.0.2-Linux-x86_64.tar.gz && \
+    mv subread-2.0.2-Linux-x86_64 /subread && \
+    ln -s /subread/bin/featureCounts /usr/local/bin/featureCounts
 
-ENV PATH="/FastQC:${PATH}"
+ENV PATH="/FastQC:/hisat2:${PATH}"
 
 CMD ["bash"]
