@@ -1,0 +1,197 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>ACC · Dados clínicos</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama ACC</a></nav><h1>ACC · Dados clínicos</h1>
+<p class="sub">TCGA-CDR (PanCanAtlas) e metadados atuais do GDC · gerado em 21/10/2026 19:08</p>
+<div class="kpis"><div class='kpi'><b>92</b><span>pacientes</span></div><div class='kpi'><b>48 anos</b><span>idade mediana</span></div><div class='kpi'><b>34</b><span>óbitos</span></div><div class='kpi'><b>38,8 meses</b><span>seguimento mediano</span></div><div class='kpi'><b>90</b><span>com estádio AJCC</span></div></div>
+<p class="fonte">Fonte: TCGA-CDR, Liu et al., Cell 2018 (Survival_SupplementalTable_S1); GDC: GDC hub do UCSC Xena (TCGA-*.clinical.tsv)</p>
+<div class="nota">Para sobrevida, use as colunas OS/DSS/DFI/PFI do TCGA-CDR, que foram curadas e harmonizadas. Liu et al. recomendam PFI e OS para a maioria dos cânceres e alertam para seguimento curto em alguns tipos.</div>
+<h2>Principais resultados</h2><ul class='achados'><li>A coorte ACC do PanCanAtlas tem <b>92</b> pacientes com dados clínicos curados (TCGA-CDR).</li><li>90 de 92 pacientes (97,8%) têm estádio patológico AJCC; o grupo mais comum é o estádio II (n=44).</li><li>Sobrevida global: 34 óbitos em 92 pacientes; a mediana é de 79,0 meses e o seguimento mediano é de 38,8 meses.</li><li>Comparando estádios I-II com III-IV, o log-rank dá p=1.06e-08 (diferença significativa a 5%).</li><li>Campos do CDR com mais de 50% de ausência: <code>clinical_stage</code>, <code>histological_grade</code>, <code>menopause_status</code>, <code>death_days_to</code>, <code>cause_of_death</code>, <code>new_tumor_event_type</code>, <code>new_tumor_event_dx_days_to</code>, <code>margin_status</code>, <code>residual_tumor</code>.</li><li>10 campos do CDR estão completos para todos os pacientes, incluindo <code>age_at_initial_pathologic_diagnosis</code>, <code>gender</code>, <code>histological_type</code>, <code>initial_pathologic_dx_year</code>, <code>vital_status</code>, <code>OS</code>.</li></ul>
+<h2>Completude dos dados clínicos</h2>
+<figure><img src="faltantes_cdr.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada coluna da esquerda é um paciente e cada linha um campo do TCGA-CDR. Azul = preenchido, cinza = ausente, amarelo = não se aplica (ex.: data do óbito em paciente vivo). À direita, o percentual ausente de cada campo. Campos ordenados do mais completo para o menos completo.</figcaption></figure>
+<h3>Percentual ausente por campo (TCGA-CDR)</h3>
+<div class="tabwrap"><style>#tab1 td:nth-child(1),#tab1 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab1">
+  <thead>
+    <tr style="text-align: right;">
+      <th>campo</th>
+      <th>% ausente</th>
+      <th>% não se aplica</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>menopause_status</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>histological_grade</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>clinical_stage</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>residual_tumor</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>margin_status</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>cause_of_death</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>death_days_to</td>
+      <td>63</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>new_tumor_event_type</td>
+      <td>52.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>new_tumor_event_dx_days_to</td>
+      <td>52.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>DFI.time</td>
+      <td>42.4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>DFI</td>
+      <td>42.4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>last_contact_days_to</td>
+      <td>37</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>treatment_outcome_first_course</td>
+      <td>14.1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>race</td>
+      <td>12</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>DSS</td>
+      <td>2.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ajcc_pathologic_tumor_stage</td>
+      <td>2.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>tumor_status</td>
+      <td>2.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>age_at_initial_pathologic_diagnosis</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>gender</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>vital_status</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>initial_pathologic_dx_year</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>histological_type</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>OS</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>DSS.time</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>OS.time</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>PFI</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>PFI.time</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+<figure><img src="faltantes_gdc.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> o mesmo para os campos atuais do GDC (Data Release mais recente). O GDC tem mais campos que o CDR, mas muitos foram preenchidos só para alguns projetos.</figcaption></figure>
+<h2>Estádio patológico</h2>
+<figure><img src="estadio_patologico.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, o estádio AJCC agrupado (subestádios A/B/C somados); “sem registro” inclui ausentes e cânceres que usam outro sistema. À direita, os valores exatos registrados.</figcaption></figure>
+<figure><img src="tnm_gdc.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> componentes T (tumor), N (linfonodos) e M (metástase) do AJCC registrados no GDC.</figcaption></figure>
+<h2>Distribuição dos metadados</h2>
+<figure><img src="distribuicao_metadados.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> distribuição de cada variável clínica do CDR. Barras cinza = ausente ou agrupado em “outros”.</figcaption></figure>
+<figure><img src="distribuicao_metadados_gdc.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> variáveis adicionais do GDC (diagnóstico, grau, tratamento, exposições).</figcaption></figure>
+<h2>Sobrevida</h2>
+<figure><img src="sobrevida_km.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> curvas de Kaplan-Meier para os quatro desfechos do CDR, em meses. A faixa é o intervalo de confiança de 95% e os tracinhos são pacientes censurados.</figcaption></figure>
+<figure><img src="sobrevida_por_grupo.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> sobrevida global separada por estádio (I-II vs III-IV) e por sexo, com o p-valor do teste log-rank.</figcaption></figure>
+</main></body></html>
