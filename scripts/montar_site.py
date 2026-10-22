@@ -155,13 +155,6 @@ def pagina_inicial(ex: dict, tab: dict):
         linhas.append(f'<tr><td><a href="{c}/index.html"><b>{c}</b></a></td><td>{d.get("pacientes", "")}</td>'
                       f'<td>{len(d.get("omicas_disponiveis") or [])}</td><td>{d.get("todas_disponiveis", "")}</td>'
                       f'<td class="l">{tag}</td><td class="l">{" · ".join(dl)}</td></tr>')
-    destaque = [c for c in canceres if c in ex]
-    upset = ""
-    if destaque:
-        c = destaque[0]
-        upset = (f'<figure><img src="{c}/00_disponibilidade/upset_combinacoes.png" alt="UpSet de {c}"></figure>')
-    btns = "".join(f'<a class="btn cheio" href="downloads/exemplos_{c}.zip" download>'
-                   f'Baixar exemplos de {c} ({mb(ex[c])})</a>' for c in destaque)
     pagina = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
 <title>Exploração multiômica TCGA</title><style>{CSS}</style></head><body><main>
@@ -170,11 +163,10 @@ def pagina_inicial(ex: dict, tab: dict):
 <div class="kpis"><div class="kpi"><b>{len(linhas)}</b><span>cânceres</span></div>
 <div class="kpi"><b>{f"{n_pac:,}".replace(",", ".")}</b><span>pacientes (TCGA-CDR)</span></div>
 <div class="kpi"><b>{n_comp}</b><span>com análise completa por ômica</span></div></div>
-<p><a class="btn" href="PANCAN/index.html">Comparação pan-câncer</a>{btns}</p>
-{upset}
+<p><a class="btn" href="PANCAN/index.html">Comparação pan-câncer</a></p>
 <h2>Cânceres</h2>
-<p>Análise <b>completa</b> tem um relatório por ômica e o comparativo entre ômicas. Análise de
-<b>disponibilidade</b> tem UpSet, quantidade de dados por ômica e dados clínicos.</p>
+<p>Clique no câncer para ver o UpSet, os dados clínicos e os relatórios de cada ômica. Os links da última
+coluna baixam os dados de exemplo (um paciente por combinação de ômicas) e as tabelas das análises.</p>
 <div class="tabwrap"><table><thead><tr><th>câncer</th><th>pacientes</th><th>ômicas</th><th>com todas</th>
 <th>análise</th><th>downloads</th></tr></thead><tbody>{"".join(linhas)}</tbody></table></div>
 <h2>Sobre os dados</h2>
@@ -211,3 +203,9 @@ if __name__ == "__main__":
     pagina_inicial(ex, tab)
     total = sum(os.path.getsize(os.path.join(p, a)) for p, _, arqs in os.walk(SITE) for a in arqs)
     print(f"Site montado em {SITE} ({total / 1e6:.0f} MB, {len(ex)} câncer(es) com exemplos)")
+    grandes = [os.path.relpath(os.path.join(p, a), RAIZ) for p, _, arqs in os.walk(SITE) for a in arqs
+               if os.path.getsize(os.path.join(p, a)) > 95e6]
+    if grandes:
+        print("Atenção: o GitHub recusa arquivos acima de 100 MB. Estes passam do limite:")
+        for g in grandes:
+            print("  ", g)
