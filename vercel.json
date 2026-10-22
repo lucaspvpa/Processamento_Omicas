@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "site",
+  "buildCommand": "",
+  "installCommand": "",
+  "framework": null,
+  "headers": [
+    {
+      "source": "/downloads/(.*)",
+      "headers": [{ "key": "Content-Disposition", "value": "attachment" }]
+    }
+  ]
+}

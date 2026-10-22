@@ -1,0 +1,310 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>CHOL · RNA-seq (PanCanAtlas)</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama CHOL</a></nav><h1>CHOL · RNA-seq (PanCanAtlas)</h1>
+<p class="sub">Illumina HiSeq, RSEM normalizado e corrigido por lote (EB++), log2(x+1) · gerado em 21/10/2026 19:03</p>
+<div class="kpis"><div class='kpi'><b>20.531</b><span>genes</span></div><div class='kpi'><b>36</b><span>amostras tumorais</span></div><div class='kpi'><b>9</b><span>amostras normais</span></div><div class='kpi'><b>0,0%</b><span>valores faltantes</span></div></div>
+<p class="fonte">Fonte: PanCanAtlas EB++ (arquivo inteiro lido em fluxo)</p>
+<div class="nota">Estes valores já vêm normalizados e com correção de lote entre plataformas e centros. Servem bem para modelos gaussianos ou redes neurais; para um modelo de contagem use as contagens brutas do GDC.</div>
+<h2>Principais resultados</h2><ul class='achados'><li>20.531 genes medidos em 45 amostras (36 tumorais e 9 normais); 0,0% dos valores estão faltando.</li><li>Os dois primeiros componentes principais explicam 37,5% e 7,6% da variância das features mais variáveis.</li><li>Correlação mediana entre amostras: 0,54.</li><li>Tumor x normal: 12604 genes diferentes com FDR &lt; 5% (8429 maiores no tumor, 4175 maiores no normal; 9 pacientes têm o par tumor-normal).</li><li>Mais aumentados no tumor: ECT2, SMARCA4, DNAJC9, YKT6, CNOT6, EZH2, MNX1, DCTPP1.</li><li>Mais reduzidos no tumor: PLGLA, LCAT, HMGCL, C3orf23, CIDEB, ACADSB, SLC6A13, KHK.</li><li>Associações clínicas com p &lt; 0,05 nos componentes principais: PC1 com sexo (p=0.021).</li><li>Em mediana, 81,2% dos genes têm expressão acima de log2(norm+1)=1 em cada amostra.</li></ul>
+<h2>Distribuição dos valores</h2>
+<figure><img src="distribuicao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, a distribuição de log2(norm+1) em cada amostra, ordenadas pela mediana; amostras muito deslocadas das demais podem ter problema técnico ou de normalização. À direita, a densidade de cada amostra sobreposta (vermelho = tumor, azul = normal).</figcaption></figure>
+<figure><img src="media_variancia.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada ponto é um gene. Em vermelho, os 2000 mais variáveis, usados na PCA, no UMAP e nos heatmaps. À direita, quantas amostras faltam por feature.</figcaption></figure>
+<h2>Estrutura das amostras</h2>
+<figure><img src="pca.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> a PCA resume as features mais variáveis em poucos eixos. Amostras próximas têm perfis parecidos. Separação entre tumor e normal é esperada; separação por estádio indica que a ômica carrega informação de progressão.</figcaption></figure>
+<figure><img src="umap.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> UMAP é uma projeção não linear das mesmas features. Distâncias globais não são interpretáveis, mas grupos bem separados sugerem subtipos.</figcaption></figure>
+<figure><img src="correlacao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> correlação de Pearson entre pares de amostras, com agrupamento hierárquico. A barra colorida de cima indica tipo (vermelho tumor, azul normal) e estádio.</figcaption></figure>
+<figure><img src="heatmap_top.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> os genes mais variáveis, padronizados por linha (vermelho = acima da média do gene, azul = abaixo). Blocos de cor mostram grupos de amostras com programas em comum.</figcaption></figure>
+<h2>Tumor x normal</h2>
+<figure><img src="tumor_vs_normal_volcano.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> eixo x = diferença média entre tumor e normal; eixo y = significância. Vermelho = maior no tumor, azul = maior no normal (FDR &lt; 5%, teste t de Welch).</figcaption></figure>
+<h3>Features mais diferentes entre tumor e normal</h3>
+<div class="tabwrap"><style>#tab3 td:nth-child(1),#tab3 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab3">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>diferenca_tumor_menos_normal</th>
+      <th>t</th>
+      <th>p</th>
+      <th>fdr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PLGLA</td>
+      <td>-6.157</td>
+      <td>-34.436</td>
+      <td>5.43e-32</td>
+      <td>1.07e-27</td>
+    </tr>
+    <tr>
+      <td>LCAT</td>
+      <td>-5.047</td>
+      <td>-27.735</td>
+      <td>5.78e-29</td>
+      <td>5.68e-25</td>
+    </tr>
+    <tr>
+      <td>HMGCL</td>
+      <td>-3.343</td>
+      <td>-26.248</td>
+      <td>4.41e-28</td>
+      <td>2.89e-24</td>
+    </tr>
+    <tr>
+      <td>C3orf23</td>
+      <td>-2.041</td>
+      <td>-27.792</td>
+      <td>8.04e-28</td>
+      <td>3.95e-24</td>
+    </tr>
+    <tr>
+      <td>CIDEB</td>
+      <td>-4.354</td>
+      <td>-25.537</td>
+      <td>1.35e-27</td>
+      <td>4.65e-24</td>
+    </tr>
+    <tr>
+      <td>ACADSB</td>
+      <td>-4.973</td>
+      <td>-25.557</td>
+      <td>1.42e-27</td>
+      <td>4.65e-24</td>
+    </tr>
+    <tr>
+      <td>SLC6A13</td>
+      <td>-6.842</td>
+      <td>-23.917</td>
+      <td>3.26e-26</td>
+      <td>9.16e-23</td>
+    </tr>
+    <tr>
+      <td>KHK</td>
+      <td>-5.269</td>
+      <td>-22.92</td>
+      <td>1.22e-25</td>
+      <td>2.69e-22</td>
+    </tr>
+    <tr>
+      <td>PHYH</td>
+      <td>-3.934</td>
+      <td>-22.761</td>
+      <td>1.32e-25</td>
+      <td>2.69e-22</td>
+    </tr>
+    <tr>
+      <td>AIG1</td>
+      <td>-2.498</td>
+      <td>-23.091</td>
+      <td>1.37e-25</td>
+      <td>2.69e-22</td>
+    </tr>
+    <tr>
+      <td>FOLH1B</td>
+      <td>-7.235</td>
+      <td>-22.595</td>
+      <td>3.18e-25</td>
+      <td>5.69e-22</td>
+    </tr>
+    <tr>
+      <td>C5orf33</td>
+      <td>-3.799</td>
+      <td>-22.308</td>
+      <td>4.08e-25</td>
+      <td>6.69e-22</td>
+    </tr>
+    <tr>
+      <td>ZG16</td>
+      <td>-8.273</td>
+      <td>-21.879</td>
+      <td>6.49e-25</td>
+      <td>9.46e-22</td>
+    </tr>
+    <tr>
+      <td>FAM82A1</td>
+      <td>-2.819</td>
+      <td>-22.813</td>
+      <td>6.74e-25</td>
+      <td>9.46e-22</td>
+    </tr>
+    <tr>
+      <td>SLC27A5</td>
+      <td>-7.514</td>
+      <td>-21.743</td>
+      <td>9.68e-25</td>
+      <td>1.27e-21</td>
+    </tr>
+    <tr>
+      <td>NR1I3</td>
+      <td>-7.231</td>
+      <td>-22.522</td>
+      <td>1.21e-24</td>
+      <td>1.49e-21</td>
+    </tr>
+    <tr>
+      <td>MST1</td>
+      <td>-5.659</td>
+      <td>-21.638</td>
+      <td>1.73e-24</td>
+      <td>2e-21</td>
+    </tr>
+    <tr>
+      <td>ADAMTS13</td>
+      <td>-3.303</td>
+      <td>-22.209</td>
+      <td>2.38e-24</td>
+      <td>2.6e-21</td>
+    </tr>
+    <tr>
+      <td>CRYL1</td>
+      <td>-3.348</td>
+      <td>-21.136</td>
+      <td>2.67e-24</td>
+      <td>2.76e-21</td>
+    </tr>
+    <tr>
+      <td>ABAT</td>
+      <td>-5.454</td>
+      <td>-21.125</td>
+      <td>3.3e-24</td>
+      <td>3.1e-21</td>
+    </tr>
+    <tr>
+      <td>ACAA1</td>
+      <td>-3.736</td>
+      <td>-25.567</td>
+      <td>3.39e-24</td>
+      <td>3.1e-21</td>
+    </tr>
+    <tr>
+      <td>FBP1</td>
+      <td>-5.14</td>
+      <td>-21.898</td>
+      <td>3.47e-24</td>
+      <td>3.1e-21</td>
+    </tr>
+    <tr>
+      <td>ADI1</td>
+      <td>-3.36</td>
+      <td>-27.761</td>
+      <td>4.13e-24</td>
+      <td>3.53e-21</td>
+    </tr>
+    <tr>
+      <td>MFAP3L</td>
+      <td>-4.593</td>
+      <td>-21.169</td>
+      <td>6.73e-24</td>
+      <td>5.51e-21</td>
+    </tr>
+    <tr>
+      <td>GRHPR</td>
+      <td>-3.043</td>
+      <td>-22.098</td>
+      <td>7.73e-24</td>
+      <td>6.08e-21</td>
+    </tr>
+    <tr>
+      <td>ANG</td>
+      <td>-5.326</td>
+      <td>-21.097</td>
+      <td>8.5e-24</td>
+      <td>6.43e-21</td>
+    </tr>
+    <tr>
+      <td>CD302</td>
+      <td>-4.437</td>
+      <td>-20.858</td>
+      <td>1.07e-23</td>
+      <td>7.77e-21</td>
+    </tr>
+    <tr>
+      <td>ALDH2</td>
+      <td>-4.332</td>
+      <td>-21.417</td>
+      <td>1.29e-23</td>
+      <td>9.05e-21</td>
+    </tr>
+    <tr>
+      <td>ALDH5A1</td>
+      <td>-3.146</td>
+      <td>-21.009</td>
+      <td>2.02e-23</td>
+      <td>1.37e-20</td>
+    </tr>
+    <tr>
+      <td>SARDH</td>
+      <td>-6.026</td>
+      <td>-21.424</td>
+      <td>2.17e-23</td>
+      <td>1.41e-20</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Associação com variáveis clínicas</h2>
+<p>p-valores da associação dos três primeiros componentes principais (só tumores) com estádio (Kruskal-Wallis), sexo (Mann-Whitney), idade (Spearman) e sobrevida global (Cox univariado).</p>
+<div class="tabwrap"><style>#tab4 td:nth-child(1),#tab4 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab4">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>estádio (Kruskal)</th>
+      <th>sexo (Mann-Whitney)</th>
+      <th>idade (Spearman)</th>
+      <th>sobrevida OS (Cox)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PC1 (14,4%)</td>
+      <td>0.299</td>
+      <td>0.021</td>
+      <td>0.932</td>
+      <td>0.393</td>
+    </tr>
+    <tr>
+      <td>PC2 (10,7%)</td>
+      <td>0.621</td>
+      <td>0.197</td>
+      <td>0.31</td>
+      <td>0.936</td>
+    </tr>
+    <tr>
+      <td>PC3 (8,2%)</td>
+      <td>0.891</td>
+      <td>0.095</td>
+      <td>0.055</td>
+      <td>0.541</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Mais abundantes</h2>
+<figure><img src="mais_abundantes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> os genes com maior média em todas as amostras.</figcaption></figure>
+</main></body></html>
