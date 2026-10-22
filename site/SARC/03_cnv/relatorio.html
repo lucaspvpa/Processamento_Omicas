@@ -1,0 +1,423 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>SARC · Número de cópias (CNV)</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama SARC</a></nav><h1>SARC · Número de cópias (CNV)</h1>
+<p class="sub">Affymetrix SNP6, segmentos whitelisted do PanCanAtlas · gerado em 22/10/2026 03:48</p>
+<div class="kpis"><div class='kpi'><b>256</b><span>tumores</span></div><div class='kpi'><b>17.738</b><span>genes</span></div><div class='kpi'><b>22,5%</b><span>fração alterada mediana</span></div><div class='kpi'><b>250</b><span>segmentos/tumor (mediana)</span></div></div>
+<p class="fonte">Fonte: SNP6 whitelisted (PanCanAtlas); nível de gene calculado dos segmentos (hg19)</p>
+<div class="nota">O valor por gene é o do segmento que cobre o meio do gene (log2 tumor/normal, hg19). Sem correção de pureza e ploidia: tumores com pouca célula tumoral têm valores atenuados. Para chamadas discretas (−2 a 2), use o GISTIC2 do PanCanAtlas ou o ABSOLUTE.</div>
+<h2>Principais resultados</h2><ul class='achados'><li>Mediana de 22,5% dos genes com ganho ou perda por tumor (limiares log2 de 0.3 e -0.3).</li><li>O cromossomo com mais ganhos em média é o 20 (16,6% dos tumores por gene) e o com mais perdas é o 13 (39,4%).</li><li>Genes mais ganhos: <i>DNAH5</i> (30%), <i>ANKH</i> (30%), <i>MYO10</i> (30%), <i>CDH18</i> (30%), <i>TRIO</i> (30%), <i>ATPAF2</i> (30%). Genes mais perdidos: <i>RCBTB2</i> (56%), <i>LPAR6</i> (56%), <i>FNDC3A</i> (56%), <i>CAB39L</i> (56%), <i>CDADC1</i> (56%), <i>ITM2B</i> (55%).</li></ul>
+<h2>Paisagem ao longo do genoma</h2>
+<figure><img src="frequencia_genoma.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> para cada gene, na ordem dos cromossomos, o percentual de tumores com ganho (para cima, vermelho) e com perda (para baixo, azul). Picos largos indicam eventos de braço ou cromossomo inteiro; picos estreitos, amplificações ou deleções focais.</figcaption></figure>
+<figure><img src="heatmap_genoma.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada linha é um tumor e cada coluna uma região do genoma. Tumores no topo têm mais genoma alterado.</figcaption></figure>
+<h2>Carga de alterações</h2>
+<figure><img src="fracao_alterada.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> distribuição dos valores log2 (as linhas tracejadas são os limiares), fração do genoma alterada por tumor e sua relação com o estádio.</figcaption></figure>
+<h2>Genes recorrentes</h2>
+<figure><img src="genes_recorrentes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> genes com ganho ou perda no maior número de tumores. Genes vizinhos aparecem juntos porque compartilham o mesmo segmento.</figcaption></figure>
+<h3>Top 25 genes por frequência de ganho</h3>
+<div class="tabwrap"><style>#tab423 td:nth-child(1),#tab423 th:nth-child(1),#tab423 td:nth-child(2),#tab423 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab423">
+  <thead>
+    <tr style="text-align: right;">
+      <th>gene</th>
+      <th>chrom</th>
+      <th>% ganho</th>
+      <th>% perda</th>
+      <th>média log2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DNAH5</td>
+      <td>5</td>
+      <td>30.5</td>
+      <td>4.3</td>
+      <td>0.22</td>
+    </tr>
+    <tr>
+      <td>ANKH</td>
+      <td>5</td>
+      <td>30.5</td>
+      <td>4.3</td>
+      <td>0.211</td>
+    </tr>
+    <tr>
+      <td>MYO10</td>
+      <td>5</td>
+      <td>30.5</td>
+      <td>3.9</td>
+      <td>0.214</td>
+    </tr>
+    <tr>
+      <td>CDH18</td>
+      <td>5</td>
+      <td>30.1</td>
+      <td>3.9</td>
+      <td>0.211</td>
+    </tr>
+    <tr>
+      <td>TRIO</td>
+      <td>5</td>
+      <td>30.1</td>
+      <td>3.5</td>
+      <td>0.224</td>
+    </tr>
+    <tr>
+      <td>ATPAF2</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.4</td>
+      <td>0.228</td>
+    </tr>
+    <tr>
+      <td>TAS2R1</td>
+      <td>5</td>
+      <td>29.7</td>
+      <td>3.9</td>
+      <td>0.209</td>
+    </tr>
+    <tr>
+      <td>ZNF286B</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.4</td>
+      <td>0.23</td>
+    </tr>
+    <tr>
+      <td>SEMA5A</td>
+      <td>5</td>
+      <td>29.7</td>
+      <td>3.5</td>
+      <td>0.211</td>
+    </tr>
+    <tr>
+      <td>SNORD123</td>
+      <td>5</td>
+      <td>29.7</td>
+      <td>3.9</td>
+      <td>0.207</td>
+    </tr>
+    <tr>
+      <td>EVPLL</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.4</td>
+      <td>0.228</td>
+    </tr>
+    <tr>
+      <td>TOP3A</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.8</td>
+      <td>0.225</td>
+    </tr>
+    <tr>
+      <td>SMCR8</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.8</td>
+      <td>0.225</td>
+    </tr>
+    <tr>
+      <td>SHMT1</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.8</td>
+      <td>0.225</td>
+    </tr>
+    <tr>
+      <td>FLII</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.8</td>
+      <td>0.223</td>
+    </tr>
+    <tr>
+      <td>MYO15A</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>8.2</td>
+      <td>0.224</td>
+    </tr>
+    <tr>
+      <td>ALKBH5</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>8.2</td>
+      <td>0.221</td>
+    </tr>
+    <tr>
+      <td>LLGL1</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.8</td>
+      <td>0.223</td>
+    </tr>
+    <tr>
+      <td>DRG2</td>
+      <td>17</td>
+      <td>29.7</td>
+      <td>7.8</td>
+      <td>0.227</td>
+    </tr>
+    <tr>
+      <td>FAM105A</td>
+      <td>5</td>
+      <td>29.7</td>
+      <td>3.9</td>
+      <td>0.208</td>
+    </tr>
+    <tr>
+      <td>BASP1</td>
+      <td>5</td>
+      <td>29.7</td>
+      <td>4.3</td>
+      <td>0.211</td>
+    </tr>
+    <tr>
+      <td>FAM134B</td>
+      <td>5</td>
+      <td>29.7</td>
+      <td>4.3</td>
+      <td>0.204</td>
+    </tr>
+    <tr>
+      <td>CDH9</td>
+      <td>5</td>
+      <td>29.7</td>
+      <td>3.9</td>
+      <td>0.19</td>
+    </tr>
+    <tr>
+      <td>ROPN1L</td>
+      <td>5</td>
+      <td>29.3</td>
+      <td>3.5</td>
+      <td>0.212</td>
+    </tr>
+    <tr>
+      <td>LGALS9C</td>
+      <td>17</td>
+      <td>29.3</td>
+      <td>7.8</td>
+      <td>0.23</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3>Top 25 genes por frequência de perda</h3>
+<div class="tabwrap"><style>#tab424 td:nth-child(1),#tab424 th:nth-child(1),#tab424 td:nth-child(2),#tab424 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab424">
+  <thead>
+    <tr style="text-align: right;">
+      <th>gene</th>
+      <th>chrom</th>
+      <th>% ganho</th>
+      <th>% perda</th>
+      <th>média log2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RCBTB2</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>56.2</td>
+      <td>-0.639</td>
+    </tr>
+    <tr>
+      <td>LPAR6</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>56.2</td>
+      <td>-0.538</td>
+    </tr>
+    <tr>
+      <td>FNDC3A</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.9</td>
+      <td>-0.535</td>
+    </tr>
+    <tr>
+      <td>CAB39L</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.9</td>
+      <td>-0.578</td>
+    </tr>
+    <tr>
+      <td>CDADC1</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.9</td>
+      <td>-0.523</td>
+    </tr>
+    <tr>
+      <td>ITM2B</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.5</td>
+      <td>-0.485</td>
+    </tr>
+    <tr>
+      <td>CYSLTR2</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.5</td>
+      <td>-0.592</td>
+    </tr>
+    <tr>
+      <td>RB1</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.5</td>
+      <td>-0.484</td>
+    </tr>
+    <tr>
+      <td>MLNR</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.5</td>
+      <td>-0.511</td>
+    </tr>
+    <tr>
+      <td>SETDB2</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.1</td>
+      <td>-0.576</td>
+    </tr>
+    <tr>
+      <td>PHF11</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>55.1</td>
+      <td>-0.568</td>
+    </tr>
+    <tr>
+      <td>RCBTB1</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>54.7</td>
+      <td>-0.575</td>
+    </tr>
+    <tr>
+      <td>EBPL</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>53.9</td>
+      <td>-0.545</td>
+    </tr>
+    <tr>
+      <td>KPNA3</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>53.5</td>
+      <td>-0.538</td>
+    </tr>
+    <tr>
+      <td>ARL11</td>
+      <td>13</td>
+      <td>0.4</td>
+      <td>53.5</td>
+      <td>-0.555</td>
+    </tr>
+    <tr>
+      <td>SUCLA2</td>
+      <td>13</td>
+      <td>1.6</td>
+      <td>52.3</td>
+      <td>-0.337</td>
+    </tr>
+    <tr>
+      <td>MED4</td>
+      <td>13</td>
+      <td>1.6</td>
+      <td>52.3</td>
+      <td>-0.34</td>
+    </tr>
+    <tr>
+      <td>NUDT15</td>
+      <td>13</td>
+      <td>1.6</td>
+      <td>52.3</td>
+      <td>-0.34</td>
+    </tr>
+    <tr>
+      <td>SIAH3</td>
+      <td>13</td>
+      <td>1.6</td>
+      <td>51.6</td>
+      <td>-0.325</td>
+    </tr>
+    <tr>
+      <td>HTR2A</td>
+      <td>13</td>
+      <td>2</td>
+      <td>51.6</td>
+      <td>-0.343</td>
+    </tr>
+    <tr>
+      <td>LRCH1</td>
+      <td>13</td>
+      <td>1.6</td>
+      <td>51.6</td>
+      <td>-0.336</td>
+    </tr>
+    <tr>
+      <td>ESD</td>
+      <td>13</td>
+      <td>2</td>
+      <td>51.2</td>
+      <td>-0.351</td>
+    </tr>
+    <tr>
+      <td>ZC3H13</td>
+      <td>13</td>
+      <td>1.6</td>
+      <td>51.2</td>
+      <td>-0.323</td>
+    </tr>
+    <tr>
+      <td>COG3</td>
+      <td>13</td>
+      <td>2</td>
+      <td>51.2</td>
+      <td>-0.321</td>
+    </tr>
+    <tr>
+      <td>CPB2</td>
+      <td>13</td>
+      <td>1.6</td>
+      <td>51.2</td>
+      <td>-0.327</td>
+    </tr>
+  </tbody>
+</table></div>
+</main></body></html>

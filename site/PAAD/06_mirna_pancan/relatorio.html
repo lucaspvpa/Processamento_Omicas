@@ -1,0 +1,310 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>PAAD · miRNA-seq (PanCanAtlas)</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama PAAD</a></nav><h1>PAAD · miRNA-seq (PanCanAtlas)</h1>
+<p class="sub">miRNA maduro, normalizado e corrigido por lote (EB), log2(x+1) · gerado em 22/10/2026 02:32</p>
+<div class="kpis"><div class='kpi'><b>743</b><span>miRNAs</span></div><div class='kpi'><b>178</b><span>amostras tumorais</span></div><div class='kpi'><b>4</b><span>amostras normais</span></div><div class='kpi'><b>0,0%</b><span>valores faltantes</span></div></div>
+<p class="fonte">Fonte: PanCanAtlas (pancanMiRs_EBadjOnProtocolPlatformWithoutRepsWithUnCorrectMiRs_08_04_16.xena)</p>
+<div class="nota">Fita madura (5p/3p) já normalizada. As contagens brutas por precursor estão no relatório de contagens.</div>
+<h2>Principais resultados</h2><ul class='achados'><li>743 miRNAs medidos em 182 amostras (178 tumorais e 4 normais); 0,0% dos valores estão faltando.</li><li>Os dois primeiros componentes principais explicam 14,6% e 9,8% da variância das features mais variáveis.</li><li>Correlação mediana entre amostras: 0,96.</li><li>Amostras com correlação muito abaixo das demais (possíveis outliers técnicos): TCGA-HZ-7289-01, TCGA-H6-A45N-11, TCGA-US-A776-01, TCGA-L1-A7W4-01, TCGA-3A-A9IO-01, TCGA-3A-A9IR-01, TCGA-3A-A9IL-01, TCGA-3A-A9IN-01, TCGA-3A-A9IS-01, TCGA-3A-A9IJ-01.</li><li>Tumor x normal: 41 miRNAs diferentes com FDR &lt; 5% (33 maiores no tumor, 8 maiores no normal; 4 pacientes têm o par tumor-normal).</li><li>Mais aumentados no tumor: hsa-miR-3622a-3p, hsa-miR-4449, hsa-miR-548d-3p, hsa-miR-3187-3p, hsa-miR-1295b-5p, hsa-miR-7641, hsa-miR-96-3p, hsa-miR-4652-5p.</li><li>Mais reduzidos no tumor: hsa-miR-365a-3p, hsa-miR-365b-3p, hsa-miR-130a-5p, hsa-miR-500b-3p, hsa-miR-411-5p, hsa-miR-655-3p, hsa-miR-2355-3p, hsa-miR-503-5p.</li><li>Associações clínicas com p &lt; 0,05 nos componentes principais: PC2 com estádio (p=0.048); PC1 com sobrevida (p=9e-05).</li></ul>
+<h2>Distribuição dos valores</h2>
+<figure><img src="distribuicao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, a distribuição de log2(norm+1) em cada amostra, ordenadas pela mediana; amostras muito deslocadas das demais podem ter problema técnico ou de normalização. À direita, a densidade de cada amostra sobreposta (vermelho = tumor, azul = normal).</figcaption></figure>
+<figure><img src="media_variancia.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada ponto é um miRNA. Em vermelho, os 500 mais variáveis, usados na PCA, no UMAP e nos heatmaps. À direita, quantas amostras faltam por feature.</figcaption></figure>
+<h2>Estrutura das amostras</h2>
+<figure><img src="pca.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> a PCA resume as features mais variáveis em poucos eixos. Amostras próximas têm perfis parecidos. Separação entre tumor e normal é esperada; separação por estádio indica que a ômica carrega informação de progressão.</figcaption></figure>
+<figure><img src="umap.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> UMAP é uma projeção não linear das mesmas features. Distâncias globais não são interpretáveis, mas grupos bem separados sugerem subtipos.</figcaption></figure>
+<figure><img src="correlacao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> correlação de Pearson entre pares de amostras, com agrupamento hierárquico. A barra colorida de cima indica tipo (vermelho tumor, azul normal) e estádio.</figcaption></figure>
+<figure><img src="heatmap_top.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> os miRNAs mais variáveis, padronizados por linha (vermelho = acima da média do gene, azul = abaixo). Blocos de cor mostram grupos de amostras com programas em comum.</figcaption></figure>
+<h2>Tumor x normal</h2>
+<figure><img src="tumor_vs_normal_volcano.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> eixo x = diferença média entre tumor e normal; eixo y = significância. Vermelho = maior no tumor, azul = maior no normal (FDR &lt; 5%, teste t de Welch).</figcaption></figure>
+<h3>Features mais diferentes entre tumor e normal</h3>
+<div class="tabwrap"><style>#tab344 td:nth-child(1),#tab344 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab344">
+  <thead>
+    <tr style="text-align: right;">
+      <th>sample</th>
+      <th>diferenca_tumor_menos_normal</th>
+      <th>t</th>
+      <th>p</th>
+      <th>fdr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hsa-miR-3622a-3p</td>
+      <td>0.322</td>
+      <td>10.226</td>
+      <td>1.39e-19</td>
+      <td>1.03e-16</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-4449</td>
+      <td>0.328</td>
+      <td>9.396</td>
+      <td>2.87e-17</td>
+      <td>1.06e-14</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-548d-3p</td>
+      <td>0.109</td>
+      <td>8.586</td>
+      <td>4.51e-15</td>
+      <td>1.11e-12</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-3187-3p</td>
+      <td>0.207</td>
+      <td>8.138</td>
+      <td>6.89e-14</td>
+      <td>1.27e-11</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-1295b-5p</td>
+      <td>0.154</td>
+      <td>7.631</td>
+      <td>1.38e-12</td>
+      <td>2.04e-10</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-7641</td>
+      <td>0.197</td>
+      <td>6.708</td>
+      <td>2.56e-10</td>
+      <td>3.14e-08</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-96-3p</td>
+      <td>0.04</td>
+      <td>6.668</td>
+      <td>3.19e-10</td>
+      <td>3.36e-08</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-4652-5p</td>
+      <td>0.216</td>
+      <td>6.022</td>
+      <td>9.73e-09</td>
+      <td>8.96e-07</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-1293</td>
+      <td>0.17</td>
+      <td>5.745</td>
+      <td>3.94e-08</td>
+      <td>3.23e-06</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-519a-3p</td>
+      <td>0.083</td>
+      <td>5.227</td>
+      <td>4.82e-07</td>
+      <td>3.55e-05</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-204-3p</td>
+      <td>0.15</td>
+      <td>4.938</td>
+      <td>1.82e-06</td>
+      <td>0.000122</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-518e-3p</td>
+      <td>0.068</td>
+      <td>4.872</td>
+      <td>2.44e-06</td>
+      <td>0.00015</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-520d-3p</td>
+      <td>0.053</td>
+      <td>4.65</td>
+      <td>6.46e-06</td>
+      <td>0.000366</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-365a-3p</td>
+      <td>-1.028</td>
+      <td>-10.631</td>
+      <td>1.53e-05</td>
+      <td>0.000754</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-365b-3p</td>
+      <td>-1.028</td>
+      <td>-10.632</td>
+      <td>1.53e-05</td>
+      <td>0.000754</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-373-3p</td>
+      <td>0.033</td>
+      <td>4.369</td>
+      <td>2.12e-05</td>
+      <td>0.000976</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-522-3p</td>
+      <td>0.048</td>
+      <td>4.351</td>
+      <td>2.29e-05</td>
+      <td>0.000992</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-135b-3p</td>
+      <td>0.631</td>
+      <td>9.814</td>
+      <td>2.59e-05</td>
+      <td>0.001</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-196b-3p</td>
+      <td>0.054</td>
+      <td>4.251</td>
+      <td>3.44e-05</td>
+      <td>0.001</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-517-5p</td>
+      <td>0.084</td>
+      <td>4.04</td>
+      <td>7.95e-05</td>
+      <td>0.003</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-514a-5p</td>
+      <td>0.031</td>
+      <td>4.025</td>
+      <td>8.44e-05</td>
+      <td>0.003</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-130a-5p</td>
+      <td>-0.433</td>
+      <td>-9.764</td>
+      <td>0.000112</td>
+      <td>0.004</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-92b-3p</td>
+      <td>0.709</td>
+      <td>5.943</td>
+      <td>0.000176</td>
+      <td>0.006</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-513a-5p</td>
+      <td>0.017</td>
+      <td>3.81</td>
+      <td>0.000192</td>
+      <td>0.006</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-548y</td>
+      <td>0.025</td>
+      <td>3.729</td>
+      <td>0.000259</td>
+      <td>0.008</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-302b-3p</td>
+      <td>0.045</td>
+      <td>3.662</td>
+      <td>0.00033</td>
+      <td>0.009</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-1269a</td>
+      <td>0.821</td>
+      <td>4.334</td>
+      <td>0.000343</td>
+      <td>0.009</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-513b-5p</td>
+      <td>0.022</td>
+      <td>3.494</td>
+      <td>0.000602</td>
+      <td>0.016</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-519c-3p</td>
+      <td>0.017</td>
+      <td>3.474</td>
+      <td>0.000645</td>
+      <td>0.016</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-521</td>
+      <td>0.022</td>
+      <td>3.47</td>
+      <td>0.000655</td>
+      <td>0.016</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Associação com variáveis clínicas</h2>
+<p>p-valores da associação dos três primeiros componentes principais (só tumores) com estádio (Kruskal-Wallis), sexo (Mann-Whitney), idade (Spearman) e sobrevida global (Cox univariado).</p>
+<div class="tabwrap"><style>#tab345 td:nth-child(1),#tab345 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab345">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>estádio (Kruskal)</th>
+      <th>sexo (Mann-Whitney)</th>
+      <th>idade (Spearman)</th>
+      <th>sobrevida OS (Cox)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PC1 (14,5%)</td>
+      <td>0.092</td>
+      <td>0.344</td>
+      <td>0.644</td>
+      <td>9.01e-05</td>
+    </tr>
+    <tr>
+      <td>PC2 (9,4%)</td>
+      <td>0.048</td>
+      <td>0.453</td>
+      <td>0.283</td>
+      <td>0.292</td>
+    </tr>
+    <tr>
+      <td>PC3 (8,0%)</td>
+      <td>0.256</td>
+      <td>0.067</td>
+      <td>0.528</td>
+      <td>0.51</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Mais abundantes</h2>
+<figure><img src="mais_abundantes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> os miRNAs com maior média em todas as amostras.</figcaption></figure>
+</main></body></html>

@@ -30,15 +30,15 @@ table.tab thead th{background:var(--th)}
 a{color:var(--acc)}
 nav a{margin-right:12px}
 </style></head><body><main><nav><a href="../index.html">← Panorama GBM</a></nav><h1>GBM · Dados clínicos</h1>
-<p class="sub">TCGA-CDR (PanCanAtlas) e metadados atuais do GDC · gerado em 21/10/2026 19:11</p>
+<p class="sub">TCGA-CDR (PanCanAtlas) e metadados atuais do GDC · gerado em 21/10/2026 21:22</p>
 <div class="kpis"><div class='kpi'><b>588</b><span>pacientes</span></div><div class='kpi'><b>59 anos</b><span>idade mediana</span></div><div class='kpi'><b>483</b><span>óbitos</span></div><div class='kpi'><b>12,1 meses</b><span>seguimento mediano</span></div><div class='kpi'><b>0</b><span>com estádio AJCC</span></div></div>
-<p class="fonte">Fonte: TCGA-CDR, Liu et al., Cell 2018 (Survival_SupplementalTable_S1); GDC: GDC hub do UCSC Xena (TCGA-*.clinical.tsv)</p>
+<p class="fonte">Fonte: TCGA-CDR, Liu et al., Cell 2018 (Survival_SupplementalTable_S1); GDC: API do GDC (/cases)</p>
 <div class="nota">Para sobrevida, use as colunas OS/DSS/DFI/PFI do TCGA-CDR, que foram curadas e harmonizadas. Liu et al. recomendam PFI e OS para a maioria dos cânceres e alertam para seguimento curto em alguns tipos.</div>
 <h2>Principais resultados</h2><ul class='achados'><li>A coorte GBM do PanCanAtlas tem <b>588</b> pacientes com dados clínicos curados (TCGA-CDR).</li><li>Nenhum paciente tem estádio patológico AJCC; este câncer usa outro sistema de estadiamento.</li><li>Sobrevida global: 483 óbitos em 588 pacientes; a mediana é de 14,1 meses e o seguimento mediano é de 12,1 meses.</li><li>Campos do CDR com mais de 50% de ausência: <code>ajcc_pathologic_tumor_stage</code>, <code>clinical_stage</code>, <code>histological_grade</code>, <code>menopause_status</code>, <code>cause_of_death</code>, <code>treatment_outcome_first_course</code>, <code>margin_status</code>, <code>residual_tumor</code>, <code>DFI</code>, <code>DFI.time</code>.</li><li>9 campos do CDR estão completos para todos os pacientes, incluindo <code>age_at_initial_pathologic_diagnosis</code>, <code>gender</code>, <code>histological_type</code>, <code>initial_pathologic_dx_year</code>, <code>OS</code>, <code>OS.time</code>.</li></ul>
 <h2>Completude dos dados clínicos</h2>
 <figure><img src="faltantes_cdr.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada coluna da esquerda é um paciente e cada linha um campo do TCGA-CDR. Azul = preenchido, cinza = ausente, amarelo = não se aplica (ex.: data do óbito em paciente vivo). À direita, o percentual ausente de cada campo. Campos ordenados do mais completo para o menos completo.</figcaption></figure>
 <h3>Percentual ausente por campo (TCGA-CDR)</h3>
-<div class="tabwrap"><style>#tab22 td:nth-child(1),#tab22 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab22">
+<div class="tabwrap"><style>#tab131 td:nth-child(1),#tab131 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab131">
   <thead>
     <tr style="text-align: right;">
       <th>campo</th>
@@ -187,6 +187,7 @@ nav a{margin-right:12px}
 <figure><img src="faltantes_gdc.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> o mesmo para os campos atuais do GDC (Data Release mais recente). O GDC tem mais campos que o CDR, mas muitos foram preenchidos só para alguns projetos.</figcaption></figure>
 <h2>Estádio patológico</h2>
 <figure><img src="estadio_patologico.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, o estádio AJCC agrupado (subestádios A/B/C somados); “sem registro” inclui ausentes e cânceres que usam outro sistema. À direita, os valores exatos registrados.</figcaption></figure>
+<figure><img src="tnm_gdc.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> componentes T (tumor), N (linfonodos) e M (metástase) do AJCC registrados no GDC.</figcaption></figure>
 <h2>Distribuição dos metadados</h2>
 <figure><img src="distribuicao_metadados.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> distribuição de cada variável clínica do CDR. Barras cinza = ausente ou agrupado em “outros”.</figcaption></figure>
 <figure><img src="distribuicao_metadados_gdc.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> variáveis adicionais do GDC (diagnóstico, grau, tratamento, exposições).</figcaption></figure>

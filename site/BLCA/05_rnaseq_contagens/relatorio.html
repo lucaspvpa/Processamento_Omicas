@@ -1,0 +1,315 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>BLCA · RNA-seq: contagens brutas (GDC)</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama BLCA</a></nav><h1>BLCA · RNA-seq: contagens brutas (GDC)</h1>
+<p class="sub">STAR - Counts (GENCODE v36) · gerado em 21/10/2026 18:29</p>
+<div class="kpis"><div class='kpi'><b>45,1 M</b><span>tamanho mediano</span></div><div class='kpi'><b>0,80</b><span>dispersão mediana α</span></div><div class='kpi'><b>17.069</b><span>genes</span></div><div class='kpi'><b>406</b><span>amostras tumorais</span></div><div class='kpi'><b>19</b><span>amostras normais</span></div><div class='kpi'><b>0,0%</b><span>valores faltantes</span></div></div>
+<p class="fonte">Fonte: API do GDC (STAR - Counts)</p>
+<h2>Principais resultados</h2><ul class='achados'><li>Bibliotecas de 18,1 a 116,3 milhões de leituras (mediana 45,1). 43.391 de 60.660 features têm leitura em pelo menos 10% das amostras.</li><li>A variância cresce bem acima da média: a dispersão mediana da binomial negativa é α=0.80 (para features com média &gt; 10). Isso descarta um modelo Poisson e indica binomial negativa (ou Poisson-lognormal) na verossimilhança.</li><li>A fração de zeros é compatível com a binomial negativa (diferença mediana -4,2%); inflação de zeros não parece necessária.</li><li>Em média 9,5% das leituras de cada amostra vão para as 20 features mais abundantes (MT-CO1, MT-ND4, MT-RNR2).</li><li>Genes codificadores de proteína recebem 97,2% das leituras (mediana).</li><li>17.069 genes medidos em 425 amostras (406 tumorais e 19 normais); 0,0% dos valores estão faltando.</li><li>Os dois primeiros componentes principais explicam 20,5% e 9,8% da variância das features mais variáveis.</li><li>Correlação mediana entre amostras: 0,52.</li><li>Tumor x normal: 10471 genes diferentes com FDR &lt; 5% (7084 maiores no tumor, 3387 maiores no normal; 19 pacientes têm o par tumor-normal).</li><li>Mais aumentados no tumor: ENSG00000123500.10, ENSG00000170373.8, ENSG00000217275.2, ENSG00000276966.2, ENSG00000170369.4, ENSG00000111981.5, ENSG00000277224.2, ENSG00000204866.8.</li><li>Mais reduzidos no tumor: ENSG00000179094.16, ENSG00000159713.11, ENSG00000197766.8, ENSG00000089486.17, ENSG00000196616.14, ENSG00000181804.15, ENSG00000169083.18, ENSG00000130558.20.</li><li>Associações clínicas com p &lt; 0,05 nos componentes principais: PC1 com estádio (p=1.1e-06); PC2 com estádio (p=0.0038); PC1 com sexo (p=0.014); PC2 com idade (p=0.0062); PC1 com sobrevida (p=0.0079).</li></ul>
+<h2>Biblioteca</h2>
+<figure><img src="biblioteca.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> número total de leituras atribuídas a features em cada amostra e quantas features passam de 10 leituras. Bibliotecas muito menores que as demais pedem atenção (ou um fator de tamanho no modelo).</figcaption></figure>
+<figure><img src="composicao_tipo_gene.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> fração das leituras por tipo de gene em cada amostra. Muito mitocondrial ou rRNA indica degradação ou problema de preparo.</figcaption></figure>
+<figure><img src="features_dominantes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> features que concentram mais leituras. Quando poucos genes dominam (ex.: albumina em fígado), a normalização por total de leituras fica enviesada; prefira TMM ou mediana das razões.</figcaption></figure>
+<h2>Sobredispersão e zeros</h2>
+<figure><img src="sobredispersao_zeros.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, se os pontos seguissem a linha azul o Poisson bastaria; a curva vermelha é a binomial negativa ajustada. No meio, a distribuição da dispersão por feature (para priors hierárquicos). À direita, a fração de zeros observada contra o esperado por cada modelo.</figcaption></figure>
+<h2>Exploração em log2(CPM+1)</h2>
+<p>Features com CPM ≥ 1 em pelo menos 20% das amostras (17.069 features).</p>
+<h2>Distribuição dos valores</h2>
+<figure><img src="logcpm_distribuicao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, a distribuição de log2(CPM+1) em cada amostra, ordenadas pela mediana; amostras muito deslocadas das demais podem ter problema técnico ou de normalização. À direita, a densidade de cada amostra sobreposta (vermelho = tumor, azul = normal).</figcaption></figure>
+<figure><img src="logcpm_media_variancia.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada ponto é um gene. Em vermelho, os 2000 mais variáveis, usados na PCA, no UMAP e nos heatmaps. À direita, quantas amostras faltam por feature.</figcaption></figure>
+<h2>Estrutura das amostras</h2>
+<figure><img src="logcpm_pca.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> a PCA resume as features mais variáveis em poucos eixos. Amostras próximas têm perfis parecidos. Separação entre tumor e normal é esperada; separação por estádio indica que a ômica carrega informação de progressão.</figcaption></figure>
+<figure><img src="logcpm_umap.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> UMAP é uma projeção não linear das mesmas features. Distâncias globais não são interpretáveis, mas grupos bem separados sugerem subtipos.</figcaption></figure>
+<figure><img src="logcpm_correlacao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> correlação de Pearson entre pares de amostras, com agrupamento hierárquico. A barra colorida de cima indica tipo (vermelho tumor, azul normal) e estádio.</figcaption></figure>
+<figure><img src="logcpm_heatmap_top.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> os genes mais variáveis, padronizados por linha (vermelho = acima da média do gene, azul = abaixo). Blocos de cor mostram grupos de amostras com programas em comum.</figcaption></figure>
+<h2>Tumor x normal</h2>
+<figure><img src="logcpm_tumor_vs_normal_volcano.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> eixo x = diferença média entre tumor e normal; eixo y = significância. Vermelho = maior no tumor, azul = maior no normal (FDR &lt; 5%, teste t de Welch).</figcaption></figure>
+<h3>Features mais diferentes entre tumor e normal</h3>
+<div class="tabwrap"><style>#tab20 td:nth-child(1),#tab20 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab20">
+  <thead>
+    <tr style="text-align: right;">
+      <th>gene_id</th>
+      <th>diferenca_tumor_menos_normal</th>
+      <th>t</th>
+      <th>p</th>
+      <th>fdr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ENSG00000123500.10</td>
+      <td>2.741</td>
+      <td>22.229</td>
+      <td>4.74e-71</td>
+      <td>8.09e-67</td>
+    </tr>
+    <tr>
+      <td>ENSG00000170373.8</td>
+      <td>2.334</td>
+      <td>18.356</td>
+      <td>4.71e-47</td>
+      <td>4.02e-43</td>
+    </tr>
+    <tr>
+      <td>ENSG00000217275.2</td>
+      <td>0.769</td>
+      <td>16.844</td>
+      <td>7.22e-45</td>
+      <td>4.11e-41</td>
+    </tr>
+    <tr>
+      <td>ENSG00000276966.2</td>
+      <td>0.965</td>
+      <td>17.084</td>
+      <td>1.12e-44</td>
+      <td>4.78e-41</td>
+    </tr>
+    <tr>
+      <td>ENSG00000170369.4</td>
+      <td>0.71</td>
+      <td>15.08</td>
+      <td>2.02e-41</td>
+      <td>6.9e-38</td>
+    </tr>
+    <tr>
+      <td>ENSG00000111981.5</td>
+      <td>0.754</td>
+      <td>15.997</td>
+      <td>3.9e-36</td>
+      <td>1.11e-32</td>
+    </tr>
+    <tr>
+      <td>ENSG00000277224.2</td>
+      <td>0.741</td>
+      <td>14.869</td>
+      <td>1.15e-35</td>
+      <td>2.8e-32</td>
+    </tr>
+    <tr>
+      <td>ENSG00000204866.8</td>
+      <td>1.131</td>
+      <td>13.607</td>
+      <td>1.2e-33</td>
+      <td>2.57e-30</td>
+    </tr>
+    <tr>
+      <td>ENSG00000163283.7</td>
+      <td>1.27</td>
+      <td>13.095</td>
+      <td>1.09e-32</td>
+      <td>2.07e-29</td>
+    </tr>
+    <tr>
+      <td>ENSG00000116032.5</td>
+      <td>0.575</td>
+      <td>15.285</td>
+      <td>9.79e-32</td>
+      <td>1.67e-28</td>
+    </tr>
+    <tr>
+      <td>ENSG00000267123.7</td>
+      <td>0.77</td>
+      <td>14.246</td>
+      <td>1.18e-31</td>
+      <td>1.84e-28</td>
+    </tr>
+    <tr>
+      <td>ENSG00000164778.4</td>
+      <td>0.687</td>
+      <td>12.984</td>
+      <td>3.5e-30</td>
+      <td>4.98e-27</td>
+    </tr>
+    <tr>
+      <td>ENSG00000203814.6</td>
+      <td>1.289</td>
+      <td>17.488</td>
+      <td>7.41e-30</td>
+      <td>9.73e-27</td>
+    </tr>
+    <tr>
+      <td>ENSG00000233818.1</td>
+      <td>0.65</td>
+      <td>15.826</td>
+      <td>7.66e-29</td>
+      <td>9.33e-26</td>
+    </tr>
+    <tr>
+      <td>ENSG00000239893.2</td>
+      <td>0.864</td>
+      <td>12.657</td>
+      <td>9.89e-29</td>
+      <td>1.13e-25</td>
+    </tr>
+    <tr>
+      <td>ENSG00000273328.5</td>
+      <td>1.044</td>
+      <td>12.723</td>
+      <td>1.21e-28</td>
+      <td>1.29e-25</td>
+    </tr>
+    <tr>
+      <td>ENSG00000286058.1</td>
+      <td>0.687</td>
+      <td>12.24</td>
+      <td>1.36e-28</td>
+      <td>1.37e-25</td>
+    </tr>
+    <tr>
+      <td>ENSG00000267751.5</td>
+      <td>0.513</td>
+      <td>14.05</td>
+      <td>2.37e-28</td>
+      <td>2.25e-25</td>
+    </tr>
+    <tr>
+      <td>ENSG00000089116.4</td>
+      <td>0.863</td>
+      <td>14.394</td>
+      <td>5.63e-28</td>
+      <td>5.06e-25</td>
+    </tr>
+    <tr>
+      <td>ENSG00000271662.1</td>
+      <td>0.513</td>
+      <td>15.234</td>
+      <td>2.29e-26</td>
+      <td>1.96e-23</td>
+    </tr>
+    <tr>
+      <td>ENSG00000131668.14</td>
+      <td>1.149</td>
+      <td>12.264</td>
+      <td>2.66e-26</td>
+      <td>2.16e-23</td>
+    </tr>
+    <tr>
+      <td>ENSG00000175294.6</td>
+      <td>1.125</td>
+      <td>13.919</td>
+      <td>3.08e-26</td>
+      <td>2.39e-23</td>
+    </tr>
+    <tr>
+      <td>ENSG00000182632.15</td>
+      <td>0.829</td>
+      <td>11.629</td>
+      <td>2.07e-25</td>
+      <td>1.54e-22</td>
+    </tr>
+    <tr>
+      <td>ENSG00000176383.9</td>
+      <td>1.104</td>
+      <td>16.431</td>
+      <td>2.61e-25</td>
+      <td>1.86e-22</td>
+    </tr>
+    <tr>
+      <td>ENSG00000277075.2</td>
+      <td>1.359</td>
+      <td>16.774</td>
+      <td>5.57e-25</td>
+      <td>3.8e-22</td>
+    </tr>
+    <tr>
+      <td>ENSG00000165685.8</td>
+      <td>1.206</td>
+      <td>12.889</td>
+      <td>7.44e-25</td>
+      <td>4.81e-22</td>
+    </tr>
+    <tr>
+      <td>ENSG00000166143.10</td>
+      <td>0.946</td>
+      <td>11.506</td>
+      <td>7.61e-25</td>
+      <td>4.81e-22</td>
+    </tr>
+    <tr>
+      <td>ENSG00000139800.8</td>
+      <td>0.695</td>
+      <td>11.449</td>
+      <td>1.22e-24</td>
+      <td>7.38e-22</td>
+    </tr>
+    <tr>
+      <td>ENSG00000083782.8</td>
+      <td>0.602</td>
+      <td>10.925</td>
+      <td>1.25e-24</td>
+      <td>7.38e-22</td>
+    </tr>
+    <tr>
+      <td>ENSG00000273983.1</td>
+      <td>1.05</td>
+      <td>14.727</td>
+      <td>5.34e-24</td>
+      <td>3.04e-21</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Associação com variáveis clínicas</h2>
+<p>p-valores da associação dos três primeiros componentes principais (só tumores) com estádio (Kruskal-Wallis), sexo (Mann-Whitney), idade (Spearman) e sobrevida global (Cox univariado).</p>
+<div class="tabwrap"><style>#tab21 td:nth-child(1),#tab21 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab21">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>estádio (Kruskal)</th>
+      <th>sexo (Mann-Whitney)</th>
+      <th>idade (Spearman)</th>
+      <th>sobrevida OS (Cox)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PC1 (20,9%)</td>
+      <td>1.08e-06</td>
+      <td>0.014</td>
+      <td>0.05</td>
+      <td>0.008</td>
+    </tr>
+    <tr>
+      <td>PC2 (9,8%)</td>
+      <td>0.004</td>
+      <td>0.684</td>
+      <td>0.006</td>
+      <td>0.621</td>
+    </tr>
+    <tr>
+      <td>PC3 (5,5%)</td>
+      <td>0.688</td>
+      <td>0.191</td>
+      <td>0.474</td>
+      <td>0.511</td>
+    </tr>
+  </tbody>
+</table></div>
+</main></body></html>

@@ -30,19 +30,19 @@ table.tab thead th{background:var(--th)}
 a{color:var(--acc)}
 nav a{margin-right:12px}
 </style></head><body><main><nav><a href="../index.html">← Panorama CHOL</a></nav><h1>CHOL · Comparações entre ômicas</h1>
-<p class="sub">Relações entre camadas moleculares nos mesmos pacientes · gerado em 21/10/2026 19:05</p>
-<h2>Principais resultados</h2><ul class='achados'><li>PanCan x GDC: correlação mediana por paciente de 0.940 em 13.073 genes; por gene, 0.98.</li><li>CNV x mRNA: mediana ρ=0.24 em 16.584 pares; 5043 com FDR &lt; 5% (4978 no sentido esperado).</li><li>Metilação x mRNA: mediana ρ=-0.12 em 11.483 pares; 1716 com FDR &lt; 5% (1496 no sentido esperado).</li><li>RPPA x mRNA: mediana ρ=0.24 em 156 pares; 17 com FDR &lt; 5% (17 no sentido esperado).</li><li>miRNA x mRNA: 0,6% dos pares têm ρ &lt; −0,5.</li><li>Agrupamento integrado de 30 pacientes em 2 grupos (silhueta 0.16); sobrevida diferente entre grupos com log-rank p=0.82.</li></ul>
+<p class="sub">Relações entre camadas moleculares nos mesmos pacientes · gerado em 21/10/2026 17:32</p>
+<h2>Principais resultados</h2><ul class='achados'><li>PanCan x GDC: correlação mediana por paciente de 0.940 em 13.073 genes; por gene, 0.98.</li><li>CNV x mRNA: mediana ρ=0.24 em 16.584 pares; 5043 com FDR &lt; 5% (4978 no sentido esperado).</li><li>Metilação x mRNA: mediana ρ=-0.12 em 12.416 pares; 1730 com FDR &lt; 5% (1499 no sentido esperado).</li><li>RPPA x mRNA: mediana ρ=0.24 em 156 pares; 17 com FDR &lt; 5% (17 no sentido esperado).</li><li>miRNA x mRNA: 0,6% dos pares têm ρ &lt; −0,5.</li><li>Agrupamento integrado de 30 pacientes em 2 grupos (silhueta 0.16); sobrevida diferente entre grupos com log-rank p=0.82.</li></ul>
 <h2>RNA-seq PanCan x contagens brutas do GDC</h2>
 <figure><img src="pancan_vs_gdc.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> a mesma amostra quantificada pelo PanCanAtlas (RSEM, hg19, corrigido por lote) e pelo GDC (STAR, hg38, contagem bruta em log-CPM). Correlação alta por paciente indica que as duas fontes medem o mesmo perfil; correlação baixa por gene aparece em genes pouco expressos ou com anotação diferente entre GENCODE v36 e o RSEM antigo.</figcaption></figure>
 <h2>Efeitos em cis sobre a expressão</h2>
 <figure><img src="cnv_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> para cada gene, a correlação entre número de cópias e expressão nos mesmos pacientes. Ganhos que aumentam a expressão (efeito de dosagem) deslocam a distribuição para a direita. Mediana ρ = 0.24; 5043 de 16584 pares com FDR &lt; 5% (n mediano = 36 pacientes).</figcaption></figure>
-<figure><img src="metilacao_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada par é um CpG variável e o gene anotado a ele. Metilação de promotor costuma silenciar o gene (ρ negativo); no corpo do gene a relação pode ser positiva. Mediana ρ = -0.12; 1716 de 11483 pares com FDR &lt; 5% (n mediano = 36 pacientes).</figcaption></figure>
+<figure><img src="metilacao_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada par é um CpG variável e o gene anotado a ele. Metilação de promotor costuma silenciar o gene (ρ negativo); no corpo do gene a relação pode ser positiva. Mediana ρ = -0.12; 1730 de 12416 pares com FDR &lt; 5% (n mediano = 36 pacientes).</figcaption></figure>
 <h2>Do mRNA à proteína</h2>
 <figure><img src="rppa_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> 193 anticorpos de proteína total ligados ao gene correspondente. Correlação mRNA-proteína costuma ser moderada (mediana ~0,3-0,5) por regulação pós-transcricional. Mediana ρ = 0.24; 17 de 156 pares com FDR &lt; 5% (n mediano = 30 pacientes).</figcaption></figure>
 <h2>miRNA x mRNA</h2>
 <figure><img src="mirna_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> miRNAs reprimem seus alvos, então pares com ρ negativo forte são candidatos a interação miRNA-alvo (confirme em bases como miRTarBase/TargetScan). Com poucos pacientes, correlações extremas aparecem por acaso.</figcaption></figure>
 <h3>Pares miRNA-gene mais negativos</h3>
-<div class="tabwrap"><style>#tab14 td:nth-child(1),#tab14 th:nth-child(1),#tab14 td:nth-child(2),#tab14 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab14">
+<div class="tabwrap"><style>#tab16 td:nth-child(1),#tab16 th:nth-child(1),#tab16 td:nth-child(2),#tab16 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab16">
   <thead>
     <tr style="text-align: right;">
       <th>miRNA</th>

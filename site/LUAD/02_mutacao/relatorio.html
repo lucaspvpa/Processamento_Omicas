@@ -1,0 +1,209 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>LUAD · Mutações somáticas</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama LUAD</a></nav><h1>LUAD · Mutações somáticas</h1>
+<p class="sub">MC3 v0.2.8 (PanCanAtlas), exoma, chamadas consenso · gerado em 22/10/2026 00:44</p>
+<div class="kpis"><div class='kpi'><b>513</b><span>amostras sequenciadas</span></div><div class='kpi'><b>196.952</b><span>mutações</span></div><div class='kpi'><b>4,76</b><span>TMB mediano (/Mb)</span></div><div class='kpi'><b>120</b><span>hipermutados (≥10/Mb)</span></div></div>
+<p class="fonte">Fonte: MC3 v0.2.8 (PanCanAtlas)</p>
+<div class="nota">O MC3 inclui só amostras tumorais com exoma sequenciado e só mutações que passaram nos filtros de consenso. Amostras sem nenhuma mutação não aparecem no arquivo e entram aqui com carga zero quando estão na lista de amostras.</div>
+<h2>Principais resultados</h2><ul class='achados'><li>196.952 mutações em 513 tumores, das quais 136.256 alteram proteína. A carga mutacional mediana é 4,76 mutações não silenciosas por Mb (exoma de ~38 Mb).</li><li>120 amostra(s) hipermutada(s) (≥ 10/Mb): TCGA-05-4382-01, TCGA-05-4390-01, TCGA-05-4397-01, TCGA-05-4398-01, TCGA-05-4410-01, TCGA-05-4424-01, TCGA-05-4427-01, TCGA-05-4432-01.</li><li>Genes mais mutados: <i>TP53</i> (50%), <i>TTN</i> (48%), <i>MUC16</i> (42%), <i>CSMD3</i> (40%), <i>RYR2</i> (37%), <i>LRP1B</i> (34%), <i>USH2A</i> (31%), <i>ZFHX4</i> (31%).</li><li>A substituição mais frequente é C>A (41,5% das SNVs). Predomínio de C>T costuma refletir desaminação de citosinas metiladas (assinatura de envelhecimento); C>A sugere tabaco ou dano oxidativo; T>C pode indicar exposições específicas.</li><li>Correlação entre idade e TMB: ρ=-0.15 (p=0.001).</li></ul>
+<h2>Carga mutacional</h2>
+<figure><img src="carga_mutacional_e_efeitos.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, cada barra é um tumor, empilhada pelo tipo de efeito (escala log). À direita, o total de mutações por tipo de efeito na coorte.</figcaption></figure>
+<figure><img src="tmb_por_estadio.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> carga mutacional por estádio patológico.</figcaption></figure>
+<h2>Espectro de substituições</h2>
+<figure><img src="espectro_substituicoes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> as seis classes de substituição de base, com a base de referência convertida para pirimidina (C ou T). À direita, a composição de cada tumor.</figcaption></figure>
+<h2>Genes mais mutados</h2>
+<figure><img src="oncoplot.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada coluna é um tumor e cada linha um gene; a cor indica o tipo de mutação. No topo, o número de mutações não silenciosas do tumor; à direita, a frequência do gene.</figcaption></figure>
+<h3>Genes com mais tumores mutados</h3>
+<div class="tabwrap"><style>#tab270 td:nth-child(1),#tab270 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab270">
+  <thead>
+    <tr style="text-align: right;">
+      <th>gene</th>
+      <th>amostras_mutadas</th>
+      <th>% das amostras</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TP53</td>
+      <td>259</td>
+      <td>50.5</td>
+    </tr>
+    <tr>
+      <td>TTN</td>
+      <td>244</td>
+      <td>47.6</td>
+    </tr>
+    <tr>
+      <td>MUC16</td>
+      <td>213</td>
+      <td>41.5</td>
+    </tr>
+    <tr>
+      <td>CSMD3</td>
+      <td>204</td>
+      <td>39.8</td>
+    </tr>
+    <tr>
+      <td>RYR2</td>
+      <td>190</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>LRP1B</td>
+      <td>172</td>
+      <td>33.5</td>
+    </tr>
+    <tr>
+      <td>USH2A</td>
+      <td>160</td>
+      <td>31.2</td>
+    </tr>
+    <tr>
+      <td>ZFHX4</td>
+      <td>157</td>
+      <td>30.6</td>
+    </tr>
+    <tr>
+      <td>KRAS</td>
+      <td>151</td>
+      <td>29.4</td>
+    </tr>
+    <tr>
+      <td>FLG</td>
+      <td>130</td>
+      <td>25.3</td>
+    </tr>
+    <tr>
+      <td>XIRP2</td>
+      <td>129</td>
+      <td>25.1</td>
+    </tr>
+    <tr>
+      <td>SPTA1</td>
+      <td>129</td>
+      <td>25.1</td>
+    </tr>
+    <tr>
+      <td>ZNF536</td>
+      <td>105</td>
+      <td>20.5</td>
+    </tr>
+    <tr>
+      <td>FAT3</td>
+      <td>104</td>
+      <td>20.3</td>
+    </tr>
+    <tr>
+      <td>COL11A1</td>
+      <td>103</td>
+      <td>20.1</td>
+    </tr>
+    <tr>
+      <td>MUC17</td>
+      <td>102</td>
+      <td>19.9</td>
+    </tr>
+    <tr>
+      <td>NAV3</td>
+      <td>102</td>
+      <td>19.9</td>
+    </tr>
+    <tr>
+      <td>CSMD1</td>
+      <td>102</td>
+      <td>19.9</td>
+    </tr>
+    <tr>
+      <td>PCDH15</td>
+      <td>100</td>
+      <td>19.5</td>
+    </tr>
+    <tr>
+      <td>ANK2</td>
+      <td>98</td>
+      <td>19.1</td>
+    </tr>
+    <tr>
+      <td>PAPPA2</td>
+      <td>95</td>
+      <td>18.5</td>
+    </tr>
+    <tr>
+      <td>PCLO</td>
+      <td>94</td>
+      <td>18.3</td>
+    </tr>
+    <tr>
+      <td>KEAP1</td>
+      <td>93</td>
+      <td>18.1</td>
+    </tr>
+    <tr>
+      <td>ADAMTS12</td>
+      <td>93</td>
+      <td>18.1</td>
+    </tr>
+    <tr>
+      <td>RYR3</td>
+      <td>90</td>
+      <td>17.5</td>
+    </tr>
+    <tr>
+      <td>APOB</td>
+      <td>90</td>
+      <td>17.5</td>
+    </tr>
+    <tr>
+      <td>DNAH9</td>
+      <td>89</td>
+      <td>17.3</td>
+    </tr>
+    <tr>
+      <td>TNR</td>
+      <td>88</td>
+      <td>17.2</td>
+    </tr>
+    <tr>
+      <td>CDH10</td>
+      <td>86</td>
+      <td>16.8</td>
+    </tr>
+    <tr>
+      <td>RP1L1</td>
+      <td>85</td>
+      <td>16.6</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Fração alélica e idade</h2>
+<figure><img src="vaf_e_idade.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> a fração alélica (VAF) mostra a proporção de leituras com a mutação; picos perto de 0,5 indicam mutações clonais heterozigotas em tumores puros. À direita, carga mutacional por idade.</figcaption></figure>
+</main></body></html>

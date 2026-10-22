@@ -30,15 +30,15 @@ table.tab thead th{background:var(--th)}
 a{color:var(--acc)}
 nav a{margin-right:12px}
 </style></head><body><main><nav><a href="../index.html">← Panorama KIRC</a></nav><h1>KIRC · Dados clínicos</h1>
-<p class="sub">TCGA-CDR (PanCanAtlas) e metadados atuais do GDC · gerado em 21/10/2026 19:12</p>
+<p class="sub">TCGA-CDR (PanCanAtlas) e metadados atuais do GDC · gerado em 21/10/2026 22:25</p>
 <div class="kpis"><div class='kpi'><b>536</b><span>pacientes</span></div><div class='kpi'><b>61 anos</b><span>idade mediana</span></div><div class='kpi'><b>177</b><span>óbitos</span></div><div class='kpi'><b>38,8 meses</b><span>seguimento mediano</span></div><div class='kpi'><b>533</b><span>com estádio AJCC</span></div></div>
-<p class="fonte">Fonte: TCGA-CDR, Liu et al., Cell 2018 (Survival_SupplementalTable_S1); GDC: GDC hub do UCSC Xena (TCGA-*.clinical.tsv)</p>
+<p class="fonte">Fonte: TCGA-CDR, Liu et al., Cell 2018 (Survival_SupplementalTable_S1); GDC: API do GDC (/cases)</p>
 <div class="nota">Para sobrevida, use as colunas OS/DSS/DFI/PFI do TCGA-CDR, que foram curadas e harmonizadas. Liu et al. recomendam PFI e OS para a maioria dos cânceres e alertam para seguimento curto em alguns tipos.</div>
 <h2>Principais resultados</h2><ul class='achados'><li>A coorte KIRC do PanCanAtlas tem <b>536</b> pacientes com dados clínicos curados (TCGA-CDR).</li><li>533 de 536 pacientes (99,4%) têm estádio patológico AJCC; o grupo mais comum é o estádio I (n=268).</li><li>Sobrevida global: 177 óbitos em 536 pacientes; a mediana é de 90,8 meses e o seguimento mediano é de 38,8 meses.</li><li>Comparando estádios I-II com III-IV, o log-rank dá p=8.19e-20 (diferença significativa a 5%).</li><li>Campos do CDR com mais de 50% de ausência: <code>clinical_stage</code>, <code>menopause_status</code>, <code>death_days_to</code>, <code>cause_of_death</code>, <code>new_tumor_event_type</code>, <code>new_tumor_event_dx_days_to</code>, <code>treatment_outcome_first_course</code>, <code>margin_status</code>, <code>residual_tumor</code>, <code>DFI</code>, <code>DFI.time</code>.</li><li>9 campos do CDR estão completos para todos os pacientes, incluindo <code>age_at_initial_pathologic_diagnosis</code>, <code>gender</code>, <code>histological_type</code>, <code>initial_pathologic_dx_year</code>, <code>vital_status</code>, <code>OS</code>.</li></ul>
 <h2>Completude dos dados clínicos</h2>
 <figure><img src="faltantes_cdr.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada coluna da esquerda é um paciente e cada linha um campo do TCGA-CDR. Azul = preenchido, cinza = ausente, amarelo = não se aplica (ex.: data do óbito em paciente vivo). À direita, o percentual ausente de cada campo. Campos ordenados do mais completo para o menos completo.</figcaption></figure>
 <h3>Percentual ausente por campo (TCGA-CDR)</h3>
-<div class="tabwrap"><style>#tab31 td:nth-child(1),#tab31 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab31">
+<div class="tabwrap"><style>#tab182 td:nth-child(1),#tab182 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab182">
   <thead>
     <tr style="text-align: right;">
       <th>campo</th>

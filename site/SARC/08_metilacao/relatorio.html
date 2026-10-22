@@ -1,0 +1,313 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>SARC · Metilação do DNA (450k)</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama SARC</a></nav><h1>SARC · Metilação do DNA (450k)</h1>
+<p class="sub">Illumina Infinium HumanMethylation450, valores beta (0 a 1) · gerado em 22/10/2026 03:57</p>
+<div class="kpis"><div class='kpi'><b>396.065</b><span>CpGs medidos</span></div><div class='kpi'><b>374.825</b><span>CpGs sem faltante</span></div><div class='kpi'><b>20.000</b><span>CpGs</span></div><div class='kpi'><b>261</b><span>amostras tumorais</span></div><div class='kpi'><b>4</b><span>amostras normais</span></div><div class='kpi'><b>0,1%</b><span>valores faltantes</span></div></div>
+<p class="fonte">Fonte: PanCanAtlas HM450 via API do Xena</p>
+<div class="nota">O array tem ~485 mil CpGs. Para não ocupar espaço, guardamos estatísticas de todos os CpGs e só os 20.000 mais variáveis para PCA, UMAP e heatmaps.</div>
+<h2>Principais resultados</h2><ul class='achados'><li>A distribuição de beta é bimodal: a maioria dos CpGs está quase toda desmetilada (perto de 0, típico de ilhas CpG em promotores) ou quase toda metilada (perto de 1, corpo gênico e regiões intergênicas). 40,7% dos CpGs têm beta médio intermediário (0,2 a 0,8).</li><li>Beta médio global: 0,451 nos tumores e 0,460 nos normais (hipometilação global no tumor, como é comum em câncer).</li><li>20.000 CpGs medidos em 265 amostras (261 tumorais e 4 normais); 0,1% dos valores estão faltando.</li><li>Os dois primeiros componentes principais explicam 18,6% e 8,7% da variância das features mais variáveis.</li><li>Correlação mediana entre amostras: 0,13.</li><li>Tumor x normal: 7173 CpGs diferentes com FDR &lt; 5% (2733 maiores no tumor, 4440 maiores no normal; 4 pacientes têm o par tumor-normal).</li><li>Mais aumentados no tumor: cg09142313, cg13354988, cg18559739, cg01268824, cg17922359, cg10703826, cg20386316, cg07652237.</li><li>Mais reduzidos no tumor: cg13028819, cg04638205, cg05042749, cg12311175, cg26479667, cg07834841, cg27468419, cg15244965.</li><li>Associações clínicas com p &lt; 0,05 nos componentes principais: PC1 com sexo (p=0.0012); PC3 com sexo (p=5.2e-05); PC2 com idade (p=4e-07); PC2 com sobrevida (p=2.4e-05); PC3 com sobrevida (p=0.00033).</li></ul>
+<h2>Distribuição global</h2>
+<figure><img src="distribuicao_beta.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, a distribuição de beta em cada amostra (vermelho tumor, azul normal), calculada sobre todos os CpGs. No meio, o beta médio de cada CpG. À direita, a variabilidade de cada CpG e o corte usado para escolher os mais variáveis.</figcaption></figure>
+<figure><img src="metilacao_global.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> metilação média de cada amostra e fração de CpGs muito metilados, tumor x normal.</figcaption></figure>
+<figure><img src="cpgs_variaveis_cromossomos.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> distribuição por cromossomo dos CpGs mais variáveis.</figcaption></figure>
+<h2>Exploração dos CpGs mais variáveis</h2>
+<h2>Distribuição dos valores</h2>
+<figure><img src="distribuicao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, a distribuição de beta em cada amostra, ordenadas pela mediana; amostras muito deslocadas das demais podem ter problema técnico ou de normalização. À direita, a densidade de cada amostra sobreposta (vermelho = tumor, azul = normal).</figcaption></figure>
+<figure><img src="media_variancia.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada ponto é um CpG. Em vermelho, os 5000 mais variáveis, usados na PCA, no UMAP e nos heatmaps. À direita, quantas amostras faltam por feature.</figcaption></figure>
+<h2>Estrutura das amostras</h2>
+<figure><img src="pca.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> a PCA resume as features mais variáveis em poucos eixos. Amostras próximas têm perfis parecidos. Separação entre tumor e normal é esperada; separação por estádio indica que a ômica carrega informação de progressão.</figcaption></figure>
+<figure><img src="umap.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> UMAP é uma projeção não linear das mesmas features. Distâncias globais não são interpretáveis, mas grupos bem separados sugerem subtipos.</figcaption></figure>
+<figure><img src="correlacao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> correlação de Pearson entre pares de amostras, com agrupamento hierárquico. A barra colorida de cima indica tipo (vermelho tumor, azul normal) e estádio.</figcaption></figure>
+<figure><img src="heatmap_top.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> os CpGs mais variáveis, padronizados por linha (vermelho = acima da média do gene, azul = abaixo). Blocos de cor mostram grupos de amostras com programas em comum.</figcaption></figure>
+<h2>Tumor x normal</h2>
+<figure><img src="tumor_vs_normal_volcano.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> eixo x = diferença média entre tumor e normal; eixo y = significância. Vermelho = maior no tumor, azul = maior no normal (FDR &lt; 5%, teste t de Welch).</figcaption></figure>
+<h3>Features mais diferentes entre tumor e normal</h3>
+<div class="tabwrap"><style>#tab425 td:nth-child(1),#tab425 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab425">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>diferenca_tumor_menos_normal</th>
+      <th>t</th>
+      <th>p</th>
+      <th>fdr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>cg13028819</td>
+      <td>-0.602</td>
+      <td>-34.166</td>
+      <td>5.27e-88</td>
+      <td>1.05e-83</td>
+    </tr>
+    <tr>
+      <td>cg04638205</td>
+      <td>-0.417</td>
+      <td>-25.874</td>
+      <td>3.62e-74</td>
+      <td>3.62e-70</td>
+    </tr>
+    <tr>
+      <td>cg05042749</td>
+      <td>-0.528</td>
+      <td>-27.269</td>
+      <td>1.95e-71</td>
+      <td>1.3e-67</td>
+    </tr>
+    <tr>
+      <td>cg12311175</td>
+      <td>-0.415</td>
+      <td>-24.552</td>
+      <td>8.19e-70</td>
+      <td>4.09e-66</td>
+    </tr>
+    <tr>
+      <td>cg26479667</td>
+      <td>-0.486</td>
+      <td>-23.864</td>
+      <td>1.31e-67</td>
+      <td>5.25e-64</td>
+    </tr>
+    <tr>
+      <td>cg07834841</td>
+      <td>-0.423</td>
+      <td>-23.711</td>
+      <td>3.09e-67</td>
+      <td>1.03e-63</td>
+    </tr>
+    <tr>
+      <td>cg27468419</td>
+      <td>-0.403</td>
+      <td>-23.66</td>
+      <td>8.05e-67</td>
+      <td>2.3e-63</td>
+    </tr>
+    <tr>
+      <td>cg15244965</td>
+      <td>-0.44</td>
+      <td>-23.403</td>
+      <td>4.84e-66</td>
+      <td>1.21e-62</td>
+    </tr>
+    <tr>
+      <td>cg21908129</td>
+      <td>-0.422</td>
+      <td>-24.496</td>
+      <td>1.11e-65</td>
+      <td>2.47e-62</td>
+    </tr>
+    <tr>
+      <td>cg14557064</td>
+      <td>-0.497</td>
+      <td>-25.483</td>
+      <td>7.85e-65</td>
+      <td>1.57e-61</td>
+    </tr>
+    <tr>
+      <td>cg05533037</td>
+      <td>-0.375</td>
+      <td>-23.061</td>
+      <td>1.6e-64</td>
+      <td>2.91e-61</td>
+    </tr>
+    <tr>
+      <td>cg00217080</td>
+      <td>-0.457</td>
+      <td>-22.726</td>
+      <td>8.19e-64</td>
+      <td>1.37e-60</td>
+    </tr>
+    <tr>
+      <td>cg04414975</td>
+      <td>-0.386</td>
+      <td>-22.982</td>
+      <td>1.04e-63</td>
+      <td>1.6e-60</td>
+    </tr>
+    <tr>
+      <td>cg18099070</td>
+      <td>-0.413</td>
+      <td>-22.547</td>
+      <td>2.21e-63</td>
+      <td>3.15e-60</td>
+    </tr>
+    <tr>
+      <td>cg17946266</td>
+      <td>-0.375</td>
+      <td>-22.651</td>
+      <td>4.84e-63</td>
+      <td>6.46e-60</td>
+    </tr>
+    <tr>
+      <td>cg00202568</td>
+      <td>-0.427</td>
+      <td>-25.476</td>
+      <td>1.62e-62</td>
+      <td>2.03e-59</td>
+    </tr>
+    <tr>
+      <td>cg12889126</td>
+      <td>-0.399</td>
+      <td>-23.713</td>
+      <td>4.39e-62</td>
+      <td>5.16e-59</td>
+    </tr>
+    <tr>
+      <td>cg18080819</td>
+      <td>-0.456</td>
+      <td>-22.902</td>
+      <td>9.98e-62</td>
+      <td>1.11e-58</td>
+    </tr>
+    <tr>
+      <td>cg11854928</td>
+      <td>-0.406</td>
+      <td>-21.983</td>
+      <td>2.51e-61</td>
+      <td>2.64e-58</td>
+    </tr>
+    <tr>
+      <td>cg09142313</td>
+      <td>0.414</td>
+      <td>22.008</td>
+      <td>9.7e-61</td>
+      <td>9.69e-58</td>
+    </tr>
+    <tr>
+      <td>cg23248615</td>
+      <td>-0.35</td>
+      <td>-21.696</td>
+      <td>1.58e-60</td>
+      <td>1.51e-57</td>
+    </tr>
+    <tr>
+      <td>cg13608273</td>
+      <td>-0.396</td>
+      <td>-22.312</td>
+      <td>3.32e-60</td>
+      <td>2.87e-57</td>
+    </tr>
+    <tr>
+      <td>cg08540622</td>
+      <td>-0.387</td>
+      <td>-23.284</td>
+      <td>3.4e-60</td>
+      <td>2.87e-57</td>
+    </tr>
+    <tr>
+      <td>cg12802844</td>
+      <td>-0.392</td>
+      <td>-21.812</td>
+      <td>3.45e-60</td>
+      <td>2.87e-57</td>
+    </tr>
+    <tr>
+      <td>cg17151621</td>
+      <td>-0.419</td>
+      <td>-21.629</td>
+      <td>1.67e-59</td>
+      <td>1.34e-56</td>
+    </tr>
+    <tr>
+      <td>cg13679164</td>
+      <td>-0.405</td>
+      <td>-22.855</td>
+      <td>2.01e-59</td>
+      <td>1.55e-56</td>
+    </tr>
+    <tr>
+      <td>cg00938547</td>
+      <td>-0.348</td>
+      <td>-21.42</td>
+      <td>1.01e-58</td>
+      <td>7.49e-56</td>
+    </tr>
+    <tr>
+      <td>cg06966242</td>
+      <td>-0.388</td>
+      <td>-21.348</td>
+      <td>1.56e-58</td>
+      <td>1.11e-55</td>
+    </tr>
+    <tr>
+      <td>cg07877987</td>
+      <td>-0.409</td>
+      <td>-21.073</td>
+      <td>2.5e-58</td>
+      <td>1.73e-55</td>
+    </tr>
+    <tr>
+      <td>cg12342451</td>
+      <td>-0.346</td>
+      <td>-21.022</td>
+      <td>3.25e-58</td>
+      <td>2.16e-55</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Associação com variáveis clínicas</h2>
+<p>p-valores da associação dos três primeiros componentes principais (só tumores) com estádio (Kruskal-Wallis), sexo (Mann-Whitney), idade (Spearman) e sobrevida global (Cox univariado).</p>
+<div class="tabwrap"><style>#tab426 td:nth-child(1),#tab426 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab426">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>estádio (Kruskal)</th>
+      <th>sexo (Mann-Whitney)</th>
+      <th>idade (Spearman)</th>
+      <th>sobrevida OS (Cox)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PC1 (18,7%)</td>
+      <td></td>
+      <td>0.001</td>
+      <td>0.068</td>
+      <td>0.68</td>
+    </tr>
+    <tr>
+      <td>PC2 (8,5%)</td>
+      <td></td>
+      <td>0.946</td>
+      <td>4.04e-07</td>
+      <td>2.42e-05</td>
+    </tr>
+    <tr>
+      <td>PC3 (7,8%)</td>
+      <td></td>
+      <td>5.21e-05</td>
+      <td>0.113</td>
+      <td>0.000333</td>
+    </tr>
+  </tbody>
+</table></div>
+</main></body></html>

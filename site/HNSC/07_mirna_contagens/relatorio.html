@@ -1,0 +1,314 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>HNSC · miRNA-seq: contagens brutas (GDC)</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama HNSC</a></nav><h1>HNSC · miRNA-seq: contagens brutas (GDC)</h1>
+<p class="sub">BCGSC miRNA Profiling (miRBase v21) · gerado em 21/10/2026 21:56</p>
+<div class="kpis"><div class='kpi'><b>4,4 M</b><span>tamanho mediano</span></div><div class='kpi'><b>0,76</b><span>dispersão mediana α</span></div><div class='kpi'><b>450</b><span>miRNAs</span></div><div class='kpi'><b>525</b><span>amostras tumorais</span></div><div class='kpi'><b>44</b><span>amostras normais</span></div><div class='kpi'><b>0,0%</b><span>valores faltantes</span></div></div>
+<p class="fonte">Fonte: API do GDC (BCGSC miRNA Profiling)</p>
+<h2>Principais resultados</h2><ul class='achados'><li>Bibliotecas de 0,7 a 17,7 milhões de leituras (mediana 4,4). 1.085 de 1.881 features têm leitura em pelo menos 10% das amostras.</li><li>A variância cresce bem acima da média: a dispersão mediana da binomial negativa é α=0.76 (para features com média &gt; 10). Isso descarta um modelo Poisson e indica binomial negativa (ou Poisson-lognormal) na verossimilhança.</li><li>A fração de zeros é compatível com a binomial negativa (diferença mediana -2,2%); inflação de zeros não parece necessária.</li><li>Em média 84,9% das leituras de cada amostra vão para as 20 features mais abundantes.</li><li>450 miRNAs medidos em 569 amostras (525 tumorais e 44 normais); 0,0% dos valores estão faltando.</li><li>Os dois primeiros componentes principais explicam 13,7% e 9,0% da variância das features mais variáveis.</li><li>Correlação mediana entre amostras: 0,93.</li><li>Amostras com correlação muito abaixo das demais (possíveis outliers técnicos): TCGA-CV-6939-11, TCGA-CV-7091-11, TCGA-CV-7429-01, TCGA-D6-A6EP-01, TCGA-HD-A634-01.</li><li>Tumor x normal: 363 miRNAs diferentes com FDR &lt; 5% (236 maiores no tumor, 127 maiores no normal; 43 pacientes têm o par tumor-normal).</li><li>Mais aumentados no tumor: hsa-mir-615, hsa-mir-1910, hsa-mir-548f-1, hsa-mir-4652, hsa-mir-1305, hsa-mir-196a-2, hsa-mir-196a-1, hsa-mir-105-1.</li><li>Mais reduzidos no tumor: hsa-mir-99a, hsa-let-7c, hsa-mir-101-2, hsa-mir-101-1, hsa-mir-100, hsa-mir-204, hsa-mir-29c, hsa-mir-29a.</li><li>Associações clínicas com p &lt; 0,05 nos componentes principais: PC2 com sobrevida (p=0.0007).</li></ul>
+<h2>Biblioteca</h2>
+<figure><img src="biblioteca.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> número total de leituras atribuídas a features em cada amostra e quantas features passam de 10 leituras. Bibliotecas muito menores que as demais pedem atenção (ou um fator de tamanho no modelo).</figcaption></figure>
+<figure><img src="features_dominantes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> features que concentram mais leituras. Quando poucos genes dominam (ex.: albumina em fígado), a normalização por total de leituras fica enviesada; prefira TMM ou mediana das razões.</figcaption></figure>
+<h2>Sobredispersão e zeros</h2>
+<figure><img src="sobredispersao_zeros.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, se os pontos seguissem a linha azul o Poisson bastaria; a curva vermelha é a binomial negativa ajustada. No meio, a distribuição da dispersão por feature (para priors hierárquicos). À direita, a fração de zeros observada contra o esperado por cada modelo.</figcaption></figure>
+<h2>Exploração em log2(CPM+1)</h2>
+<p>Features com CPM ≥ 1 em pelo menos 20% das amostras (450 features).</p>
+<h2>Distribuição dos valores</h2>
+<figure><img src="logcpm_distribuicao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, a distribuição de log2(CPM+1) em cada amostra, ordenadas pela mediana; amostras muito deslocadas das demais podem ter problema técnico ou de normalização. À direita, a densidade de cada amostra sobreposta (vermelho = tumor, azul = normal).</figcaption></figure>
+<figure><img src="logcpm_media_variancia.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada ponto é um miRNA. Em vermelho, os 450 mais variáveis, usados na PCA, no UMAP e nos heatmaps. À direita, quantas amostras faltam por feature.</figcaption></figure>
+<h2>Estrutura das amostras</h2>
+<figure><img src="logcpm_pca.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> a PCA resume as features mais variáveis em poucos eixos. Amostras próximas têm perfis parecidos. Separação entre tumor e normal é esperada; separação por estádio indica que a ômica carrega informação de progressão.</figcaption></figure>
+<figure><img src="logcpm_umap.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> UMAP é uma projeção não linear das mesmas features. Distâncias globais não são interpretáveis, mas grupos bem separados sugerem subtipos.</figcaption></figure>
+<figure><img src="logcpm_correlacao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> correlação de Pearson entre pares de amostras, com agrupamento hierárquico. A barra colorida de cima indica tipo (vermelho tumor, azul normal) e estádio.</figcaption></figure>
+<figure><img src="logcpm_heatmap_top.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> os miRNAs mais variáveis, padronizados por linha (vermelho = acima da média do gene, azul = abaixo). Blocos de cor mostram grupos de amostras com programas em comum.</figcaption></figure>
+<h2>Tumor x normal</h2>
+<figure><img src="logcpm_tumor_vs_normal_volcano.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> eixo x = diferença média entre tumor e normal; eixo y = significância. Vermelho = maior no tumor, azul = maior no normal (FDR &lt; 5%, teste t de Welch).</figcaption></figure>
+<h3>Features mais diferentes entre tumor e normal</h3>
+<div class="tabwrap"><style>#tab152 td:nth-child(1),#tab152 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab152">
+  <thead>
+    <tr style="text-align: right;">
+      <th>miRNA_ID</th>
+      <th>diferenca_tumor_menos_normal</th>
+      <th>t</th>
+      <th>p</th>
+      <th>fdr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hsa-mir-615</td>
+      <td>1.532</td>
+      <td>28.124</td>
+      <td>9e-77</td>
+      <td>4.05e-74</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-1910</td>
+      <td>1.006</td>
+      <td>20.299</td>
+      <td>4.54e-47</td>
+      <td>1.02e-44</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-548f-1</td>
+      <td>0.614</td>
+      <td>15.228</td>
+      <td>4.66e-44</td>
+      <td>6.99e-42</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-4652</td>
+      <td>1.594</td>
+      <td>19.896</td>
+      <td>1.09e-40</td>
+      <td>1.22e-38</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-99a</td>
+      <td>-2.325</td>
+      <td>-20.072</td>
+      <td>2.49e-35</td>
+      <td>2.24e-33</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-1305</td>
+      <td>0.67</td>
+      <td>14.963</td>
+      <td>5.87e-33</td>
+      <td>4.4e-31</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-196a-2</td>
+      <td>3.414</td>
+      <td>20.334</td>
+      <td>2.72e-32</td>
+      <td>1.75e-30</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-196a-1</td>
+      <td>3.376</td>
+      <td>19.972</td>
+      <td>2.34e-31</td>
+      <td>1.32e-29</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-105-1</td>
+      <td>2.008</td>
+      <td>13.207</td>
+      <td>3.35e-31</td>
+      <td>1.67e-29</td>
+    </tr>
+    <tr>
+      <td>hsa-let-7c</td>
+      <td>-2.106</td>
+      <td>-17.975</td>
+      <td>8.1e-30</td>
+      <td>3.65e-28</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-105-2</td>
+      <td>2.041</td>
+      <td>12.879</td>
+      <td>5.36e-29</td>
+      <td>2.19e-27</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-301b</td>
+      <td>0.962</td>
+      <td>15.406</td>
+      <td>2.6e-28</td>
+      <td>9.24e-27</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-130b</td>
+      <td>1.471</td>
+      <td>18.53</td>
+      <td>2.67e-28</td>
+      <td>9.24e-27</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-101-2</td>
+      <td>-1.908</td>
+      <td>-20.063</td>
+      <td>2.97e-28</td>
+      <td>9.54e-27</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-101-1</td>
+      <td>-1.904</td>
+      <td>-19.78</td>
+      <td>7.55e-28</td>
+      <td>2.27e-26</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-100</td>
+      <td>-1.869</td>
+      <td>-17.801</td>
+      <td>2.01e-27</td>
+      <td>5.66e-26</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-503</td>
+      <td>2.06</td>
+      <td>17.853</td>
+      <td>2.97e-26</td>
+      <td>7.86e-25</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-196b</td>
+      <td>3.688</td>
+      <td>18.531</td>
+      <td>1.67e-25</td>
+      <td>4.17e-24</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-877</td>
+      <td>1.103</td>
+      <td>15.334</td>
+      <td>2.7e-25</td>
+      <td>6.4e-24</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-204</td>
+      <td>-2.293</td>
+      <td>-15.834</td>
+      <td>1.03e-24</td>
+      <td>2.31e-23</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-1301</td>
+      <td>1.528</td>
+      <td>17.292</td>
+      <td>1.34e-24</td>
+      <td>2.88e-23</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-4746</td>
+      <td>1.256</td>
+      <td>15.17</td>
+      <td>3.38e-24</td>
+      <td>6.91e-23</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-455</td>
+      <td>2.461</td>
+      <td>17.462</td>
+      <td>4.02e-24</td>
+      <td>7.87e-23</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-589</td>
+      <td>0.839</td>
+      <td>14.391</td>
+      <td>3.05e-23</td>
+      <td>5.71e-22</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-767</td>
+      <td>2.12</td>
+      <td>11.584</td>
+      <td>3.99e-23</td>
+      <td>7.18e-22</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-29c</td>
+      <td>-2.113</td>
+      <td>-14.96</td>
+      <td>6.74e-22</td>
+      <td>1.17e-20</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-937</td>
+      <td>1.205</td>
+      <td>12.965</td>
+      <td>3.7e-21</td>
+      <td>6.16e-20</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-450a-2</td>
+      <td>1.207</td>
+      <td>13.786</td>
+      <td>7.21e-21</td>
+      <td>1.16e-19</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-29a</td>
+      <td>-1.298</td>
+      <td>-14.073</td>
+      <td>1.85e-20</td>
+      <td>2.86e-19</td>
+    </tr>
+    <tr>
+      <td>hsa-mir-671</td>
+      <td>0.997</td>
+      <td>13.881</td>
+      <td>2.64e-20</td>
+      <td>3.86e-19</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Associação com variáveis clínicas</h2>
+<p>p-valores da associação dos três primeiros componentes principais (só tumores) com estádio (Kruskal-Wallis), sexo (Mann-Whitney), idade (Spearman) e sobrevida global (Cox univariado).</p>
+<div class="tabwrap"><style>#tab153 td:nth-child(1),#tab153 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab153">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>estádio (Kruskal)</th>
+      <th>sexo (Mann-Whitney)</th>
+      <th>idade (Spearman)</th>
+      <th>sobrevida OS (Cox)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PC1 (12,2%)</td>
+      <td>0.449</td>
+      <td>0.184</td>
+      <td>0.245</td>
+      <td>0.181</td>
+    </tr>
+    <tr>
+      <td>PC2 (9,3%)</td>
+      <td>0.331</td>
+      <td>0.338</td>
+      <td>0.329</td>
+      <td>0.000699</td>
+    </tr>
+    <tr>
+      <td>PC3 (7,2%)</td>
+      <td>0.258</td>
+      <td>0.06</td>
+      <td>0.858</td>
+      <td>0.83</td>
+    </tr>
+  </tbody>
+</table></div>
+</main></body></html>

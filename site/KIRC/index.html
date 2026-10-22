@@ -29,21 +29,17 @@ table.tab thead th{background:var(--th)}
 .fonte{color:var(--muted);font-size:13px}
 a{color:var(--acc)}
 nav a{margin-right:12px}
-</style></head><body><main><nav><a href="../index.html">← Todos os cânceres</a></nav><h1>KIRC · panorama multiômico</h1><!-- botoes-download --><style>.barra-dl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}.barra-dl .btn{display:inline-block;font-weight:600;padding:8px 14px;border:1px solid var(--acc);border-radius:6px;text-decoration:none;background:var(--panel)}.barra-dl .btn.cheio{background:var(--acc);color:var(--bg)}.barra-dl span{color:var(--muted);font-size:13px}</style><div class="barra-dl"><a class="btn" href="../downloads/tabelas_KIRC.zip" download>Baixar tabelas (0,1 MB)</a><span>Exemplos: um paciente por combinação de ômicas, com todos os dados brutos dele.</span></div>
-<p class="sub">TCGA PanCanAtlas 2018, contagens brutas do GDC, ATAC-seq e CPTAC · gerado em 21/10/2026 19:12</p>
-<div class="kpis"><div class='kpi'><b>536</b><span>pacientes (TCGA-CDR)</span></div><div class='kpi'><b>7</b><span>ômicas com dados</span></div><div class='kpi'><b>210</b><span>pacientes com todas</span></div><div class='kpi'><b>26</b><span>combinações distintas</span></div></div>
-<div class="nota"><b>Metilação 450k:</b> A API do Xena não respondeu; usei a metilação do GDC (processamento SeSAMe/hg38), não a versão PanCanAtlas.</div>
-<div class="nota"><b>RNA-seq contagens GDC:</b> A API do GDC não respondeu. As contagens vieram do GDC hub do Xena, que guarda log2(contagem+1); revertemos com 2^x−1 e arredondamento, o que pode diferir em poucas leituras nos genes muito expressos.</div>
-<div class="nota"><b>miRNA contagens GDC:</b> A API do GDC não respondeu nesta execução. Para miRNA não há alternativa com contagem bruta: o GDC hub do Xena só guarda log2(RPM+1), e sem o tamanho da biblioteca não dá para voltar à contagem. Rode de novo quando a API do GDC estiver acessível.</div>
-<div class="nota"><b>ATAC-seq:</b> O hub de ATAC-seq do Xena não respondeu nesta execução.</div>
+</style></head><body><main><nav><a href="../index.html">← Todos os cânceres</a></nav><h1>KIRC · panorama multiômico</h1><!-- botoes-download --><style>.barra-dl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}.barra-dl .btn{display:inline-block;font-weight:600;padding:8px 14px;border:1px solid var(--acc);border-radius:6px;text-decoration:none;background:var(--panel)}.barra-dl .btn.cheio{background:var(--acc);color:var(--bg)}.barra-dl span{color:var(--muted);font-size:13px}</style><div class="barra-dl"><a class="btn cheio" href="../downloads/exemplos_KIRC.zip" download>Baixar dados de exemplo (30,5 MB)</a><a class="btn" href="../downloads/tabelas_KIRC.zip" download>Baixar tabelas (5,7 MB)</a><span>Exemplos: um paciente por combinação de ômicas, com todos os dados brutos dele.</span></div>
+<p class="sub">TCGA PanCanAtlas 2018, contagens brutas do GDC, ATAC-seq e CPTAC · gerado em 21/10/2026 22:57</p>
+<div class="kpis"><div class='kpi'><b>536</b><span>pacientes (TCGA-CDR)</span></div><div class='kpi'><b>9</b><span>ômicas com dados</span></div><div class='kpi'><b>3</b><span>pacientes com todas</span></div><div class='kpi'><b>28</b><span>combinações distintas</span></div></div>
 <div class="nota"><b>Proteoma CPTAC:</b> O CPTAC só mediu proteoma por espectrometria de massa em amostras TCGA de BRCA, COAD/READ e OV. As coortes prospectivas do CPTAC são outros pacientes.</div>
 <h2>Relatórios</h2>
-<div class="tabwrap"><table class="tab"><thead><tr><th>Relatório</th><th>pacientes</th><th class='t'>conteúdo</th><th class='t'>situação</th></tr></thead><tbody><tr><td><a href="01_clinico/relatorio.html">Clínico</a></td><td>536</td><td class='t'>Completude, estádio, metadados e sobrevida</td><td class='t'>ok</td></tr><tr><td>Mutação (MC3)</td><td>368</td><td class='t'>Carga mutacional, genes mais mutados, espectro e oncoplot</td><td class='t'>não rodado</td></tr><tr><td>CNV (SNP6)</td><td>506</td><td class='t'>Ganhos e perdas no genoma, fração alterada e genes recorrentes</td><td class='t'>não rodado</td></tr><tr><td>RNA-seq PanCan</td><td>533</td><td class='t'>Distribuição, PCA/UMAP, agrupamento, tumor x normal e clínica</td><td class='t'>não rodado</td></tr><tr><td>RNA-seq contagens GDC</td><td>533</td><td class='t'>Bibliotecas, superdispersão (binomial negativa), zeros e exploração em log-CPM</td><td class='t'>não rodado</td></tr><tr><td>miRNA PanCan</td><td>499</td><td class='t'>Distribuição, PCA/UMAP, agrupamento, tumor x normal e clínica</td><td class='t'>não rodado</td></tr><tr><td>miRNA contagens GDC</td><td>0</td><td class='t'>Bibliotecas, superdispersão, zeros e exploração em log-CPM</td><td class='t'>não rodado</td></tr><tr><td>Metilação 450k</td><td>319</td><td class='t'>Distribuição de beta, metilação global e exploração dos CpGs variáveis</td><td class='t'>não rodado</td></tr><tr><td>RPPA</td><td>444</td><td class='t'>Proteínas e fosfoproteínas: PCA, agrupamento e clínica</td><td class='t'>não rodado</td></tr><tr><td>ATAC-seq</td><td>0</td><td class='t'>Picos de cromatina acessível: PCA, agrupamento e clínica</td><td class='t'>não rodado</td></tr><tr><td>Proteoma CPTAC</td><td>0</td><td class='t'>Proteoma por espectrometria de massa: faltantes, PCA e clínica</td><td class='t'>não rodado</td></tr></tbody></table></div>
+<div class="tabwrap"><table class="tab"><thead><tr><th>Relatório</th><th>pacientes</th><th class='t'>conteúdo</th><th class='t'>situação</th></tr></thead><tbody><tr><td><a href="01_clinico/relatorio.html">Clínico</a></td><td>536</td><td class='t'>Completude, estádio, metadados e sobrevida</td><td class='t'>ok</td></tr><tr><td><a href="02_mutacao/relatorio.html">Mutação (MC3)</a></td><td>368</td><td class='t'>Carga mutacional, genes mais mutados, espectro e oncoplot</td><td class='t'>ok</td></tr><tr><td><a href="03_cnv/relatorio.html">CNV (SNP6)</a></td><td>506</td><td class='t'>Ganhos e perdas no genoma, fração alterada e genes recorrentes</td><td class='t'>ok</td></tr><tr><td><a href="04_rnaseq_pancan/relatorio.html">RNA-seq PanCan</a></td><td>533</td><td class='t'>Distribuição, PCA/UMAP, agrupamento, tumor x normal e clínica</td><td class='t'>ok</td></tr><tr><td><a href="05_rnaseq_contagens/relatorio.html">RNA-seq contagens GDC</a></td><td>533</td><td class='t'>Bibliotecas, superdispersão (binomial negativa), zeros e exploração em log-CPM</td><td class='t'>ok</td></tr><tr><td><a href="06_mirna_pancan/relatorio.html">miRNA PanCan</a></td><td>499</td><td class='t'>Distribuição, PCA/UMAP, agrupamento, tumor x normal e clínica</td><td class='t'>ok</td></tr><tr><td><a href="07_mirna_contagens/relatorio.html">miRNA contagens GDC</a></td><td>516</td><td class='t'>Bibliotecas, superdispersão, zeros e exploração em log-CPM</td><td class='t'>ok</td></tr><tr><td><a href="08_metilacao/relatorio.html">Metilação 450k</a></td><td>312</td><td class='t'>Distribuição de beta, metilação global e exploração dos CpGs variáveis</td><td class='t'>ok</td></tr><tr><td><a href="09_rppa/relatorio.html">RPPA</a></td><td>444</td><td class='t'>Proteínas e fosfoproteínas: PCA, agrupamento e clínica</td><td class='t'>ok</td></tr><tr><td><a href="10_atac/relatorio.html">ATAC-seq</a></td><td>16</td><td class='t'>Picos de cromatina acessível: PCA, agrupamento e clínica</td><td class='t'>ok</td></tr><tr><td><a href="11_cptac/relatorio.html">Proteoma CPTAC</a></td><td>0</td><td class='t'>Proteoma por espectrometria de massa: faltantes, PCA e clínica</td><td class='t'>não existe para este câncer</td></tr><tr><td><a href="20_comparativo/relatorio.html"><b>Comparações entre ômicas</b></a></td><td></td><td class='t'>Concordância entre fontes, efeitos em cis, mRNA x proteína, RV, agrupamento integrado</td><td class='t'>ok</td></tr></tbody></table></div>
 <p><a href="../PANCAN/index.html">→ Comparação pan-câncer</a> · <a href="../index.html">todos os cânceres</a></p>
 <h2>Combinações de ômicas por paciente</h2>
 <figure><img src="00_disponibilidade/upset_combinacoes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada coluna é uma combinação exata de ômicas (bolinhas pretas ligadas) e a barra de cima diz quantos pacientes têm exatamente aquela combinação. A barra vermelha é a dos pacientes com todas as ômicas que existem para este câncer. À esquerda, o total de pacientes de cada ômica. Conta só amostras tumorais.</figcaption></figure>
 <h3>Quantidade de dados por ômica</h3>
-<div class="tabwrap"><style>#tab32 td:nth-child(1),#tab32 th:nth-child(1),#tab32 td:nth-child(7),#tab32 th:nth-child(7){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab32">
+<div class="tabwrap"><style>#tab199 td:nth-child(1),#tab199 th:nth-child(1),#tab199 td:nth-child(7),#tab199 th:nth-child(7){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab199">
   <thead>
     <tr style="text-align: right;">
       <th>ômica</th>
@@ -90,7 +86,7 @@ nav a{margin-right:12px}
       <td>534</td>
       <td>72</td>
       <td>72</td>
-      <td>PanCanAtlas EB++ (arquivo inteiro lido em fluxo)</td>
+      <td>PanCanAtlas EB++ via API do Xena</td>
     </tr>
     <tr>
       <td>RNA-seq contagens GDC</td>
@@ -99,7 +95,7 @@ nav a{margin-right:12px}
       <td>534</td>
       <td>72</td>
       <td>72</td>
-      <td>GDC hub (STAR counts em log2(x+1), revertido para contagem)</td>
+      <td>API do GDC (STAR - Counts)</td>
     </tr>
     <tr>
       <td>miRNA PanCan</td>
@@ -112,21 +108,21 @@ nav a{margin-right:12px}
     </tr>
     <tr>
       <td>miRNA contagens GDC</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>indisponível</td>
+      <td>516</td>
+      <td>96.3</td>
+      <td>517</td>
+      <td>71</td>
+      <td>71</td>
+      <td>API do GDC (BCGSC miRNA Profiling)</td>
     </tr>
     <tr>
       <td>Metilação 450k</td>
-      <td>319</td>
-      <td>59.5</td>
-      <td>320</td>
-      <td>160</td>
-      <td>160</td>
-      <td>GDC HM450 (SeSAMe, hg38) via arquivo do GDC hub</td>
+      <td>312</td>
+      <td>58.2</td>
+      <td>313</td>
+      <td>157</td>
+      <td>157</td>
+      <td>PanCanAtlas HM450 via API do Xena</td>
     </tr>
     <tr>
       <td>RPPA</td>
@@ -139,12 +135,12 @@ nav a{margin-right:12px}
     </tr>
     <tr>
       <td>ATAC-seq</td>
+      <td>16</td>
+      <td>3</td>
+      <td>16</td>
       <td>0</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>indisponível</td>
+      <td>ATAC-seq TCGA (Corces 2018) via API do Xena</td>
     </tr>
     <tr>
       <td>Proteoma CPTAC</td>
@@ -160,7 +156,7 @@ nav a{margin-right:12px}
 <figure><img src="00_disponibilidade/funil_intersecao.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> quantos pacientes sobram quando você exige cada ômica a mais, da mais comum para a menos comum. Ajuda a decidir quais ômicas entram no modelo.</figcaption></figure>
 <figure><img src="00_disponibilidade/omicas_por_paciente.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> distribuição do número de ômicas (incluindo o clínico) por paciente.</figcaption></figure>
 <h3>Combinações (todas as ômicas)</h3>
-<div class="tabwrap"><style>#tab33 td:nth-child(1),#tab33 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab33">
+<div class="tabwrap"><style>#tab200 td:nth-child(1),#tab200 th:nth-child(1){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab200">
   <thead>
     <tr style="text-align: right;">
       <th>combinação</th>
@@ -170,38 +166,48 @@ nav a{margin-right:12px}
   </thead>
   <tbody>
     <tr>
-      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+Metilação 450k+RPPA</td>
-      <td>210</td>
+      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k+RPPA</td>
+      <td>207</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+RPPA</td>
+      <td>84</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+RPPA</td>
+      <td>73</td>
       <td>8</td>
     </tr>
     <tr>
-      <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+RPPA</td>
-      <td>84</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+RPPA</td>
-      <td>73</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+Metilação 450k</td>
-      <td>43</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+Metilação 450k+RPPA</td>
+      <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k+RPPA</td>
       <td>40</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k</td>
+      <td>31</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC</td>
+      <td>20</td>
       <td>7</td>
     </tr>
     <tr>
-      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan</td>
-      <td>20</td>
-      <td>6</td>
+      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k+ATAC-seq</td>
+      <td>12</td>
+      <td>9</td>
     </tr>
     <tr>
-      <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+Metilação 450k</td>
+      <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k</td>
       <td>10</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA contagens GDC+RPPA</td>
+      <td>9</td>
       <td>6</td>
     </tr>
     <tr>
@@ -210,29 +216,19 @@ nav a{margin-right:12px}
       <td>5</td>
     </tr>
     <tr>
-      <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan</td>
+      <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC</td>
       <td>9</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+RPPA</td>
       <td>6</td>
-      <td>4</td>
     </tr>
     <tr>
-      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+RPPA</td>
+      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+miRNA contagens GDC+RPPA</td>
       <td>6</td>
       <td>5</td>
     </tr>
     <tr>
-      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+Metilação 450k+RPPA</td>
+      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k+RPPA</td>
       <td>5</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+Metilação 450k+RPPA</td>
-      <td>4</td>
-      <td>6</td>
+      <td>8</td>
     </tr>
     <tr>
       <td>Clínico+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC</td>
@@ -240,14 +236,19 @@ nav a{margin-right:12px}
       <td>4</td>
     </tr>
     <tr>
+      <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k+RPPA+ATAC-seq</td>
+      <td>3</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k+RPPA</td>
+      <td>2</td>
+      <td>7</td>
+    </tr>
+    <tr>
       <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC</td>
       <td>2</td>
       <td>5</td>
-    </tr>
-    <tr>
-      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+Metilação 450k+RPPA</td>
-      <td>2</td>
-      <td>6</td>
     </tr>
     <tr>
       <td>Clínico+RPPA</td>
@@ -260,29 +261,34 @@ nav a{margin-right:12px}
       <td>3</td>
     </tr>
     <tr>
-      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+Metilação 450k</td>
+      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+RPPA</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+miRNA contagens GDC</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Clínico+Mutação (MC3)+CNV (SNP6)+miRNA PanCan+miRNA contagens GDC</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+Metilação 450k</td>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+miRNA contagens GDC+ATAC-seq</td>
       <td>1</td>
       <td>6</td>
     </tr>
     <tr>
-      <td>Clínico+Mutação (MC3)+CNV (SNP6)+miRNA PanCan</td>
+      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+miRNA contagens GDC+RPPA</td>
       <td>1</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+Metilação 450k</td>
-      <td>1</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+Metilação 450k</td>
-      <td>1</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+miRNA PanCan+RPPA</td>
-      <td>1</td>
-      <td>5</td>
+      <td>6</td>
     </tr>
     <tr>
       <td>Clínico+Mutação (MC3)+CNV (SNP6)+RNA-seq PanCan+RNA-seq contagens GDC+RPPA</td>
@@ -290,14 +296,106 @@ nav a{margin-right:12px}
       <td>6</td>
     </tr>
     <tr>
-      <td>Clínico+Mutação (MC3)+CNV (SNP6)+Metilação 450k+RPPA</td>
+      <td>Clínico+Mutação (MC3)+RNA-seq PanCan+RNA-seq contagens GDC+RPPA</td>
       <td>1</td>
       <td>5</td>
     </tr>
     <tr>
-      <td>Clínico+RNA-seq PanCan+RNA-seq contagens GDC+Metilação 450k+RPPA</td>
+      <td>Clínico+Mutação (MC3)+CNV (SNP6)+Metilação 450k+RPPA</td>
       <td>1</td>
       <td>5</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Pacientes de exemplo guardados</h2>
+<p>Os dados brutos foram apagados depois das análises. Para cada combinação abaixo ficou guardado um paciente completo (todas as features de cada ômica) em <code>exemplos/KIRC</code>.</p>
+<div class="tabwrap"><style>#tab201 td:nth-child(1),#tab201 th:nth-child(1),#tab201 td:nth-child(2),#tab201 th:nth-child(2),#tab201 td:nth-child(4),#tab201 th:nth-child(4){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab201">
+  <thead>
+    <tr style="text-align: right;">
+      <th>paciente</th>
+      <th>pasta em exemplos/KIRC</th>
+      <th>pacientes com esta combinação</th>
+      <th>ômicas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TCGA-CJ-5671</td>
+      <td>01_mut-cnv-rna-rnaCont-mir-mirCont-met-rppa-atac</td>
+      <td>3</td>
+      <td>Mutação (MC3) + CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC + Metilação 450k + RPPA + ATAC-seq</td>
+    </tr>
+    <tr>
+      <td>TCGA-A3-3357</td>
+      <td>02_mut-cnv-rna-rnaCont-mir-mirCont-met-rppa</td>
+      <td>207</td>
+      <td>Mutação (MC3) + CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC + Metilação 450k + RPPA</td>
+    </tr>
+    <tr>
+      <td>TCGA-3Z-A93Z</td>
+      <td>03_mut-cnv-rna-rnaCont-mir-mirCont-met-atac</td>
+      <td>12</td>
+      <td>Mutação (MC3) + CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC + Metilação 450k + ATAC-seq</td>
+    </tr>
+    <tr>
+      <td>TCGA-A3-3308</td>
+      <td>04_mut-cnv-rna-rnaCont-mir-mirCont-rppa</td>
+      <td>73</td>
+      <td>Mutação (MC3) + CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC + RPPA</td>
+    </tr>
+    <tr>
+      <td>TCGA-AK-3428</td>
+      <td>05_cnv-rna-rnaCont-mir-mirCont-met-rppa</td>
+      <td>40</td>
+      <td>CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC + Metilação 450k + RPPA</td>
+    </tr>
+    <tr>
+      <td>TCGA-A3-3358</td>
+      <td>06_mut-cnv-rna-rnaCont-mir-mirCont-met</td>
+      <td>31</td>
+      <td>Mutação (MC3) + CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC + Metilação 450k</td>
+    </tr>
+    <tr>
+      <td>TCGA-A3-3324</td>
+      <td>07_cnv-rna-rnaCont-mir-mirCont-rppa</td>
+      <td>84</td>
+      <td>CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC + RPPA</td>
+    </tr>
+    <tr>
+      <td>TCGA-AK-3426</td>
+      <td>08_mut-cnv-rna-rnaCont-mir-mirCont</td>
+      <td>20</td>
+      <td>Mutação (MC3) + CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC</td>
+    </tr>
+    <tr>
+      <td>TCGA-AK-3431</td>
+      <td>09_cnv-rna-rnaCont-mir-mirCont-met</td>
+      <td>10</td>
+      <td>CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC + Metilação 450k</td>
+    </tr>
+    <tr>
+      <td>TCGA-BP-4976</td>
+      <td>10_mut-rna-rnaCont-mirCont-rppa</td>
+      <td>9</td>
+      <td>Mutação (MC3) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA contagens GDC + RPPA</td>
+    </tr>
+    <tr>
+      <td>TCGA-AK-3447</td>
+      <td>11_cnv-rna-rnaCont-mir-mirCont</td>
+      <td>9</td>
+      <td>CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + miRNA PanCan + miRNA contagens GDC</td>
+    </tr>
+    <tr>
+      <td>TCGA-A3-3306</td>
+      <td>12_cnv-rna-rnaCont-rppa</td>
+      <td>9</td>
+      <td>CNV (SNP6) + RNA-seq PanCan + RNA-seq contagens GDC + RPPA</td>
+    </tr>
+    <tr>
+      <td>TCGA-BP-4331</td>
+      <td>13_rna-rnaCont-mirCont-rppa</td>
+      <td>6</td>
+      <td>RNA-seq PanCan + RNA-seq contagens GDC + miRNA contagens GDC + RPPA</td>
     </tr>
   </tbody>
 </table></div>

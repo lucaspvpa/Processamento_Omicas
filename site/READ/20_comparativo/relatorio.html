@@ -1,0 +1,142 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>READ · Comparações entre ômicas</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama READ</a></nav><h1>READ · Comparações entre ômicas</h1>
+<p class="sub">Relações entre camadas moleculares nos mesmos pacientes · gerado em 22/10/2026 03:40</p>
+<h2>Principais resultados</h2><ul class='achados'><li>PanCan x GDC: correlação mediana por paciente de 0.942 em 12.736 genes; por gene, 0.96.</li><li>CNV x mRNA: mediana ρ=0.23 em 16.731 pares; 9557 com FDR &lt; 5% (9469 no sentido esperado).</li><li>Metilação x mRNA: mediana ρ=-0.02 em 11.984 pares; 3377 com FDR &lt; 5% (1916 no sentido esperado).</li><li>RPPA x mRNA: mediana ρ=0.25 em 163 pares; 102 com FDR &lt; 5% (101 no sentido esperado).</li><li>CPTAC x mRNA: mediana ρ=0.18 em 4.917 pares; 86 com FDR &lt; 5% (86 no sentido esperado).</li><li>RPPA x CPTAC: mediana ρ=0.12 em 101 pares; 2 com FDR &lt; 5% (2 no sentido esperado).</li><li>miRNA x mRNA: 0,1% dos pares têm ρ &lt; −0,5.</li><li>Agrupamento integrado de 113 pacientes em 2 grupos (silhueta 0.09); sobrevida diferente entre grupos com log-rank p=0.19.</li></ul>
+<h2>RNA-seq PanCan x contagens brutas do GDC</h2>
+<figure><img src="pancan_vs_gdc.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> a mesma amostra quantificada pelo PanCanAtlas (RSEM, hg19, corrigido por lote) e pelo GDC (STAR, hg38, contagem bruta em log-CPM). Correlação alta por paciente indica que as duas fontes medem o mesmo perfil; correlação baixa por gene aparece em genes pouco expressos ou com anotação diferente entre GENCODE v36 e o RSEM antigo.</figcaption></figure>
+<h2>Efeitos em cis sobre a expressão</h2>
+<figure><img src="cnv_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> para cada gene, a correlação entre número de cópias e expressão nos mesmos pacientes. Ganhos que aumentam a expressão (efeito de dosagem) deslocam a distribuição para a direita. Mediana ρ = 0.23; 9557 de 16731 pares com FDR &lt; 5% (n mediano = 153 pacientes).</figcaption></figure>
+<figure><img src="metilacao_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada par é um CpG variável e o gene anotado a ele. Metilação de promotor costuma silenciar o gene (ρ negativo); no corpo do gene a relação pode ser positiva. Mediana ρ = -0.02; 3377 de 11984 pares com FDR &lt; 5% (n mediano = 93 pacientes).</figcaption></figure>
+<h2>Do mRNA à proteína</h2>
+<figure><img src="rppa_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> 193 anticorpos de proteína total ligados ao gene correspondente. Correlação mRNA-proteína costuma ser moderada (mediana ~0,3-0,5) por regulação pós-transcricional. Mediana ρ = 0.25; 102 de 163 pares com FDR &lt; 5% (n mediano = 121 pacientes).</figcaption></figure>
+<figure><img src="cptac_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> correlação entre abundância da proteína por espectrometria de massa e o mRNA do mesmo gene. Mediana ρ = 0.18; 86 de 4917 pares com FDR &lt; 5% (n mediano = 26 pacientes).</figcaption></figure>
+<figure><img src="rppa_vs_cptac.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> concordância entre as duas tecnologias de proteína. Mediana ρ = 0.12; 2 de 101 pares com FDR &lt; 5% (n mediano = 22 pacientes).</figcaption></figure>
+<h2>miRNA x mRNA</h2>
+<figure><img src="mirna_vs_mrna.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> miRNAs reprimem seus alvos, então pares com ρ negativo forte são candidatos a interação miRNA-alvo (confirme em bases como miRTarBase/TargetScan). Com poucos pacientes, correlações extremas aparecem por acaso.</figcaption></figure>
+<h3>Pares miRNA-gene mais negativos</h3>
+<div class="tabwrap"><style>#tab413 td:nth-child(1),#tab413 th:nth-child(1),#tab413 td:nth-child(2),#tab413 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab413">
+  <thead>
+    <tr style="text-align: right;">
+      <th>miRNA</th>
+      <th>gene</th>
+      <th>rho</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>PLN</td>
+      <td>-0.645</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>MGP</td>
+      <td>-0.639</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>PSD</td>
+      <td>-0.635</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>LOC399959</td>
+      <td>-0.615</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>SFRP2</td>
+      <td>-0.613</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>HAND2</td>
+      <td>-0.606</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>GAS1</td>
+      <td>-0.602</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>SPOCK1</td>
+      <td>-0.6</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>CNN1</td>
+      <td>-0.598</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>SFRP4</td>
+      <td>-0.594</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>FAP</td>
+      <td>-0.593</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>CYP1B1</td>
+      <td>-0.592</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>HSPB7</td>
+      <td>-0.591</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>PDGFRL</td>
+      <td>-0.59</td>
+    </tr>
+    <tr>
+      <td>hsa-miR-194-3p</td>
+      <td>SULF1</td>
+      <td>-0.59</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Mutação e expressão do próprio gene</h2>
+<figure><img src="mutacao_vs_expressao.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> expressão do gene em tumores com e sem mutação não silenciosa nele. Mutações truncantes (nonsense, frameshift) costumam reduzir a expressão por decaimento do mRNA (NMD); mutações ativadoras costumam não mudar a expressão.</figcaption></figure>
+<h2>Métricas de amostra cruzadas</h2>
+<figure><img src="metricas_cruzadas.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> relação entre métricas resumidas de cada tumor (carga mutacional, fração do genoma alterada, metilação global, tamanho de biblioteca). ρ de Spearman no canto.</figcaption></figure>
+<h2>Integração: as ômicas contam a mesma história?</h2>
+<figure><img src="similaridade_entre_omicas.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, o coeficiente RV compara as matrizes de distância entre pacientes de duas ômicas (1 = mesma estrutura, 0 = sem relação), usando os 10 primeiros componentes de cada uma. À direita, o quanto os agrupamentos k-means de cada ômica coincidem (0 = acaso). Ômicas com RV alto trazem informação redundante; RV baixo indica informação complementar, que é o que a integração multiômica aproveita.</figcaption></figure>
+<figure><img src="agrupamento_integrado.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> 113 pacientes com todas estas ômicas: RNA-seq PanCan, CNV (SNP6), miRNA PanCan, RPPA. Cada ômica foi resumida em 10 componentes e ponderada para pesar igual (estilo MFA). O k-means escolheu 2 grupos pela silhueta (0.09). À direita, a sobrevida de cada grupo. É um ponto de partida exploratório para o seu modelo, não um resultado final.</figcaption></figure>
+<h2>Qual ômica se associa à clínica?</h2>
+<figure><img src="pc1_vs_clinica.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> p-valores da associação do primeiro componente principal de cada ômica (só tumores) com estádio, sexo, idade e sobrevida global. Quanto mais escuro, mais forte a associação.</figcaption></figure>
+</main></body></html>

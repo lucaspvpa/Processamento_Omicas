@@ -1,4 +1,4 @@
-<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>CHOL · ATAC-seq</title><style>
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>CHOL · Cromatina acessível (ATAC-seq)</title><style>
 :root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
 --nota-bg:#fff8e6;--nota-borda:#f0dca8}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
@@ -29,8 +29,14 @@ table.tab thead th{background:var(--th)}
 .fonte{color:var(--muted);font-size:13px}
 a{color:var(--acc)}
 nav a{margin-right:12px}
-</style></head><body><main><nav><a href="../index.html">← Panorama CHOL</a></nav><h1>CHOL · ATAC-seq</h1>
-<p class="sub">Sem dados para analisar nesta execução · gerado em 21/10/2026 19:04</p>
-<div class="nota">Sem amostras deste câncer (indisponível).</div>
-<div class="nota">O hub de ATAC-seq do Xena não respondeu nesta execução.</div>
+</style></head><body><main><nav><a href="../index.html">← Panorama CHOL</a></nav><h1>CHOL · Cromatina acessível (ATAC-seq)</h1>
+<p class="sub">Corces et al., Science 2018; picos em log2((contagem+5)/milhão), normalizados por quantil · gerado em 21/10/2026 17:31</p>
+<div class="kpis"><div class='kpi'><b>20.000</b><span>picos</span></div><div class='kpi'><b>2</b><span>amostras tumorais</span></div><div class='kpi'><b>0</b><span>amostras normais</span></div><div class='kpi'><b>0,0%</b><span>valores faltantes</span></div></div>
+<p class="fonte">Fonte: ATAC-seq TCGA (Corces 2018) via API do Xena</p>
+<div class="nota">Só cerca de 400 tumores de 23 cânceres têm ATAC-seq, sem amostras normais. Guardamos os picos mais variáveis para a exploração.</div>
+<h2>Principais resultados</h2><ul class='achados'><li>20.000 picos medidos em 2 amostras (2 tumorais e 0 normais); 0,0% dos valores estão faltando.</li><li>Há menos de 3 amostras normais, então a comparação tumor x normal não foi feita.</li></ul>
+<h2>Distribuição dos valores</h2>
+<figure><img src="distribuicao_amostras.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> à esquerda, a distribuição de log2 CPM em cada amostra, ordenadas pela mediana; amostras muito deslocadas das demais podem ter problema técnico ou de normalização. À direita, a densidade de cada amostra sobreposta (vermelho = tumor, azul = normal).</figcaption></figure>
+<figure><img src="media_variancia.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada ponto é um pico. Em vermelho, os 2000 mais variáveis, usados na PCA, no UMAP e nos heatmaps. À direita, quantas amostras faltam por feature.</figcaption></figure>
+<h2>Estrutura das amostras</h2>
 </main></body></html>

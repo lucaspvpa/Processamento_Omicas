@@ -30,11 +30,11 @@ table.tab thead th{background:var(--th)}
 a{color:var(--acc)}
 nav a{margin-right:12px}
 </style></head><body><main><nav><a href="../index.html">← Panorama CHOL</a></nav><h1>CHOL · Número de cópias (CNV)</h1>
-<p class="sub">Affymetrix SNP6, segmentos whitelisted do PanCanAtlas · gerado em 21/10/2026 19:03</p>
+<p class="sub">Affymetrix SNP6, segmentos whitelisted do PanCanAtlas · gerado em 21/10/2026 16:51</p>
 <div class="kpis"><div class='kpi'><b>36</b><span>tumores</span></div><div class='kpi'><b>17.738</b><span>genes</span></div><div class='kpi'><b>20,9%</b><span>fração alterada mediana</span></div><div class='kpi'><b>115</b><span>segmentos/tumor (mediana)</span></div></div>
 <p class="fonte">Fonte: SNP6 whitelisted (PanCanAtlas); nível de gene calculado dos segmentos (hg19)</p>
 <div class="nota">O valor por gene é o do segmento que cobre o meio do gene (log2 tumor/normal, hg19). Sem correção de pureza e ploidia: tumores com pouca célula tumoral têm valores atenuados. Para chamadas discretas (−2 a 2), use o GISTIC2 do PanCanAtlas ou o ABSOLUTE.</div>
-<h2>Principais resultados</h2><ul class='achados'><li>Mediana de 20,9% dos genes com ganho ou perda por tumor (limiares log2 de 0.3 e -0.3).</li><li>O cromossomo com mais ganhos em média é o 1 (24,8% dos tumores por gene) e o com mais perdas é o 9 (38,2%).</li><li>Genes mais ganhos: <i>SCAMP3</i> (53%), <i>GBA</i> (53%), <i>HCN3</i> (53%), <i>FDPS</i> (53%), <i>CLK2</i> (53%), <i>THBS3</i> (53%). Genes mais perdidos: <i>PRAMEF10</i> (81%), <i>PRAMEF4</i> (81%), <i>PRAMEF1</i> (81%), <i>PRAMEF11</i> (81%), <i>PRAMEF12</i> (81%), <i>PRAMEF20</i> (81%).</li><li>Fração alterada por estádio: Kruskal-Wallis p=0.95.</li></ul>
+<h2>Principais resultados</h2><ul class='achados'><li>Mediana de 20,9% dos genes com ganho ou perda por tumor (limiares log2 de 0.3 e -0.3).</li><li>O cromossomo com mais ganhos em média é o 1 (24,8% dos tumores por gene) e o com mais perdas é o 9 (38,2%).</li><li>Genes mais ganhos: <i>RUSC1</i> (53%), <i>FDPS</i> (53%), <i>MUC1</i> (53%), <i>TRIM46</i> (53%), <i>THBS3</i> (53%), <i>MTX1</i> (53%). Genes mais perdidos: <i>PRAMEF10</i> (81%), <i>PRAMEF3</i> (81%), <i>PRAMEF5</i> (81%), <i>HNRNPCL1</i> (81%), <i>PRAMEF6</i> (81%), <i>PRAMEF22</i> (81%).</li><li>Fração alterada por estádio: Kruskal-Wallis p=0.95.</li></ul>
 <h2>Paisagem ao longo do genoma</h2>
 <figure><img src="frequencia_genoma.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> para cada gene, na ordem dos cromossomos, o percentual de tumores com ganho (para cima, vermelho) e com perda (para baixo, azul). Picos largos indicam eventos de braço ou cromossomo inteiro; picos estreitos, amplificações ou deleções focais.</figcaption></figure>
 <figure><img src="heatmap_genoma.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada linha é um tumor e cada coluna uma região do genoma. Tumores no topo têm mais genoma alterado.</figcaption></figure>
@@ -43,7 +43,7 @@ nav a{margin-right:12px}
 <h2>Genes recorrentes</h2>
 <figure><img src="genes_recorrentes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> genes com ganho ou perda no maior número de tumores. Genes vizinhos aparecem juntos porque compartilham o mesmo segmento.</figcaption></figure>
 <h3>Top 25 genes por frequência de ganho</h3>
-<div class="tabwrap"><style>#tab9 td:nth-child(1),#tab9 th:nth-child(1),#tab9 td:nth-child(2),#tab9 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab9">
+<div class="tabwrap"><style>#tab11 td:nth-child(1),#tab11 th:nth-child(1),#tab11 td:nth-child(2),#tab11 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab11">
   <thead>
     <tr style="text-align: right;">
       <th>gene</th>
@@ -55,25 +55,11 @@ nav a{margin-right:12px}
   </thead>
   <tbody>
     <tr>
-      <td>SCAMP3</td>
+      <td>RUSC1</td>
       <td>1</td>
       <td>52.8</td>
       <td>0</td>
-      <td>0.436</td>
-    </tr>
-    <tr>
-      <td>GBA</td>
-      <td>1</td>
-      <td>52.8</td>
-      <td>0</td>
-      <td>0.436</td>
-    </tr>
-    <tr>
-      <td>HCN3</td>
-      <td>1</td>
-      <td>52.8</td>
-      <td>0</td>
-      <td>0.436</td>
+      <td>0.424</td>
     </tr>
     <tr>
       <td>FDPS</td>
@@ -83,42 +69,7 @@ nav a{margin-right:12px}
       <td>0.424</td>
     </tr>
     <tr>
-      <td>CLK2</td>
-      <td>1</td>
-      <td>52.8</td>
-      <td>0</td>
-      <td>0.436</td>
-    </tr>
-    <tr>
-      <td>THBS3</td>
-      <td>1</td>
-      <td>52.8</td>
-      <td>0</td>
-      <td>0.436</td>
-    </tr>
-    <tr>
-      <td>PKLR</td>
-      <td>1</td>
-      <td>52.8</td>
-      <td>0</td>
-      <td>0.424</td>
-    </tr>
-    <tr>
-      <td>MTX1</td>
-      <td>1</td>
-      <td>52.8</td>
-      <td>0</td>
-      <td>0.436</td>
-    </tr>
-    <tr>
-      <td>RUSC1</td>
-      <td>1</td>
-      <td>52.8</td>
-      <td>0</td>
-      <td>0.424</td>
-    </tr>
-    <tr>
-      <td>FAM189B</td>
+      <td>MUC1</td>
       <td>1</td>
       <td>52.8</td>
       <td>0</td>
@@ -132,95 +83,130 @@ nav a{margin-right:12px}
       <td>0.436</td>
     </tr>
     <tr>
-      <td>MUC1</td>
+      <td>THBS3</td>
       <td>1</td>
       <td>52.8</td>
       <td>0</td>
       <td>0.436</td>
     </tr>
     <tr>
-      <td>KIAA0907</td>
+      <td>MTX1</td>
       <td>1</td>
-      <td>50</td>
+      <td>52.8</td>
       <td>0</td>
-      <td>0.403</td>
+      <td>0.436</td>
     </tr>
     <tr>
-      <td>SYT11</td>
+      <td>GBA</td>
       <td>1</td>
-      <td>50</td>
+      <td>52.8</td>
       <td>0</td>
-      <td>0.403</td>
+      <td>0.436</td>
     </tr>
     <tr>
-      <td>PAQR6</td>
+      <td>FAM189B</td>
       <td>1</td>
-      <td>50</td>
+      <td>52.8</td>
       <td>0</td>
-      <td>0.403</td>
+      <td>0.436</td>
     </tr>
     <tr>
-      <td>PMVK</td>
+      <td>SCAMP3</td>
       <td>1</td>
-      <td>50</td>
+      <td>52.8</td>
       <td>0</td>
-      <td>0.412</td>
+      <td>0.436</td>
     </tr>
     <tr>
-      <td>PBXIP1</td>
+      <td>CLK2</td>
       <td>1</td>
-      <td>50</td>
+      <td>52.8</td>
       <td>0</td>
-      <td>0.412</td>
+      <td>0.436</td>
     </tr>
     <tr>
-      <td>SHC1</td>
+      <td>HCN3</td>
       <td>1</td>
-      <td>50</td>
+      <td>52.8</td>
       <td>0</td>
-      <td>0.412</td>
+      <td>0.436</td>
     </tr>
     <tr>
-      <td>CKS1B</td>
+      <td>PKLR</td>
       <td>1</td>
-      <td>50</td>
+      <td>52.8</td>
       <td>0</td>
-      <td>0.412</td>
+      <td>0.424</td>
     </tr>
     <tr>
-      <td>GON4L</td>
+      <td>CREB3L4</td>
       <td>1</td>
       <td>50</td>
       <td>0</td>
-      <td>0.403</td>
+      <td>0.409</td>
     </tr>
     <tr>
-      <td>LENEP</td>
+      <td>JTB</td>
       <td>1</td>
       <td>50</td>
       <td>0</td>
-      <td>0.412</td>
+      <td>0.409</td>
     </tr>
     <tr>
-      <td>IQGAP3</td>
+      <td>RAB13</td>
       <td>1</td>
       <td>50</td>
       <td>0</td>
-      <td>0.403</td>
+      <td>0.409</td>
     </tr>
     <tr>
-      <td>ETV3L</td>
+      <td>RPS27</td>
       <td>1</td>
       <td>50</td>
       <td>0</td>
-      <td>0.403</td>
+      <td>0.409</td>
     </tr>
     <tr>
-      <td>GPATCH4</td>
+      <td>NUP210L</td>
       <td>1</td>
       <td>50</td>
       <td>0</td>
-      <td>0.403</td>
+      <td>0.409</td>
+    </tr>
+    <tr>
+      <td>TPM3</td>
+      <td>1</td>
+      <td>50</td>
+      <td>0</td>
+      <td>0.411</td>
+    </tr>
+    <tr>
+      <td>C1orf189</td>
+      <td>1</td>
+      <td>50</td>
+      <td>0</td>
+      <td>0.411</td>
+    </tr>
+    <tr>
+      <td>C1orf43</td>
+      <td>1</td>
+      <td>50</td>
+      <td>0</td>
+      <td>0.411</td>
+    </tr>
+    <tr>
+      <td>UBAP2L</td>
+      <td>1</td>
+      <td>50</td>
+      <td>0</td>
+      <td>0.411</td>
+    </tr>
+    <tr>
+      <td>HAX1</td>
+      <td>1</td>
+      <td>50</td>
+      <td>0</td>
+      <td>0.411</td>
     </tr>
     <tr>
       <td>AQP10</td>
@@ -229,10 +215,24 @@ nav a{margin-right:12px}
       <td>0</td>
       <td>0.411</td>
     </tr>
+    <tr>
+      <td>ATP8B2</td>
+      <td>1</td>
+      <td>50</td>
+      <td>0</td>
+      <td>0.411</td>
+    </tr>
+    <tr>
+      <td>IL6R</td>
+      <td>1</td>
+      <td>50</td>
+      <td>0</td>
+      <td>0.405</td>
+    </tr>
   </tbody>
 </table></div>
 <h3>Top 25 genes por frequência de perda</h3>
-<div class="tabwrap"><style>#tab10 td:nth-child(1),#tab10 th:nth-child(1),#tab10 td:nth-child(2),#tab10 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab10">
+<div class="tabwrap"><style>#tab12 td:nth-child(1),#tab12 th:nth-child(1),#tab12 td:nth-child(2),#tab12 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab12">
   <thead>
     <tr style="text-align: right;">
       <th>gene</th>
@@ -251,7 +251,35 @@ nav a{margin-right:12px}
       <td>-0.468</td>
     </tr>
     <tr>
-      <td>PRAMEF4</td>
+      <td>PRAMEF3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF5</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>HNRNPCL1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF6</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF22</td>
       <td>1</td>
       <td>0</td>
       <td>80.6</td>
@@ -259,6 +287,41 @@ nav a{margin-right:12px}
     </tr>
     <tr>
       <td>PRAMEF1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF8</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF20</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.476</td>
+    </tr>
+    <tr>
+      <td>VPS13D</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF17</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF2</td>
       <td>1</td>
       <td>0</td>
       <td>80.6</td>
@@ -279,56 +342,7 @@ nav a{margin-right:12px}
       <td>-0.468</td>
     </tr>
     <tr>
-      <td>PRAMEF20</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.476</td>
-    </tr>
-    <tr>
-      <td>PRAMEF22</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>PRAMEF17</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>HNRNPCL1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>PRAMEF14</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>PRAMEF16</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>DHRS3</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>VPS13D</td>
+      <td>PRAMEF4</td>
       <td>1</td>
       <td>0</td>
       <td>80.6</td>
@@ -342,56 +356,7 @@ nav a{margin-right:12px}
       <td>-0.468</td>
     </tr>
     <tr>
-      <td>PDPN</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.476</td>
-    </tr>
-    <tr>
-      <td>PRAMEF2</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>PRAMEF5</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>PRAMEF9</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>PRAMEF18</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>PRAMEF6</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>PRAMEF3</td>
-      <td>1</td>
-      <td>0</td>
-      <td>80.6</td>
-      <td>-0.468</td>
-    </tr>
-    <tr>
-      <td>C1orf158</td>
+      <td>DHRS3</td>
       <td>1</td>
       <td>0</td>
       <td>80.6</td>
@@ -405,18 +370,53 @@ nav a{margin-right:12px}
       <td>-0.468</td>
     </tr>
     <tr>
-      <td>PRAMEF8</td>
+      <td>PRAMEF16</td>
       <td>1</td>
       <td>0</td>
       <td>80.6</td>
       <td>-0.468</td>
     </tr>
     <tr>
-      <td>IFI6</td>
+      <td>PRAMEF9</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF14</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>C1orf158</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PRAMEF18</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.468</td>
+    </tr>
+    <tr>
+      <td>PDPN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80.6</td>
+      <td>-0.476</td>
+    </tr>
+    <tr>
+      <td>TMEM201</td>
       <td>1</td>
       <td>0</td>
       <td>77.8</td>
-      <td>-0.443</td>
+      <td>-0.523</td>
     </tr>
   </tbody>
 </table></div>

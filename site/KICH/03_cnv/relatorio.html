@@ -1,0 +1,423 @@
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='color-scheme' content='light dark'><title>KICH · Número de cópias (CNV)</title><style>
+:root{--fg:#1d2433;--muted:#5b6475;--line:#e3e6ec;--bg:#fbfbfd;--acc:#2f6690;--panel:#ffffff;--th:#f3f5f9;
+--nota-bg:#fff8e6;--nota-borda:#f0dca8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;
+--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}}
+:root[data-theme="dark"]{--fg:#e6e9ef;--muted:#a3abba;--line:#2e3442;--bg:#14171d;--acc:#8cb8e0;--panel:#1b1f27;
+--th:#232835;--nota-bg:#2b2618;--nota-borda:#5c4d22}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:600}.kpi span{color:var(--muted);font-size:12px}
+ul.achados li{margin:4px 0}
+figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{color:#5b6475;font-size:13px;margin-top:8px}
+figcaption b{color:#1d2433}
+.tabwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;margin:10px 0}
+table.tab{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%}
+table.tab th,table.tab td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.tab th:first-child,table.tab td:first-child{text-align:left}
+table.tab td.t,table.tab th.t{text-align:left;white-space:normal}
+table.tab thead th{background:var(--th)}
+.nota{background:var(--nota-bg);border:1px solid var(--nota-borda);border-radius:8px;padding:10px 12px;margin:12px 0;font-size:14px}
+.fonte{color:var(--muted);font-size:13px}
+a{color:var(--acc)}
+nav a{margin-right:12px}
+</style></head><body><main><nav><a href="../index.html">← Panorama KICH</a></nav><h1>KICH · Número de cópias (CNV)</h1>
+<p class="sub">Affymetrix SNP6, segmentos whitelisted do PanCanAtlas · gerado em 21/10/2026 22:18</p>
+<div class="kpis"><div class='kpi'><b>65</b><span>tumores</span></div><div class='kpi'><b>17.738</b><span>genes</span></div><div class='kpi'><b>44,5%</b><span>fração alterada mediana</span></div><div class='kpi'><b>77</b><span>segmentos/tumor (mediana)</span></div></div>
+<p class="fonte">Fonte: SNP6 whitelisted (PanCanAtlas); nível de gene calculado dos segmentos (hg19)</p>
+<div class="nota">O valor por gene é o do segmento que cobre o meio do gene (log2 tumor/normal, hg19). Sem correção de pureza e ploidia: tumores com pouca célula tumoral têm valores atenuados. Para chamadas discretas (−2 a 2), use o GISTIC2 do PanCanAtlas ou o ABSOLUTE.</div>
+<h2>Principais resultados</h2><ul class='achados'><li>Mediana de 44,5% dos genes com ganho ou perda por tumor (limiares log2 de 0.3 e -0.3).</li><li>O cromossomo com mais ganhos em média é o 7 (52,6% dos tumores por gene) e o com mais perdas é o 6 (77,4%).</li><li>Genes mais ganhos: <i>MYOZ2</i> (57%), <i>KLRG2</i> (55%), <i>ADH1B</i> (55%), <i>STRA8</i> (55%), <i>DNAJB6</i> (55%), <i>UBE3C</i> (55%). Genes mais perdidos: <i>NEGR1</i> (80%), <i>BTBD19</i> (78%), <i>AKAP7</i> (78%), <i>EPB41L2</i> (78%), <i>TMEM200A</i> (78%), <i>SAMD3</i> (78%).</li><li>Fração alterada por estádio: Kruskal-Wallis p=0.087.</li></ul>
+<h2>Paisagem ao longo do genoma</h2>
+<figure><img src="frequencia_genoma.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> para cada gene, na ordem dos cromossomos, o percentual de tumores com ganho (para cima, vermelho) e com perda (para baixo, azul). Picos largos indicam eventos de braço ou cromossomo inteiro; picos estreitos, amplificações ou deleções focais.</figcaption></figure>
+<figure><img src="heatmap_genoma.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> cada linha é um tumor e cada coluna uma região do genoma. Tumores no topo têm mais genoma alterado.</figcaption></figure>
+<h2>Carga de alterações</h2>
+<figure><img src="fracao_alterada.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> distribuição dos valores log2 (as linhas tracejadas são os limiares), fração do genoma alterada por tumor e sua relação com o estádio.</figcaption></figure>
+<h2>Genes recorrentes</h2>
+<figure><img src="genes_recorrentes.png" loading="lazy" alt=""><figcaption><b>Como ler:</b> genes com ganho ou perda no maior número de tumores. Genes vizinhos aparecem juntos porque compartilham o mesmo segmento.</figcaption></figure>
+<h3>Top 25 genes por frequência de ganho</h3>
+<div class="tabwrap"><style>#tab174 td:nth-child(1),#tab174 th:nth-child(1),#tab174 td:nth-child(2),#tab174 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab174">
+  <thead>
+    <tr style="text-align: right;">
+      <th>gene</th>
+      <th>chrom</th>
+      <th>% ganho</th>
+      <th>% perda</th>
+      <th>média log2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MYOZ2</td>
+      <td>4</td>
+      <td>56.9</td>
+      <td>0</td>
+      <td>0.291</td>
+    </tr>
+    <tr>
+      <td>KLRG2</td>
+      <td>7</td>
+      <td>55.4</td>
+      <td>3.1</td>
+      <td>0.29</td>
+    </tr>
+    <tr>
+      <td>ADH1B</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>STRA8</td>
+      <td>7</td>
+      <td>55.4</td>
+      <td>3.1</td>
+      <td>0.297</td>
+    </tr>
+    <tr>
+      <td>DNAJB6</td>
+      <td>7</td>
+      <td>55.4</td>
+      <td>4.6</td>
+      <td>0.274</td>
+    </tr>
+    <tr>
+      <td>UBE3C</td>
+      <td>7</td>
+      <td>55.4</td>
+      <td>4.6</td>
+      <td>0.274</td>
+    </tr>
+    <tr>
+      <td>MNX1</td>
+      <td>7</td>
+      <td>55.4</td>
+      <td>4.6</td>
+      <td>0.274</td>
+    </tr>
+    <tr>
+      <td>NOM1</td>
+      <td>7</td>
+      <td>55.4</td>
+      <td>4.6</td>
+      <td>0.274</td>
+    </tr>
+    <tr>
+      <td>HPGDS</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>SMARCAD1</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>ATOH1</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>BPGM</td>
+      <td>7</td>
+      <td>55.4</td>
+      <td>3.1</td>
+      <td>0.297</td>
+    </tr>
+    <tr>
+      <td>BDH2</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.284</td>
+    </tr>
+    <tr>
+      <td>CENPE</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.284</td>
+    </tr>
+    <tr>
+      <td>TACR3</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.284</td>
+    </tr>
+    <tr>
+      <td>PDLIM5</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>BMPR1B</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>UNC5C</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>PDHA2</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>RAP1GDS1</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>TSPAN5</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>EIF4E</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <td>DHX15</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.293</td>
+    </tr>
+    <tr>
+      <td>SOD3</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.293</td>
+    </tr>
+    <tr>
+      <td>CCDC149</td>
+      <td>4</td>
+      <td>55.4</td>
+      <td>0</td>
+      <td>0.293</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3>Top 25 genes por frequência de perda</h3>
+<div class="tabwrap"><style>#tab175 td:nth-child(1),#tab175 th:nth-child(1),#tab175 td:nth-child(2),#tab175 th:nth-child(2){text-align:left;white-space:normal}</style><table class="dataframe tab" id="tab175">
+  <thead>
+    <tr style="text-align: right;">
+      <th>gene</th>
+      <th>chrom</th>
+      <th>% ganho</th>
+      <th>% perda</th>
+      <th>média log2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NEGR1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>80</td>
+      <td>-0.383</td>
+    </tr>
+    <tr>
+      <td>BTBD19</td>
+      <td>1</td>
+      <td>0</td>
+      <td>78.5</td>
+      <td>-0.373</td>
+    </tr>
+    <tr>
+      <td>AKAP7</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.38</td>
+    </tr>
+    <tr>
+      <td>EPB41L2</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.38</td>
+    </tr>
+    <tr>
+      <td>TMEM200A</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.38</td>
+    </tr>
+    <tr>
+      <td>SAMD3</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.38</td>
+    </tr>
+    <tr>
+      <td>L3MBTL3</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.38</td>
+    </tr>
+    <tr>
+      <td>GPR63</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>NDUFAF4</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>KLHL32</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>POU3F2</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>FBXL4</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>COQ3</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>USP45</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>CCNC</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>PRDM13</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>MCHR2</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>SIM1</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>ASCC3</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>GRIK2</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>HACE1</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>LIN28B</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>BVES</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>POPDC3</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+    <tr>
+      <td>PREP</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>78.5</td>
+      <td>-0.371</td>
+    </tr>
+  </tbody>
+</table></div>
+</main></body></html>
