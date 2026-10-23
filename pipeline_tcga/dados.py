@@ -417,13 +417,14 @@ class Coletor:
         exemplos = [i for i in ids if amostra15(i) in set(self.exemplos)]
         acc = AcumuladorTopVar(config.TOP_CPGS, exemplos, bins=np.linspace(0, 1, 51))
         if self._met_fonte == "api":
-            for b in self.f.xena_blocos("pancan", config.DS["metilacao"], ids, valores_por_bloco=2_000_000):
-                acc.add(b)
+            blocos = self.f.xena_blocos("pancan", config.DS["metilacao"], ids, valores_por_bloco=2_000_000)
         else:
             alvo = set(ids)
-            for b in _blocos_de_linhas(self.f.linhas_remotas("gdc", f"TCGA-{self.cancer}.methylation450.tsv"),
-                                       lambda c: c in alvo, 20000, self.log):
-                acc.add(b)
+            blocos = _blocos_de_linhas(self.f.linhas_remotas("gdc", f"TCGA-{self.cancer}.methylation450.tsv"),
+                                       lambda c: c in alvo, 20000, self.log)
+        for b in blocos:
+            # as 65 sondas rs* do 450k medem genótipo de SNP (controle de identidade), não metilação
+            acc.add(b[~b.index.astype(str).str.startswith("rs")])
         top, stats, hist, ex = acc.resultado()
         anot = None
         try:
