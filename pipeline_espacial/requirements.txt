@@ -1,0 +1,8 @@
+cellxgene-census>=1.16
+tiledbsoma>=1.15
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+scikit-learn>=1.3
+pyarrow>=14
+scipy>=1.10

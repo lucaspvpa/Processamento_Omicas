@@ -143,3 +143,40 @@ Com o CHOL completo e os outros 32 cânceres só com disponibilidade, o site tem
 completos deve passar de 1 GB, por causa das figuras e dos exemplos. Nesse caso, o GitHub recusa arquivos acima
 de 100 MB e a Vercel tem limite de tamanho por deploy no plano gratuito; vale publicar só os cânceres que você
 quer mostrar ou guardar os zips de exemplo no GitHub Releases ou no Zenodo e trocar os links.
+
+## Levantamento de linhagens celulares (DepMap + Cell Model Passports)
+
+Pacote `pipeline_linhagens`. Baixa a anotação dos modelos e um arquivo por ômica de cada banco, descobre sozinho o
+formato de cada tabela (modelos nas linhas, nas colunas ou formato longo) e gera, como no TCGA, uma página por
+ômica, o panorama de cada banco (UpSet, funil de interseção, linhagens por tecido e por projeto TCGA, completude das
+anotações) e uma comparação DepMap × Passports (linhagens em comum, ômicas nos dois bancos e concordância do RNA-seq
+da mesma linhagem). Reaproveita gráficos e relatórios do `pipeline_tcga`.
+
+```powershell
+# da pasta que contém pipeline_linhagens e pipeline_tcga, com o .venv ativado
+python -m pipeline_linhagens --so-listar --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\Datasets\Linhagens"
+python -m pipeline_linhagens --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\Datasets\Linhagens"
+```
+
+| opção | o que faz |
+|---|---|
+| `--bancos depmap cmp` | escolhe os bancos |
+| `--omicas expressao crispr` | só algumas ômicas (chaves em `pipeline_linhagens/fontes.py`) |
+| `--so-listar` | só grava `arquivos_disponiveis.csv` e `arquivos_escolhidos.csv` de cada banco |
+| `--manter-dados` | não apaga os arquivos baixados |
+
+Os nomes dos arquivos mudam entre versões do DepMap e do Passports. Cada ômica é escolhida por expressão regular
+em `fontes.py` (`DEPMAP_ALVOS`, `CMP_ALVOS`), sempre a versão mais recente; se algum alvo ficar sem arquivo, a lista
+completa está em `arquivos_disponiveis.csv`.
+
+## Levantamento single-cell + transcriptômica espacial (CELLxGENE Census)
+
+Pacote `pipeline_espacial`. Lê só os metadados do CELLxGENE Census (versões com `census_spatial_sequencing`):
+datasets Visium e Slide-seqV2 por doença, tecido e tecnologia, pareamento single-cell + espacial do mesmo doador
+por estudo, tipos celulares das coleções de câncer, anotações dos doadores e o single-cell de câncer do Census
+inteiro, com mapeamento aproximado para os projetos do TCGA.
+
+```powershell
+pip install -r pipeline_espacial/requirements.txt
+python -m pipeline_espacial --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\Datasets\Espacial"
+```

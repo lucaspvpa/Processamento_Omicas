@@ -12,7 +12,7 @@ from .. import config
 from ..graficos import AZUL, CINZA, VERMELHO, salvar
 
 
-def desenhar_upset(tab: pd.DataFrame, titulo: str, max_comb: int = 25):
+def desenhar_upset(tab: pd.DataFrame, titulo: str, max_comb: int = 25, unidade: str = "pacientes"):
     """tab: pacientes x ômicas (bool). Desenha um UpSet com interseções exclusivas."""
     cols = [c for c in tab.columns if tab[c].any()]
     t = tab[cols]
@@ -40,7 +40,7 @@ def desenhar_upset(tab: pd.DataFrame, titulo: str, max_comb: int = 25):
     ax_bar.bar(x, combos.values, color=cores, width=0.65)
     for xi, v in zip(x, combos.values):
         ax_bar.text(xi, v, f"{v}", ha="center", va="bottom", fontsize=8)
-    ax_bar.set_ylabel("pacientes")
+    ax_bar.set_ylabel(unidade)
     ax_bar.set_title(titulo, loc="left")
     ax_bar.tick_params(axis="x", bottom=False, labelbottom=False)
     ax_bar.grid(axis="x", visible=False)
@@ -68,7 +68,7 @@ def desenhar_upset(tab: pd.DataFrame, titulo: str, max_comb: int = 25):
     for i, v in enumerate(tamanhos.values):
         ax_set.text(v, i, f"{v} ", ha="right", va="center", fontsize=8)
     ax_set.tick_params(axis="y", left=False, labelleft=False)
-    ax_set.set_xlabel("pacientes por ômica")
+    ax_set.set_xlabel(f"{unidade} por ômica")
     ax_set.grid(axis="y", visible=False)
     ax_set.spines["left"].set_visible(False)
     for i, r in enumerate(rot):
@@ -77,7 +77,7 @@ def desenhar_upset(tab: pd.DataFrame, titulo: str, max_comb: int = 25):
         ax_lab.text(0.96, i, r, ha="right", va="center", fontsize=9)
     ax_lab.set_xlim(0, 1)
     ax_lab.axis("off")
-    fig.text(0.01, 0.01, f"{total} pacientes · barras vermelhas = paciente com todas as ômicas disponíveis",
+    fig.text(0.01, 0.01, f"{total} {unidade} · barras vermelhas = todas as ômicas disponíveis",
              fontsize=8, color="#5b6475")
     return fig, combos
 
