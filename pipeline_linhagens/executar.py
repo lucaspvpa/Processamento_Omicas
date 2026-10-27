@@ -12,6 +12,7 @@ formato de cada tabela, gera figuras, tabelas e um relatório HTML por ômica em
 from __future__ import annotations
 
 import argparse
+import html
 import datetime as dt
 import json
 import os
@@ -27,7 +28,7 @@ import pandas as pd
 from pipeline_tcga.graficos import tabela_html, tema
 from pipeline_tcga.relatorio import Relatorio, fmt
 
-from . import analise, fontes
+from . import analise, fontes, pacotes
 from .baixar import baixar, nome_seguro, sessao, tabelas_do_arquivo
 from .inventario import Resolvedor, carregar_longo, carregar_matriz, detectar, preparar
 
@@ -154,6 +155,8 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
         omicas = omicas[omicas["chave"].isin(args.omicas)]
 
     disp, rotulos, inventario, linhas_idx, resumo, matrizes = {}, {}, [], [], {}, {}
+    pasta_dados = os.path.join(pasta, "dados")
+    dados_omica, longos, downloads = {}, set(), []
     for i, (_, r) in enumerate(omicas.iterrows(), start=1):
         chave, rotulo = r["chave"], r["rotulo"]
         sub = f"{i:02d}_{chave}"
@@ -201,13 +204,19 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
             disp[chave] = pd.Series(True, index=sorted(info["modelos"]))
             rotulos[chave] = rotulo
             if info["orientacao"] == "longo":
-                df = carregar_longo(fonte, info, res)
+                df = carregar_longo(fonte, info, res, colunas_extra=pacotes.EXTRAS_LONGO)
                 out = analise.analisar_longo(df, anot, rotulo, pasta_o, rel)
+                if not args.sem_pacotes:
+                    dados_omica[chave] = pacotes.salvar_omica(df.drop(columns=[info["coluna_id"]], errors="ignore"),
+                                                              pasta_dados, chave, longo=True)
+                    longos.add(chave)
             else:
                 X = carregar_matriz(nm, fonte, info, res)
                 out = analise.analisar_matriz(X, anot, chave, rotulo, pasta_o, rel)
                 if chave == "expressao":
                     matrizes[chave] = X
+                if not args.sem_pacotes:
+                    dados_omica[chave] = pacotes.salvar_omica(X, pasta_dados, chave, longo=False)
             resumo[chave] = out
             linha.update({"formato": info["formato"], "linhagens": len(info["modelos"]),
                           "variaveis": out.get("variaveis", info["variaveis"])})
@@ -217,8 +226,14 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
             rel.nota(f"Falhou: {e}")
             linha.update({"formato": f"erro: {e}"})
             resumo[chave] = {"erro": str(e)}
+        if chave in dados_omica:
+            rel.bruto(pacotes.CSS + f"<p><a class='btn cheio' href='../dados/{chave}.csv.gz' download>Baixar dados "
+                      f"processados ({pacotes.mb(os.path.getsize(dados_omica[chave]))})</a> <a class='btn' "
+                      f"href='{html.escape(str(r['url']))}'>Arquivo original</a></p>")
         rel.salvar(os.path.join(pasta_o, "index.html"), nav=analise.nav(2))
         linhas_idx.append(linha)
+        downloads.append({**linha, "dados": f"dados/{chave}.csv.gz" if chave in dados_omica else None,
+                          "url": r["url"], "bytes": os.path.getsize(dados_omica[chave]) if chave in dados_omica else None})
         if not args.manter_dados:
             for f in os.listdir(brutos):
                 if f in (nome_seguro(str(r["filename"])), os.path.basename(preparado)):
@@ -244,6 +259,11 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
     if len(inv):
         rel.tabela(tabela_html(inv, max_linhas=80), "Todas as tabelas lidas")
     res_disp = analise.disponibilidade(tab, rotulos, anot, nome, pasta, rel) if tab.shape[1] else {}
+    if not args.sem_pacotes and dados_omica and tab.shape[1]:
+        log(f"[{nome}] montando pacotes por grupo de ômicas")
+        anot.to_csv(os.path.join(pasta_dados, "anotacao_linhagens.csv"))
+        grupos = pacotes.montar(tab, rotulos, dados_omica, anot, pasta, longos, log)
+        rel.bruto(pacotes.secao_html(downloads, grupos))
     res_anot = analise.anotacoes(anot, bruto, pasta, rel, COLUNAS_DEPMAP if banco == "depmap" else COLUNAS_CMP)
     rel.salvar(os.path.join(pasta, "index.html"), nav=analise.nav(1))
     resumo_banco = {"banco": nome, "gerado_em": dt.datetime.now().isoformat(timespec="seconds"),
@@ -290,6 +310,9 @@ def comparar(dm: dict, cmp: dict, saida: str, log):
                        "Passports": len(tem_cm), "nos dois (mesma linhagem)": len(pd_)})
     tab = pd.DataFrame(linhas)
     tab.to_csv(os.path.join(pasta, "omicas_nos_dois_bancos.csv"), index=False)
+    rel.bruto(pacotes.CSS + "<p><a class='btn cheio' href='pares_de_linhagens.csv' download>Baixar pares de "
+              "linhagens (DepMap ↔ Passports)</a> <a class='btn' href='omicas_nos_dois_bancos.csv' download>"
+              "Ômicas nos dois bancos (CSV)</a></p>")
     rel.secao("Ômicas nos dois bancos")
     rel.tabela(tabela_html(tab))
 
@@ -368,6 +391,7 @@ def main(argv=None) -> int:
     ap.add_argument("--omicas", nargs="+", help="só estas chaves (expressao, cnv, mutacao, crispr, ...)")
     ap.add_argument("--tmp", default=os.path.join(tempfile.gettempdir(), "linhagens_brutos"))
     ap.add_argument("--manter-dados", action="store_true", help="não apaga os arquivos baixados")
+    ap.add_argument("--sem-pacotes", action="store_true", help="não grava dados processados nem pacotes por grupo")
     ap.add_argument("--so-listar", action="store_true", help="só grava a lista de arquivos de cada banco")
     args = ap.parse_args(argv)
 

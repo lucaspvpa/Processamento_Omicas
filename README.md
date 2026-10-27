@@ -164,6 +164,10 @@ python -m pipeline_linhagens --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\
 | `--omicas expressao crispr` | só algumas ômicas (chaves em `pipeline_linhagens/fontes.py`) |
 | `--so-listar` | só grava `arquivos_disponiveis.csv` e `arquivos_escolhidos.csv` de cada banco |
 | `--manter-dados` | não apaga os arquivos baixados |
+| `--sem-pacotes` | não grava os dados processados (`<BANCO>/dados/`) nem os pacotes por grupo de ômicas |
+
+Cada banco ganha `dados/<ômica>.csv.gz` (a tabela processada, com o ID do banco) e `dados/grupos/*.zip`: um pacote
+por grupo de ômicas do funil, só com as linhagens que têm todas as ômicas do grupo. A página do banco tem os botões.
 
 Os nomes dos arquivos mudam entre versões do DepMap e do Passports. Cada ômica é escolhida por expressão regular
 em `fontes.py` (`DEPMAP_ALVOS`, `CMP_ALVOS`), sempre a versão mais recente; se algum alvo ficar sem arquivo, a lista
