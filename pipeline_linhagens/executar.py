@@ -29,7 +29,7 @@ from pipeline_tcga.relatorio import Relatorio, fmt
 
 from . import analise, fontes
 from .baixar import baixar, nome_seguro, sessao, tabelas_do_arquivo
-from .inventario import Resolvedor, carregar_longo, carregar_matriz, detectar
+from .inventario import Resolvedor, carregar_longo, carregar_matriz, detectar, preparar
 
 COLUNAS_DEPMAP = ["OncotreeLineage", "OncotreePrimaryDisease", "PrimaryOrMetastasis", "Sex", "AgeCategory",
                   "PatientRace", "GrowthPattern", "SampleCollectionSite", "ModelType", "PatientTreatmentStatus"]
@@ -163,13 +163,21 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
                                 (f" · versão {r['release']}" if r.get("release") else ""))
         linha = {"chave": chave, "rotulo": rotulo, "arquivo": r["filename"], "versao": r.get("release"),
                  "pagina": f"{sub}/index.html"}
+        leitura = fontes.CMP_LEITURA.get(chave) if banco == "cmp" else None
+        preparado = os.path.join(brutos, f"{chave}_preparado.csv")
         try:
-            if str(r["filename"]).lower().endswith(".xlsx"):
+            if str(r["filename"]).lower().endswith(".xlsx") and not (leitura and leitura.get("modo")):
                 raise RuntimeError("planilha Excel: fora do escopo da leitura automática")
             log(f"[{nome}] {rotulo}: baixando {r['filename']}")
             cam = baixar(s, r["url"], os.path.join(brutos, nome_seguro(r["filename"])), log)
+            arquivos = tabelas_do_arquivo(cam)
+            if leitura:
+                arquivos = preparar(arquivos, leitura, preparado, log)
+                if leitura.get("fonte"):
+                    rel.nota(f"Só dados gerados pelo {leitura['fonte']} (o arquivo também traz dados de outras "
+                             "fontes, como o Broad).")
             tabelas = []
-            for nm, fonte in tabelas_do_arquivo(cam):
+            for nm, fonte in arquivos:
                 try:
                     info = detectar(nm, fonte, res)
                 except Exception as e:
@@ -213,7 +221,7 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
         linhas_idx.append(linha)
         if not args.manter_dados:
             for f in os.listdir(brutos):
-                if f == nome_seguro(str(r["filename"])):
+                if f in (nome_seguro(str(r["filename"])), os.path.basename(preparado)):
                     try:
                         os.remove(os.path.join(brutos, f))
                     except OSError:
