@@ -180,3 +180,13 @@ inteiro, com mapeamento aproximado para os projetos do TCGA.
 pip install -r pipeline_espacial/requirements.txt
 python -m pipeline_espacial --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\Datasets\Espacial"
 ```
+
+### Site resultados_espacial (só estudos com single-cell e espacial)
+
+```powershell
+python -m pipeline_espacial.pagina --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\Datasets\Espacial"
+```
+
+Gera `resultados_espacial/index.html` com a origem dos dados e uma página por estudo (doadores, mapas espaciais,
+qualidade das lâminas, composição celular, concordância single-cell × espacial do mesmo doador) e botões para
+baixar cada h5ad. `downloads/baixar_h5ad.py` baixa os h5ad do manifesto (filtros `--estudo` e `--modalidade`).
