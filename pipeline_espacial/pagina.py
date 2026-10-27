@@ -65,8 +65,22 @@ text-decoration:none;margin:4px 8px 4px 0;background:var(--panel);font-size:14px
 .btn.cheio{background:var(--acc);color:var(--bg)}
 .tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:var(--th);margin-right:4px}
 .tag.c{background:#f6d5d9;color:#7a1f2b}
-td a{white-space:nowrap}
+td a{white-space:nowrap}\nbutton.btn{cursor:pointer;font:inherit;font-weight:600;font-size:14px}\ndetails{margin:14px 0}
 </style>"""
+
+
+JS_BAIXAR = """<script>
+function baixarTodos(b){
+  const urls = JSON.parse(b.dataset.urls);
+  const txt = b.textContent;
+  urls.forEach((u, i) => setTimeout(() => {
+    const a = document.createElement('a');
+    a.href = u; a.download = ''; a.style.display = 'none';
+    document.body.appendChild(a); a.click(); a.remove();
+    b.textContent = (i + 1 < urls.length) ? `baixando ${i + 1}/${urls.length}...` : txt;
+  }, i * 1500));
+}
+</script>"""
 
 
 def tamanho(s: requests.Session, url: str) -> int | None:
@@ -425,29 +439,70 @@ def main(argv=None) -> int:
 
         # Downloads
         a = alvo[alvo["collection_id"] == cid].copy()
-        dn = (pd.concat([e, c]).groupby("dataset_id")["donor_id"]
-              .agg(lambda x: "; ".join(sorted(set(x))[:4]) + (" ..." if len(set(x)) > 4 else "")))
-        a["doadores"] = a["dataset_id"].map(dn)
+        por_ds = pd.concat([e[["dataset_id", "donor_id"]], c[["dataset_id", "donor_id"]]]).drop_duplicates()
+        doadores_ds = por_ds.groupby("dataset_id")["donor_id"].agg(lambda x: sorted(set(x)))
+        a["doadores"] = a["dataset_id"].map(lambda d: "; ".join(doadores_ds.get(d, [])))
+        a["n_doadores"] = a["dataset_id"].map(lambda d: len(doadores_ds.get(d, [])))
         a = a.sort_values(["modalidade", "dataset_title"])
         a[["modalidade", "dataset_title", "dataset_id", "doadores", "dataset_total_cell_count", "bytes", "url_h5ad"]].to_csv(
             os.path.join(pasta, "manifesto_h5ad.csv"), index=False)
         manifesto.append(a.assign(estudo=nome))
         total = a["bytes"].dropna().sum()
         rel.secao("Baixar os dados",
-                  f"{len(a)} arquivos h5ad (AnnData), {mb(total)} no total. Cada h5ad traz a matriz de contagens, "
-                  "os metadados das células/spots e, no espacial, as coordenadas e a imagem do tecido. Abra com "
-                  "scanpy (sc.read_h5ad) ou, no R, com zellkonverter/anndata.")
+                  f"{len(a)} arquivos h5ad (AnnData), {mb(total)} no total. Cada h5ad traz uma modalidade: o "
+                  "espacial tem contagens, coordenadas, imagem do tecido e anotações dos autores; o single-cell tem "
+                  "contagens e tipo celular. Abra com scanpy (sc.read_h5ad) ou, no R, com zellkonverter/anndata.")
         rel.bruto("<p>" + botao("manifesto_h5ad.csv", "Manifesto (CSV com todos os links)", cheio=True, baixar=True)
                   + botao("../../downloads/baixar_h5ad.py", "Script para baixar tudo", baixar=True)
                   + botao("doadores.csv", "Tabela de doadores", baixar=True) + "</p>")
+
+        # Um botão por doador: espacial + single-cell do mesmo doador
+        rel.bruto("<h3>Por doador (espacial + single-cell juntos)</h3><p>O botão baixa todos os arquivos do "
+                  "doador, um depois do outro. Na primeira vez o navegador pode perguntar se permite baixar vários "
+                  "arquivos: responda que sim. Arquivos marcados como <i>compartilhado</i> juntam vários doadores "
+                  "(o single-cell de alguns estudos vem num arquivo só); basta baixá-los uma vez. Pela linha de "
+                  "comando: <code>python baixar_h5ad.py --doador &lt;ID&gt;</code>.</p>")
+        linhas_d = []
+        for d in sorted(d_esp | d_sc, key=lambda x: (x not in pareados, x not in d_esp, str(x))):
+            arqs = a[a["dataset_id"].map(lambda ds_: d in doadores_ds.get(ds_, []))]
+            if arqs.empty:
+                continue
+            # Se o doador tem arquivo próprio de uma modalidade, o arquivo compartilhado dessa modalidade
+            # fica fora do botão (é redundante e costuma ser muito maior)
+            proprio = set(arqs.loc[arqs["n_doadores"] == 1, "modalidade"])
+            extra = arqs[(arqs["n_doadores"] > 1) & arqs["modalidade"].isin(proprio)]
+            arqs = arqs.drop(extra.index)
+            urls = json.dumps(arqs["url_h5ad"].tolist())
+            itens = []
+            for r in arqs.itertuples():
+                comp = f" <i>compartilhado, {r.n_doadores} doadores</i>" if r.n_doadores > 1 else ""
+                itens.append(f"<a href='{html.escape(r.url_h5ad)}'>{html.escape(r.modalidade)}</a> "
+                             f"({mb(r.bytes)}){comp}")
+            for r in extra.itertuples():
+                itens.append(f"<span class='fonte'>opcional: <a href='{html.escape(r.url_h5ad)}'>{html.escape(r.modalidade)} "
+                             f"de {r.n_doadores} doadores</a> ({mb(r.bytes)}), costuma repetir as células do arquivo próprio</span>")
+            tam = arqs["bytes"].dropna().sum()
+            mods = set(arqs["modalidade"])
+            par = "sc + espacial" if mods == {"espacial", "single-cell"} else ("só " + next(iter(mods)))
+            tag = "<span class='tag c'>par</span>" if len(mods) == 2 else f"<span class='tag'>{par}</span>"
+            linhas_d.append(
+                f"<tr><td class='t'>{html.escape(str(d))} {tag}</td><td class='t'>{'<br>'.join(itens)}</td>"
+                f"<td>{mb(tam)}</td><td><button class='btn cheio' data-urls='{html.escape(urls)}' "
+                f"onclick='baixarTodos(this)'>baixar {len(arqs)} arquivo{'s' if len(arqs) > 1 else ''}</button></td></tr>")
+        rel.bruto("<div class='tabwrap'><table class='tab'><thead><tr><th class='t'>doador</th><th class='t'>arquivos"
+                  "</th><th>total</th><th></th></tr></thead><tbody>" + "".join(linhas_d) + "</tbody></table></div>"
+                  + JS_BAIXAR)
+
         corpo = "".join(
             f"<tr><td class='t'>{html.escape(r.modalidade)}</td><td class='t'>{html.escape(str(r.dataset_title))}</td>"
-            f"<td class='t'>{html.escape(str(r.doadores))}</td><td>{fmt(int(r.dataset_total_cell_count), 0)}</td>"
+            f"<td class='t'>{html.escape(r.doadores if r.n_doadores <= 4 else f'{r.n_doadores} doadores')}</td>"
+            f"<td>{fmt(int(r.dataset_total_cell_count), 0)}</td>"
             f"<td>{mb(r.bytes)}</td><td><a class='btn' href='{html.escape(r.url_h5ad)}'>baixar h5ad</a></td></tr>"
             for r in a.itertuples())
-        rel.bruto("<div class='tabwrap'><table class='tab'><thead><tr><th class='t'>modalidade</th>"
+        rel.bruto("<details><summary><b>Todos os arquivos, um a um</b></summary><div class='tabwrap'>"
+                  "<table class='tab'><thead><tr><th class='t'>modalidade</th>"
                   "<th class='t'>dataset</th><th class='t'>doadores</th><th>células/spots</th><th>tamanho</th>"
-                  f"<th></th></tr></thead><tbody>{corpo}</tbody></table></div>")
+                  f"<th></th></tr></thead><tbody>{corpo}</tbody></table></div></details>")
         rel.salvar(os.path.join(pasta, "index.html"),
                    nav='<nav><a href="../../index.html">Início</a></nav>')
         resumo.append(res_col)
