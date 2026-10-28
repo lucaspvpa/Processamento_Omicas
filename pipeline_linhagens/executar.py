@@ -212,6 +212,13 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
                     longos.add(chave)
             else:
                 X = carregar_matriz(nm, fonte, info, res)
+                # linhagens com a coluna inteira vazia no arquivo não contam como tendo a ômica
+                com_dado = X.index[X.notna().any(axis=1)]
+                if len(com_dado) < len(info["modelos"]):
+                    log(f"    {len(info['modelos']) - len(com_dado)} linhagens sem nenhum valor; ficam fora")
+                    X = X.loc[com_dado]
+                    info["modelos"] = set(com_dado)
+                    disp[chave] = pd.Series(True, index=sorted(info["modelos"]))
                 out = analise.analisar_matriz(X, anot, chave, rotulo, pasta_o, rel)
                 if chave == "expressao":
                     matrizes[chave] = X
