@@ -58,7 +58,7 @@ Opções úteis:
 | `--modo arquivo` | ignora as APIs e baixa arquivos inteiros (mais lento, só se a API falhar) |
 | `--so-pacotes` | só grava os dados e monta os pacotes por grupo de ômicas (a página do câncer já deve existir) |
 | `--sem-pacotes` | não grava os dados nem os pacotes |
-| `--pacotes-metilacao completa` | põe a metilação completa (485 mil CpGs) em cada pacote; o padrão (`top`) põe os CpGs mais variáveis e deixa a completa num arquivo à parte |
+| `--pacotes-metilacao` | `so-top` (padrão): só os 20 mil CpGs mais variáveis; `top`: idem nos pacotes e a completa (485 mil CpGs) num arquivo à parte; `completa`: a completa em cada pacote |
 
 ### O que é gerado
 

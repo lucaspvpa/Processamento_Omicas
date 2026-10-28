@@ -346,9 +346,9 @@ def main(argv=None):
     p.add_argument("--sem-pacotes", action="store_true", help="não grava os dados nem os pacotes por grupo de ômicas")
     p.add_argument("--so-pacotes", action="store_true",
                    help="só baixa os dados e monta os pacotes (não refaz análises; a página do câncer já deve existir)")
-    p.add_argument("--pacotes-metilacao", choices=["top", "completa"], default="top",
-                   help="metilação nos pacotes: top = CpGs mais variáveis (a completa fica num arquivo à parte); "
-                        "completa = todos os CpGs em cada pacote")
+    p.add_argument("--pacotes-metilacao", choices=["so-top", "top", "completa"], default="so-top",
+                   help="so-top (padrão) = só os CpGs mais variáveis, sem gravar a metilação completa; top = idem nos "
+                        "pacotes, com a completa num arquivo à parte; completa = todos os CpGs em cada pacote")
     args = p.parse_args(argv)
     for fluxo in (sys.stdout, sys.stderr):  # console do Windows pode não ser UTF-8
         try:

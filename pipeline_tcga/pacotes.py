@@ -72,11 +72,13 @@ def mb(n) -> str:
 class Gravador:
     """Grava as ômicas inteiras de um câncer em <pasta>/dados e monta os pacotes no fim."""
 
-    def __init__(self, pasta_cancer: str, metilacao: str = "top"):
+    def __init__(self, pasta_cancer: str, metilacao: str = "so-top"):
         self.pasta = os.path.join(pasta_cancer, "dados")
         shutil.rmtree(self.pasta, ignore_errors=True)  # dados de uma execução anterior
         os.makedirs(self.pasta, exist_ok=True)
-        self.metilacao = metilacao  # "top" ou "completa": qual metilação entra nos pacotes
+        # so-top: só os CpGs mais variáveis (não grava a completa); top: pacotes com os mais variáveis e a completa
+        # num arquivo à parte; completa: a completa em cada pacote
+        self.metilacao = metilacao
         self.arquivos: dict[str, str] = {}
 
     def _cam(self, nome: str) -> str:
@@ -99,7 +101,11 @@ class Gravador:
         self.arquivos[nome] = self._cam(nome)
 
     def em_blocos(self, nome: str):
-        """Escritor incremental (metilação e ATAC): chame com cada bloco features x amostras e depois .fechar()."""
+        """Escritor incremental (metilação e ATAC): chame com cada bloco features x amostras e depois .fechar().
+
+        Devolve None quando o arquivo não deve ser gravado (metilação completa no modo so-top)."""
+        if nome == "metilacao_completa" and self.metilacao == "so-top":
+            return None
         return _EscritorBlocos(self, nome)
 
     def omica(self, om):
@@ -121,7 +127,7 @@ class Gravador:
     # ------------------------------------------------------------------ pacotes
     def nos_pacotes(self) -> dict[str, str]:
         """Arquivos que entram nos pacotes (só uma das duas metilações)."""
-        fora = "metilacao_completa" if self.metilacao == "top" else "metilacao_top"
+        fora = "metilacao_top" if self.metilacao == "completa" else "metilacao_completa"
         if fora == "metilacao_top" and "metilacao_completa" not in self.arquivos:
             fora = "metilacao_completa"
         return {k: v for k, v in self.arquivos.items() if k != fora}
