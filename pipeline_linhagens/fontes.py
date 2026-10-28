@@ -27,6 +27,9 @@ CCLE_LEGADO = "https://data.broadinstitute.org/ccle/"
 CCLE_LEGADO_DATA = "2019-05-08"
 PROTEOMA_GYGI = [("Proteomics (Nusinow et al. 2020)", "2020-01-09",
                   "https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz")]
+GYGI_PAGINA = "https://gygi.hms.harvard.edu/publications/ccle.html"
+DEPMAP_PAGINA = "https://depmap.org/portal/data_page/?tab=allData"
+FIGSHARE_DEPMAP = "https://figshare.com/authors/Broad_DepMap/5514062"
 CMP_API = "https://api.cellmodelpassports.sanger.ac.uk/download_files?include=groups.files"
 CMP_PAGINA = "https://cellmodelpassports.sanger.ac.uk/downloads"
 CMP_BASE = "https://cog.sanger.ac.uk/cmp/download/"
@@ -162,17 +165,18 @@ def lista_depmap_alternativa(s) -> pd.DataFrame:
         for f in arquivos:
             linhas.append({"release": art["title"].strip(), "release_date": art.get("published_date"),
                            "filename": f["name"], "url": f["download_url"], "size": f.get("size"),
-                           "origem": "figshare"})
+                           "origem": "figshare", "pagina": art.get("url_public_html") or art.get("figshare_url")})
     try:
         html = obter_texto(s, CCLE_LEGADO)
         for nome in sorted(set(re.findall(r'href="(CCLE_[^"/]+)"', html))):
             linhas.append({"release": "CCLE 2019", "release_date": CCLE_LEGADO_DATA, "filename": nome,
-                           "url": CCLE_LEGADO + nome, "size": None, "origem": "data.broadinstitute.org/ccle"})
+                           "url": CCLE_LEGADO + nome, "size": None, "origem": "data.broadinstitute.org/ccle",
+                           "pagina": CCLE_LEGADO})
     except Exception:
         pass
     for rel, data, url in PROTEOMA_GYGI:
         linhas.append({"release": rel, "release_date": data, "filename": url.rsplit("/", 1)[1], "url": url,
-                       "size": None, "origem": "gygi.hms.harvard.edu"})
+                       "size": None, "origem": "gygi.hms.harvard.edu", "pagina": GYGI_PAGINA})
     if not linhas:
         raise RuntimeError("nenhum arquivo encontrado")
     return pd.DataFrame(linhas)
@@ -185,7 +189,8 @@ def escolher_depmap(lista: pd.DataFrame) -> pd.DataFrame:
         cand = lista[lista["release"].astype(str).str.contains(rx_rel, regex=True, case=False)
                      & lista["filename"].astype(str).str.contains(rx_arq, regex=True, case=False)].copy()
         if cand.empty:
-            linhas.append({"chave": chave, "rotulo": rotulo, "release": None, "filename": None, "url": None})
+            linhas.append({"chave": chave, "rotulo": rotulo, "release": None, "filename": None, "url": None,
+                           "pagina": None})
             continue
         cand["_ord"] = cand["release"].map(_ordem_versao)
         cand["_arq"] = cand["filename"].map(_data_nome)  # desempate: data no nome (CCLE_RPPA_20181003.csv)
@@ -195,8 +200,9 @@ def escolher_depmap(lista: pd.DataFrame) -> pd.DataFrame:
         else:
             cand = cand.sort_values(["_ord", "_arq"], ascending=False)
         r = cand.iloc[0]
+        pagina = r.get("pagina") if isinstance(r.get("pagina"), str) else DEPMAP_PAGINA
         linhas.append({"chave": chave, "rotulo": rotulo, "release": r["release"], "filename": r["filename"],
-                       "url": r["url"]})
+                       "url": r["url"], "pagina": pagina})
     return pd.DataFrame(linhas)
 
 
@@ -235,9 +241,11 @@ def escolher_cmp(lista: pd.DataFrame) -> pd.DataFrame:
     for chave, rotulo, rx in CMP_ALVOS:
         cand = lista[lista["filename"].astype(str).str.contains(rx, regex=True)].copy()
         if cand.empty:
-            linhas.append({"chave": chave, "rotulo": rotulo, "filename": None, "url": None})
+            linhas.append({"chave": chave, "rotulo": rotulo, "filename": None, "url": None, "pagina": None})
             continue
         cand["_d"] = cand["filename"].map(_data_nome)
         r = cand.sort_values("_d", ascending=False).iloc[0]
-        linhas.append({"chave": chave, "rotulo": rotulo, "filename": r["filename"], "url": r["url"]})
+        linhas.append({"chave": chave, "rotulo": rotulo, "filename": r["filename"], "url": r["url"],
+                       "release": f"versão de {r['_d'][:4]}-{r['_d'][4:6]}-{r['_d'][6:]}" if r["_d"] not in
+                       ("00000000", "99999999") else "mais recente", "pagina": CMP_PAGINA})
     return pd.DataFrame(linhas)

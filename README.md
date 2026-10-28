@@ -38,6 +38,9 @@ python -m pipeline_tcga --todos --so-disponibilidade --pular-existentes --saida 
 
 # Todos os cânceres, retomando de onde parou se cair
 python -m pipeline_tcga --todos --pular-existentes --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\Datasets"
+
+# Só os pacotes para download (baixa de novo os dados, sem refazer as análises que já existem)
+python -m pipeline_tcga --todos --so-pacotes --pular-existentes --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\Datasets"
 ```
 
 Opções úteis:
@@ -53,6 +56,9 @@ Opções úteis:
 | `--tmp D:\tcga_tmp` | onde ficam os dados brutos enquanto roda (padrão: pasta temporária do Windows, fora do OneDrive) |
 | `--manter-dados` | não apaga os dados brutos |
 | `--modo arquivo` | ignora as APIs e baixa arquivos inteiros (mais lento, só se a API falhar) |
+| `--so-pacotes` | só grava os dados e monta os pacotes por grupo de ômicas (a página do câncer já deve existir) |
+| `--sem-pacotes` | não grava os dados nem os pacotes |
+| `--pacotes-metilacao completa` | põe a metilação completa (485 mil CpGs) em cada pacote; o padrão (`top`) põe os CpGs mais variáveis e deixa a completa num arquivo à parte |
 
 ### O que é gerado
 
@@ -69,6 +75,8 @@ Datasets/
       01_clinico/                   faltantes, estádio, metadados, sobrevida
       02_mutacao/ ... 11_cptac/     um relatório.html + figuras + tabelas por ômica
       20_comparativo/               relações entre ômicas e agrupamento integrado
+      dados/<ômica>.csv.gz          cada ômica inteira, todos os pacientes do câncer
+      dados/grupos/*.zip            um pacote por grupo de ômicas do funil, com todos os pacientes do grupo
   exemplos/
     CHOL/01_mut-cnv-rna-.../TCGA-XX-XXXX/   dados completos de um paciente por combinação
   logs/
@@ -167,7 +175,9 @@ python -m pipeline_linhagens --saida "C:\Users\lucas\OneDrive\Desktop\Doutorado\
 | `--sem-pacotes` | não grava os dados processados (`<BANCO>/dados/`) nem os pacotes por grupo de ômicas |
 
 Cada banco ganha `dados/<ômica>.csv.gz` (a tabela processada, com o ID do banco) e `dados/grupos/*.zip`: um pacote
-por grupo de ômicas do funil, só com as linhagens que têm todas as ômicas do grupo. A página do banco tem os botões.
+por grupo de ômicas do funil, só com as linhagens que têm todas as ômicas do grupo. A página do banco tem os botões
+e a seção "De onde vêm os dados", com o link de cada arquivo original e a página da versão. Em `tipos/` há uma
+página por tipo de linhagem (tecido), como a página de cada câncer no TCGA: UpSet, funil e pacotes próprios.
 
 Os nomes dos arquivos mudam entre versões do DepMap e do Passports. Cada ômica é escolhida por expressão regular
 em `fontes.py` (`DEPMAP_ALVOS`, `CMP_ALVOS`), sempre a versão mais recente; se algum alvo ficar sem arquivo, a lista

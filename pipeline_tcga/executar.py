@@ -5,10 +5,12 @@ Exemplos (rodar da pasta que contém a pasta pipeline_tcga):
     python -m pipeline_tcga --canceres CHOL BRCA --saida "C:/Users/lucas/OneDrive/Desktop/Doutorado/Datasets"
     python -m pipeline_tcga --todos --pular-existentes
     python -m pipeline_tcga --todos --so-disponibilidade
+    python -m pipeline_tcga --todos --so-pacotes --pular-existentes
 
 Para cada câncer: baixa os dados para uma pasta temporária, gera figuras, tabelas e relatórios em
 <saida>/resultados/<CANCER>, guarda um paciente de exemplo por combinação de ômicas em
-<saida>/exemplos/<CANCER> e apaga os dados brutos. No fim, refaz a comparação pan-câncer.
+<saida>/exemplos/<CANCER>, monta os pacotes por grupo de ômicas com todos os pacientes em
+<saida>/resultados/<CANCER>/dados e apaga os dados brutos. No fim, refaz a comparação pan-câncer.
 """
 from __future__ import annotations
 
@@ -26,7 +28,7 @@ import traceback
 import numpy as np
 import pandas as pd
 
-from . import config, exemplos, pancan
+from . import config, exemplos, pacotes, pancan
 from .analises import Contexto, clinico, cnv, comparativo, contagens, continuas, disponibilidade, mutacao
 from .dados import Coletor
 from .fontes import Fontes
@@ -115,6 +117,12 @@ def processar_cancer(cancer: str, args, fontes: Fontes, log, dir_comp: str) -> d
     col = Coletor(fontes, cancer, dir_comp, dir_tmp, log)
     ctx = Contexto(cancer, dir_res, col.clinico_cdr(), log)
     status = {}
+    grav = None
+    if not args.sem_pacotes and not args.so_disponibilidade:
+        grav = pacotes.Gravador(dir_res, args.pacotes_metilacao)
+        col.gravador = grav
+    if args.so_pacotes:
+        return so_pacotes(cancer, args, col, ctx, grav, log, dir_tmp, t0)
 
     log("Disponibilidade das ômicas")
     col.calcular_disponibilidade()
@@ -165,6 +173,11 @@ def processar_cancer(cancer: str, args, fontes: Fontes, log, dir_comp: str) -> d
                 continue
             if chave == "rna":
                 genes_rna = set(om.matriz.index)
+            if grav is not None:
+                try:
+                    grav.omica(om)
+                except Exception as e:
+                    log(f"  gravar {chave} para os pacotes falhou: {e}")
             forma = "" if om.matriz is None else f" {om.matriz.shape[0]} x {om.matriz.shape[1]}"
             log(f"  carregado{forma} em {time.time() - t1:.0f}s; analisando")
             try:
@@ -208,6 +221,13 @@ def processar_cancer(cancer: str, args, fontes: Fontes, log, dir_comp: str) -> d
     with open(os.path.join(dir_res, "resumo.json"), "w", encoding="utf-8") as f:
         json.dump(resumo, f, ensure_ascii=False, indent=1, default=_json)
     indice_cancer(ctx, disp, status, col, escolha, args)
+    if grav is not None and grav.arquivos:
+        log("Pacotes por grupo de ômicas")
+        try:
+            grupos = grav.montar(disp["tab"], ctx.clin, gdc, cancer, log)
+            pacotes.injetar(os.path.join(dir_res, "index.html"), grav.secao_html(grupos))
+        except Exception:
+            log(traceback.format_exc())
 
     tam = _tamanho(dir_tmp)
     if not args.manter_dados:
@@ -215,6 +235,38 @@ def processar_cancer(cancer: str, args, fontes: Fontes, log, dir_comp: str) -> d
         log(f"  dados temporários de {cancer} apagados ({fmt(tam / 1e6)} MB)")
     log(f"{cancer} concluído em {(time.time() - t0) / 60:.1f} min; resultados em {dir_res}")
     return resumo
+
+
+def so_pacotes(cancer, args, col, ctx, grav, log, dir_tmp, t0) -> dict:
+    """Baixa e grava as ômicas e monta os pacotes, sem refazer as análises (a página já existe)."""
+    col.calcular_disponibilidade()
+    tab = col.tabela_disponibilidade()
+    gdc, _ = col.clinico_gdc()
+    genes_rna = None
+    for chave in ORDEM_CARGA:
+        if args.omicas and chave not in args.omicas:
+            continue
+        log(f"{config.ROTULO[chave]}: carregando")
+        try:
+            om = col.cnv(genes_filtro=genes_rna) if chave == "cnv" else col.carregar(chave)
+        except Exception as e:
+            log(f"  falhou ao carregar: {e}")
+            continue
+        if om.vazia:
+            log("  sem dados")
+            continue
+        if chave == "rna":
+            genes_rna = set(om.matriz.index)
+        grav.omica(om)
+        del om
+    if grav.arquivos:
+        log("Pacotes por grupo de ômicas")
+        grupos = grav.montar(tab, ctx.clin, gdc, cancer, log)
+        pacotes.injetar(os.path.join(ctx.pasta, "index.html"), grav.secao_html(grupos))
+    if not args.manter_dados:
+        shutil.rmtree(dir_tmp, ignore_errors=True)
+    log(f"{cancer}: pacotes prontos em {(time.time() - t0) / 60:.1f} min ({fmt(_tamanho(grav.pasta) / 1e9, 2)} GB)")
+    return {}
 
 
 def indice_cancer(ctx, disp, status, col, escolha, args):
@@ -291,6 +343,12 @@ def main(argv=None):
     p.add_argument("--max-exemplos", type=int, default=12, help="combinações de ômicas com paciente de exemplo")
     p.add_argument("--pular-existentes", action="store_true", help="pula cânceres que já têm resumo.json completo")
     p.add_argument("--manter-dados", action="store_true", help="não apaga os dados baixados")
+    p.add_argument("--sem-pacotes", action="store_true", help="não grava os dados nem os pacotes por grupo de ômicas")
+    p.add_argument("--so-pacotes", action="store_true",
+                   help="só baixa os dados e monta os pacotes (não refaz análises; a página do câncer já deve existir)")
+    p.add_argument("--pacotes-metilacao", choices=["top", "completa"], default="top",
+                   help="metilação nos pacotes: top = CpGs mais variáveis (a completa fica num arquivo à parte); "
+                        "completa = todos os CpGs em cada pacote")
     args = p.parse_args(argv)
     for fluxo in (sys.stdout, sys.stderr):  # console do Windows pode não ser UTF-8
         try:
@@ -316,7 +374,12 @@ def main(argv=None):
     falhas = []
     for c in canceres:
         rj = os.path.join(args.saida, "resultados", c, "resumo.json")
-        if args.pular_existentes and os.path.exists(rj):
+        if args.so_pacotes:
+            pag = os.path.join(args.saida, "resultados", c, "index.html")
+            if args.pular_existentes and os.path.exists(pag) and pacotes.MARCA_INI in open(pag, encoding="utf-8").read():
+                log(f"{c}: pacotes já montados, pulando")
+                continue
+        elif args.pular_existentes and os.path.exists(rj):
             with open(rj, encoding="utf-8") as f:
                 if json.load(f).get("modo") == "completo" or args.so_disponibilidade:
                     log(f"{c}: já processado, pulando")
@@ -331,13 +394,14 @@ def main(argv=None):
             log(f"{c} falhou: {e}")
             log(traceback.format_exc())
 
-    log("Pan-câncer")
-    try:
-        dir_res = os.path.join(args.saida, "resultados")
-        pancan.gerar(dir_res, log)
-        pancan.indice_geral(dir_res)
-    except Exception:
-        log(traceback.format_exc())
+    if not args.so_pacotes:
+        log("Pan-câncer")
+        try:
+            dir_res = os.path.join(args.saida, "resultados")
+            pancan.gerar(dir_res, log)
+            pancan.indice_geral(dir_res)
+        except Exception:
+            log(traceback.format_exc())
     if not args.manter_dados:
         tam = _tamanho(args.tmp)
         shutil.rmtree(args.tmp, ignore_errors=True)

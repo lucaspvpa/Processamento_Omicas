@@ -28,7 +28,7 @@ import pandas as pd
 from pipeline_tcga.graficos import tabela_html, tema
 from pipeline_tcga.relatorio import Relatorio, fmt
 
-from . import analise, fontes, pacotes
+from . import analise, fontes, pacotes, tipos
 from .baixar import baixar, nome_seguro, sessao, tabelas_do_arquivo
 from .inventario import Resolvedor, carregar_longo, carregar_matriz, detectar, preparar
 
@@ -132,7 +132,7 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
         lista = fontes.lista_cmp(s)
         lista.to_csv(os.path.join(pasta, "arquivos_disponiveis.csv"), index=False)
         esc = fontes.escolher_cmp(lista)
-    esc.drop(columns=["url"]).to_csv(os.path.join(pasta, "arquivos_escolhidos.csv"), index=False)
+    esc.to_csv(os.path.join(pasta, "arquivos_escolhidos.csv"), index=False)
     log(f"[{nome}] {esc['filename'].notna().sum()} de {len(esc)} alvos encontrados")
     for _, r in esc[esc["filename"].isna()].iterrows():
         log(f"    sem arquivo para {r['chave']} ({r['rotulo']})")
@@ -230,6 +230,11 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
             rel.bruto(pacotes.CSS + f"<p><a class='btn cheio' href='../dados/{chave}.csv.gz' download>Baixar dados "
                       f"processados ({pacotes.mb(os.path.getsize(dados_omica[chave]))})</a> <a class='btn' "
                       f"href='{html.escape(str(r['url']))}'>Arquivo original</a></p>")
+        if isinstance(r.get("url"), str):
+            pag = r.get("pagina")
+            rel.bruto(pacotes.CSS + "<p class='url'>Baixado de <a href='" + html.escape(r["url"]) + "'>"
+                      + html.escape(r["url"]) + "</a>" + (f" · página da versão: <a href='{html.escape(pag)}'>"
+                      f"{html.escape(str(r.get('release') or pag))}</a>" if isinstance(pag, str) else "") + "</p>")
         rel.salvar(os.path.join(pasta_o, "index.html"), nav=analise.nav(2))
         linhas_idx.append(linha)
         downloads.append({**linha, "dados": f"dados/{chave}.csv.gz" if chave in dados_omica else None,
@@ -260,14 +265,27 @@ def processar_banco(banco: str, args, s, log, anot_dm=None) -> dict:
         rel.tabela(tabela_html(inv, max_linhas=80), "Todas as tabelas lidas")
     res_disp = analise.disponibilidade(tab, rotulos, anot, nome, pasta, rel) if tab.shape[1] else {}
     if not args.sem_pacotes and dados_omica and tab.shape[1]:
-        log(f"[{nome}] montando pacotes por grupo de ômicas")
+        log(f"[{nome}] montando pacotes por grupo de ômicas (banco inteiro e por tipo de linhagem)")
         anot.to_csv(os.path.join(pasta_dados, "anotacao_linhagens.csv"))
-        grupos = pacotes.montar(tab, rotulos, dados_omica, anot, pasta, longos, log)
-        rel.bruto(pacotes.secao_html(downloads, grupos))
+        for velho in (os.path.join(pasta_dados, "grupos"), os.path.join(pasta, "tipos")):
+            shutil.rmtree(velho, ignore_errors=True)  # pacotes de uma execução anterior
+        grupos = pacotes.planejar(tab, dados_omica, os.path.join(pasta_dados, "grupos"), pasta)
+        por_tipo = tipos.planejar(tab, anot, dados_omica, pasta)
+        todos = grupos + [p for t in por_tipo for p in t["pacotes"]]
+        log(f"[{nome}] {len(grupos)} pacotes do banco e {len(todos) - len(grupos)} de "
+            f"{sum(1 for t in por_tipo if t['pacotes'])} tipos de linhagem")
+        pacotes.escrever(todos, rotulos, dados_omica, anot, longos, log)
+        sub_banco = os.path.basename(pasta)
+        tipos.paginas(por_tipo, rotulos, anot, nome, pasta, sub_banco)
+        rel.bruto(pacotes.secao_html(downloads, grupos, tipos_href="tipos/index.html"))
+    rel.bruto(pacotes.secao_fontes(esc, nome, [("DepMap: dados", fontes.DEPMAP_PAGINA),
+                                               ("DepMap no Figshare", fontes.FIGSHARE_DEPMAP),
+                                               ("CCLE 2019", fontes.CCLE_LEGADO)] if banco == "depmap" else
+                                   [("Cell Model Passports: downloads", fontes.CMP_PAGINA)]))
     res_anot = analise.anotacoes(anot, bruto, pasta, rel, COLUNAS_DEPMAP if banco == "depmap" else COLUNAS_CMP)
     rel.salvar(os.path.join(pasta, "index.html"), nav=analise.nav(1))
     resumo_banco = {"banco": nome, "gerado_em": dt.datetime.now().isoformat(timespec="seconds"),
-                    "arquivos": esc.drop(columns=["url"]).to_dict(orient="records"),
+                    "arquivos": esc.to_dict(orient="records"),
                     "disponibilidade": res_disp, "omicas": resumo,
                     "anotacoes": {"modelos": len(anot), **res_anot}}
     with open(os.path.join(pasta, "resumo.json"), "w", encoding="utf-8") as f:
@@ -374,7 +392,10 @@ def indice(saida: str, resultados: dict):
         rel.secao(rs["banco"])
         rel.texto(f'{fmt(rs["anotacoes"]["modelos"], 0)} modelos anotados; {fmt(disp.get("linhagens", 0), 0)} com '
                   f'alguma ômica; {fmt(disp.get("todas", 0), 0)} com todas as ômicas lidas. '
-                  f'<a href="{sub}/index.html">Abrir panorama</a>.')
+                  f'<a href="{sub}/index.html">Abrir panorama e downloads</a>'
+                  + (f' · <a href="{sub}/tipos/index.html">por tipo de linhagem</a>'
+                     if os.path.exists(os.path.join(saida, "resultados_linhagens", sub, "tipos", "index.html")) else "")
+                  + '.')
         rel.tabela(analise.tabela_links([{**l, "pagina": f"{sub}/{l['pagina']}"} for l in r["linhas"]]))
     if "comparacao" in resultados:
         c = resultados["comparacao"]

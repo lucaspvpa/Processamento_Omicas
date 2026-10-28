@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import sys
 import zipfile
@@ -126,6 +127,20 @@ def injetar_botoes(c: str, ex: dict, tab: dict):
     open(p, "w", encoding="utf-8").write(s)
 
 
+def tirar_pacotes(c: str):
+    """Os pacotes por grupo de ômicas (dezenas de GB) ficam só na pasta local; no site entra um aviso."""
+    p = os.path.join(SITE, c, "index.html")
+    if not os.path.exists(p):
+        return
+    s = open(p, encoding="utf-8").read()
+    aviso = ("<h2>Baixar os dados</h2><p>Os pacotes com todos os pacientes de cada grupo de ômicas são grandes demais "
+             "para o site. Eles ficam em <code>resultados/" + c + "/dados</code> no computador onde o pipeline rodou "
+             "(<code>python -m pipeline_tcga --so-pacotes</code>).</p>")
+    s2 = re.sub(r"<!-- pacotes -->.*?<!-- /pacotes -->", aviso, s, flags=re.S)
+    if s2 != s:
+        open(p, "w", encoding="utf-8").write(s2)
+
+
 CSS_BARRA = (".barra-dl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}"
              ".barra-dl .btn{display:inline-block;font-weight:600;padding:8px 14px;border:1px solid var(--acc);"
              "border-radius:6px;text-decoration:none;background:var(--panel)}"
@@ -195,6 +210,7 @@ if __name__ == "__main__":
            and c not in ("downloads",)}
     for c in tab:
         injetar_botoes(c, ex, tab)
+        tirar_pacotes(c)
     # as tabelas soltas já estão nos zips; tirá-las deixa o site com metade do tamanho
     for p, _, arqs in os.walk(SITE):
         for a in arqs:

@@ -126,6 +126,7 @@ class Coletor:
         self.gdc_listas: dict[str, pd.DataFrame] = {}
         self.atac_ids: dict[str, str] = {}
         self.exemplos: list[str] = []
+        self.gravador = None  # pacotes.Gravador: recebe a metilação e o ATAC completos durante a leitura
 
     # ------------------------------------------------------------- arquivos
     def arquivo(self, hub: str, chave_ou_nome: str) -> str:
@@ -416,14 +417,21 @@ class Coletor:
             return Omica("metilacao", fonte="indisponível", notas=self.notas.get("metilacao", []))
         exemplos = [i for i in ids if amostra15(i) in set(self.exemplos)]
         acc = AcumuladorTopVar(config.TOP_CPGS, exemplos, bins=np.linspace(0, 1, 51))
-        if self._met_fonte == "api":
-            for b in self.f.xena_blocos("pancan", config.DS["metilacao"], ids, valores_por_bloco=2_000_000):
+        gravar = self.gravador.em_blocos("metilacao_completa") if self.gravador else None
+        try:
+            if self._met_fonte == "api":
+                blocos = self.f.xena_blocos("pancan", config.DS["metilacao"], ids, valores_por_bloco=2_000_000)
+            else:
+                alvo = set(ids)
+                blocos = _blocos_de_linhas(self.f.linhas_remotas("gdc", f"TCGA-{self.cancer}.methylation450.tsv"),
+                                           lambda c: c in alvo, 20000, self.log)
+            for b in blocos:
                 acc.add(b)
-        else:
-            alvo = set(ids)
-            for b in _blocos_de_linhas(self.f.linhas_remotas("gdc", f"TCGA-{self.cancer}.methylation450.tsv"),
-                                       lambda c: c in alvo, 20000, self.log):
-                acc.add(b)
+                if gravar:
+                    gravar(_colunas_unicas(b))
+        finally:
+            if gravar:
+                gravar.fechar()
         top, stats, hist, ex = acc.resultado()
         anot = None
         try:
@@ -485,8 +493,15 @@ class Coletor:
         renome = dict(zip(d["id_original"], d["amostra"]))
         exemplos = [i for i in ids if renome[i] in set(self.exemplos)]
         acc = AcumuladorTopVar(config.TOP_PICOS_ATAC, exemplos)
-        for b in self.f.xena_blocos("atac", config.DS["atac"], ids, valores_por_bloco=2_000_000):
-            acc.add(b)
+        gravar = self.gravador.em_blocos("atac") if self.gravador else None
+        try:
+            for b in self.f.xena_blocos("atac", config.DS["atac"], ids, valores_por_bloco=2_000_000):
+                acc.add(b)
+                if gravar:
+                    gravar(b.rename(columns=renome))
+        finally:
+            if gravar:
+                gravar.fechar()
         top, stats, _, ex = acc.resultado()
         top = top.rename(columns=renome)
         prom, mapa = None, None
