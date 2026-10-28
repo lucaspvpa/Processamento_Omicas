@@ -96,7 +96,7 @@ def montar(tab: pd.DataFrame, rotulos: dict, arquivos: dict, anot: pd.DataFrame,
         with zipfile.ZipFile(cam, "w", zipfile.ZIP_DEFLATED) as z:
             z.writestr("linhagens_anotacao.csv", anot.reindex(linhas).rename_axis("modelo").to_csv())
             for c in g:
-                with z.open(f"{c}.csv", "w") as f:
+                with z.open(f"{c}.csv", "w", force_zip64=True) as f:
                     t = _txt(f)
                     _filtrar(arquivos[c], linhas, c in longos, t)
                     t.flush()
